@@ -1,0 +1,171 @@
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { CheckCircle2, ArrowRight } from "lucide-react";
+
+export default function Services() {
+  const serviceCategories = [
+    {
+      id: "growth",
+      title: "Growth Systems",
+      description: "Systems designed to generate pipeline, track leads, and close deals predictably.",
+      features: ["CRM Implementation", "Lead Scoring", "Pipeline Automation", "Sales Dashboards"]
+    },
+    {
+      id: "scale",
+      title: "Scale Systems",
+      description: "Infrastructure that handles increasing volume without breaking or requiring more headcount.",
+      features: ["Process Standardization", "Capacity Planning", "Automated Onboarding", "Fulfillment Workflows"]
+    },
+    {
+      id: "enterprise",
+      title: "Enterprise Systems",
+      description: "Custom, complex operational ecosystems for mature organizations.",
+      features: ["ERP Integration", "Data Warehousing", "Custom Applications", "Security Compliance"]
+    },
+    {
+      id: "ai-services",
+      title: "AI Services",
+      description: "Practical artificial intelligence deployment to reduce manual work.",
+      features: ["Custom AI Agents", "Support Automation", "Content Generation", "Data Analysis"]
+    },
+    {
+      id: "content",
+      title: "Content & Social Media",
+      description: "Engines that distribute your message across channels automatically.",
+      features: ["Distribution Workflows", "Asset Management", "Scheduling Systems", "Performance Tracking"]
+    },
+    {
+      id: "web",
+      title: "Websites, Funnels & E-commerce",
+      description: "High-converting digital storefronts connected directly to your operations.",
+      features: ["Conversion Optimization", "Payment Infrastructure", "Inventory Sync", "Analytics Setup"]
+    },
+    {
+      id: "consulting",
+      title: "Business Systems & Consulting",
+      description: "Strategic guidance on how to architect your company for maximum efficiency.",
+      features: ["Tech Stack Audits", "Process Mapping", "Vendor Selection", "Change Management"]
+    },
+    {
+      id: "outsourcing",
+      title: "Outsourcing & Partnerships",
+      description: "Connecting your automated systems with reliable human operators.",
+      features: ["BPO Integration", "SOP Documentation", "Quality Assurance", "Communication Hubs"]
+    },
+    {
+      id: "support",
+      title: "Ongoing Support & Optimization",
+      description: "Continuous improvement and maintenance of your operational backbone.",
+      features: ["System Monitoring", "Iterative Improvements", "Helpdesk Support", "Performance Reviews"]
+    }
+  ];
+
+  return (
+    <div className="min-h-[100dvh] bg-[#0A1628] text-white flex flex-col">
+      <Navbar />
+      
+      <main className="flex-1 pt-32">
+        {/* Header */}
+        <section className="container mx-auto px-4 pt-16 pb-20 text-center max-w-4xl">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-6xl font-bold tracking-tight mb-6"
+          >
+            What We Build, Repair, and <span className="text-[#4AC4E0]">Operate.</span>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-xl text-gray-400 max-w-2xl mx-auto"
+          >
+            Comprehensive operational engineering. From the front-end funnel to the back-office database.
+          </motion.p>
+        </section>
+
+        {/* System Rescue Block */}
+        <section id="system-rescue" className="bg-[#4AC4E0] text-[#0A1628] py-24 my-12">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">System Rescue™</h2>
+              <p className="text-xl font-medium mb-12 opacity-90">
+                Is your current tech stack a mess? We specialize in untangling, fixing, and migrating broken operations.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="bg-[#0A1628]/10 p-6 rounded-lg">
+                  <h3 className="text-2xl font-bold mb-3">Audit™</h3>
+                  <p>Comprehensive review of existing broken systems to identify bottlenecks and failure points.</p>
+                </div>
+                <div className="bg-[#0A1628]/10 p-6 rounded-lg">
+                  <h3 className="text-2xl font-bold mb-3">Cleanup™</h3>
+                  <p>Data sanitization, removing redundant tools, and simplifying complex zaps/automations.</p>
+                </div>
+                <div className="bg-[#0A1628]/10 p-6 rounded-lg">
+                  <h3 className="text-2xl font-bold mb-3">Rebuild™</h3>
+                  <p>Re-engineering processes from the ground up using best-in-class architecture.</p>
+                </div>
+                <div className="bg-[#0A1628]/10 p-6 rounded-lg">
+                  <h3 className="text-2xl font-bold mb-3">Migration™ & Optimization™</h3>
+                  <p>Moving data safely to new platforms and continuously tuning for peak performance.</p>
+                </div>
+              </div>
+              
+              <div className="mt-12">
+                <Button size="lg" asChild className="bg-[#0A1628] hover:bg-[#132038] text-white font-bold h-14 px-8">
+                  <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
+                    Request a Rescue Audit <ArrowRight className="ml-2 w-5 h-5" />
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Standard Services */}
+        <section className="container mx-auto px-4 py-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {serviceCategories.map((service, index) => (
+              <motion.div 
+                key={service.id}
+                id={service.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                className="bg-[#132038] border border-[#1E2D4A] p-8 rounded-lg flex flex-col"
+              >
+                <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
+                <p className="text-gray-400 mb-8 flex-1">{service.description}</p>
+                
+                <ul className="space-y-3">
+                  {service.features.map((feature, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-[#4AC4E0] shrink-0 mt-0.5" />
+                      <span className="text-sm text-gray-300">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+        
+        {/* Bottom CTA */}
+        <section className="container mx-auto px-4 py-24 text-center border-t border-[#1E2D4A]">
+          <h2 className="text-3xl font-bold mb-6">Ready to engineer your operations?</h2>
+          <Button size="lg" asChild className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold text-lg px-8 h-14">
+            <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
+              Book a Systems Review
+            </a>
+          </Button>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
