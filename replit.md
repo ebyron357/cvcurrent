@@ -31,12 +31,13 @@ See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and pa
 ### ClientVerse (`artifacts/clientverse`)
 - **Type**: react-vite, static marketing site
 - **Preview path**: `/`
-- **Port**: 24718
+- **Port**: 24718 (set via `PORT` env var — required; also requires `BASE_PATH` env var)
 - **Description**: ClientVerse operational consultancy marketing website
-- **Pages**: Home (`/`), Services (`/services`), About (`/about`), Capabilities (`/features`), Pricing (`/pricing`), Contact (`/contact`)
-- **Brand**: Dark navy `#0A1628`, teal accent `#4AC4E0`, Inter font, dark-only
+- **Pages**: Home (`/`), Services (`/services`), About (`/about`), Capabilities (`/features`), Pricing (`/pricing`), Contact (`/contact`), Privacy (`/privacy`), Terms (`/terms`), Disclaimer (`/disclaimer`), Blog (`/blog`, `/blog/:slug`), Insights (`/insights`), Resources (`/resources`), Case Studies (`/case-studies`), Podcasts (`/podcasts`), Videos (`/videos`)
+- **Brand**: Dark navy `#0A1628`, teal accent `#4AC4E0`, Inter font, dark-only (`class="dark"` forced on `<html>`)
 - **Key components**: `src/components/navbar.tsx`, `src/components/footer.tsx`
 - **No backend** — fully static frontend, no API routes
+- **Note**: `vite.config.ts` hard-requires `PORT` and `BASE_PATH` env vars. These are wired automatically by Replit workflows — do NOT run `pnpm dev` ad-hoc without them.
 
 ### API Server (`artifacts/api-server`)
 - **Type**: Express API server
