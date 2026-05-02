@@ -20,6 +20,7 @@ import CaseStudies from "@/pages/case-studies";
 import Podcasts from "@/pages/podcasts";
 import Videos from "@/pages/videos";
 import NotFound from "@/pages/not-found";
+import MrClientVerse from "@/components/mr-clientverse";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +54,7 @@ function App() {
       <TooltipProvider>
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
           <Router />
+          <MrClientVerse />
         </WouterRouter>
         <Toaster />
       </TooltipProvider>
