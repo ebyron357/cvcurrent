@@ -94,8 +94,10 @@ function stripLeadMarker(text: string): string {
 
 async function submitToGoHighLevel(lead: LeadData): Promise<void> {
   const apiKey = process.env.GHL_API_KEY;
-  if (!apiKey) {
-    console.log("[GHL] No API key configured — lead data logged:", lead);
+  const locationId = process.env.GHL_LOCATION_ID;
+
+  if (!apiKey || !locationId) {
+    console.log("[GHL] Missing GHL_API_KEY or GHL_LOCATION_ID — lead logged:", lead);
     return;
   }
 
@@ -104,10 +106,11 @@ async function submitToGoHighLevel(lead: LeadData): Promise<void> {
   const lastName = nameParts.slice(1).join(" ") || "";
 
   try {
-    const res = await fetch("https://rest.gohighlevel.com/v1/contacts/", {
+    const res = await fetch("https://services.leadconnectorhq.com/contacts/", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
+        Version: "2021-07-28",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -115,16 +118,18 @@ async function submitToGoHighLevel(lead: LeadData): Promise<void> {
         lastName,
         email: lead.email,
         phone: lead.phone,
+        locationId,
         source: "Website Chat — Mr. ClientVerse",
         tags: ["website-chat", "mr-clientverse", "lead"],
-        customField: {
-          business_need: lead.need,
-        },
+        customFields: [
+          { key: "business_need", field_value: lead.need },
+        ],
       }),
     });
 
+    const body = await res.text();
     if (!res.ok) {
-      console.error("[GHL] Failed to submit lead:", res.status, await res.text());
+      console.error("[GHL] Failed to submit lead:", res.status, body);
     } else {
       console.log("[GHL] Lead submitted successfully:", lead.email);
     }
