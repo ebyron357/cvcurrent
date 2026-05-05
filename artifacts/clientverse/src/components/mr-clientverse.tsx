@@ -1,9 +1,30 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "wouter";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
+}
+
+type Action = "lead_captured" | "suggest_booking" | undefined;
+
+function getPageLabel(path: string): string {
+  const map: Record<string, string> = {
+    "/": "Homepage",
+    "/services": "Services page",
+    "/about": "About page",
+    "/features": "Capabilities page",
+    "/pricing": "Pricing page",
+    "/contact": "Contact page",
+    "/case-studies": "Case Studies page",
+    "/blog": "Blog / Insights page",
+    "/insights": "Insights page",
+    "/resources": "Resources page",
+    "/podcasts": "Podcasts page",
+    "/videos": "Videos page",
+  };
+  return map[path] ?? "Website";
 }
 
 export default function MrClientVerse() {
@@ -17,8 +38,11 @@ export default function MrClientVerse() {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [action, setAction] = useState<Action>(undefined);
+  const [leadCaptured, setLeadCaptured] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [location] = useLocation();
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -39,22 +63,41 @@ export default function MrClientVerse() {
     setMessages([...updatedMessages, { role: "assistant", content: "" }]);
     setInput("");
     setLoading(true);
+    setAction(undefined);
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text }),
+        body: JSON.stringify({
+          messages: updatedMessages.map((m) => ({
+            role: m.role,
+            content: m.content,
+          })),
+          pageContext: getPageLabel(location),
+        }),
       });
 
       const data = await res.json();
-      const reply = data.reply ?? "I'm having trouble connecting right now. Please try again.";
+      const reply =
+        data.reply ?? "I'm having trouble connecting right now. Please try again.";
 
       setMessages([...updatedMessages, { role: "assistant", content: reply }]);
+
+      if (data.action === "lead_captured") {
+        setLeadCaptured(true);
+        setAction("lead_captured");
+      } else if (data.action === "suggest_booking") {
+        setAction("suggest_booking");
+      }
     } catch {
       setMessages([
         ...updatedMessages,
-        { role: "assistant", content: "I'm having trouble connecting right now. Please try again." },
+        {
+          role: "assistant",
+          content:
+            "I'm having trouble connecting right now. Please try again.",
+        },
       ]);
     } finally {
       setLoading(false);
@@ -83,14 +126,13 @@ export default function MrClientVerse() {
               border: "1px solid rgba(74,196,224,0.2)",
               borderRadius: "16px",
               boxShadow: "0 24px 64px rgba(0,0,0,0.6)",
-              height: "480px",
+              height: "520px",
             }}
           >
+            {/* Header */}
             <div
               className="flex items-center gap-3 px-4 py-3 flex-shrink-0"
-              style={{
-                borderBottom: "1px solid rgba(74,196,224,0.15)",
-              }}
+              style={{ borderBottom: "1px solid rgba(74,196,224,0.15)" }}
             >
               <div
                 className="flex items-center justify-center w-8 h-8 rounded-md text-sm font-bold flex-shrink-0"
@@ -103,7 +145,7 @@ export default function MrClientVerse() {
                   Mr. ClientVerse
                 </p>
                 <p className="text-xs leading-tight" style={{ color: "#4AC4E0" }}>
-                  Systems Guide
+                  {leadCaptured ? "Lead Captured ✓" : "Systems Guide"}
                 </p>
               </div>
               <button
@@ -111,13 +153,21 @@ export default function MrClientVerse() {
                 className="text-gray-400 hover:text-white transition-colors p-1 rounded"
                 aria-label="Close chat"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <line x1="18" y1="6" x2="6" y2="18" />
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               </button>
             </div>
 
+            {/* Messages */}
             <div
               className="flex-1 overflow-y-auto px-4 py-3 space-y-3"
               style={{ minHeight: 0 }}
@@ -128,7 +178,7 @@ export default function MrClientVerse() {
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className="max-w-[85%] text-sm leading-relaxed px-3 py-2 rounded-2xl"
+                    className="max-w-[85%] text-sm leading-relaxed px-3 py-2 rounded-2xl whitespace-pre-wrap"
                     style={
                       msg.role === "user"
                         ? {
@@ -145,24 +195,97 @@ export default function MrClientVerse() {
                   >
                     {msg.content || (
                       <span className="flex gap-1 items-center py-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-current animate-bounce" style={{ animationDelay: "0ms" }} />
-                        <span className="w-1.5 h-1.5 rounded-full bg-current animate-bounce" style={{ animationDelay: "150ms" }} />
-                        <span className="w-1.5 h-1.5 rounded-full bg-current animate-bounce" style={{ animationDelay: "300ms" }} />
+                        <span
+                          className="w-1.5 h-1.5 rounded-full bg-current animate-bounce"
+                          style={{ animationDelay: "0ms" }}
+                        />
+                        <span
+                          className="w-1.5 h-1.5 rounded-full bg-current animate-bounce"
+                          style={{ animationDelay: "150ms" }}
+                        />
+                        <span
+                          className="w-1.5 h-1.5 rounded-full bg-current animate-bounce"
+                          style={{ animationDelay: "300ms" }}
+                        />
                       </span>
                     )}
                   </div>
                 </div>
               ))}
+
+              {/* Action Cards */}
+              <AnimatePresence>
+                {action === "lead_captured" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="rounded-xl px-4 py-3 text-sm"
+                    style={{
+                      background: "rgba(74,196,224,0.1)",
+                      border: "1px solid rgba(74,196,224,0.3)",
+                    }}
+                  >
+                    <p className="font-semibold text-white mb-1">
+                      ✓ You're on our radar
+                    </p>
+                    <p className="text-gray-400 text-xs mb-2">
+                      Your details have been sent to our team. We'll be in touch shortly.
+                    </p>
+                    <a
+                      href="https://calendly.com/clientverse/strategy-call"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-90"
+                      style={{ background: "#4AC4E0", color: "#0A1628" }}
+                    >
+                      Book a Systems Review →
+                    </a>
+                  </motion.div>
+                )}
+
+                {action === "suggest_booking" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="rounded-xl px-4 py-3 text-sm"
+                    style={{
+                      background: "rgba(74,196,224,0.08)",
+                      border: "1px solid rgba(74,196,224,0.25)",
+                    }}
+                  >
+                    <p className="font-semibold text-white mb-1">
+                      Ready to scope your project?
+                    </p>
+                    <p className="text-gray-400 text-xs mb-2">
+                      A Systems Review is a focused 30-min call to map your situation and define next steps.
+                    </p>
+                    <a
+                      href="https://calendly.com/clientverse/strategy-call"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-90"
+                      style={{ background: "#4AC4E0", color: "#0A1628" }}
+                    >
+                      Book a Systems Review →
+                    </a>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               <div ref={bottomRef} />
             </div>
 
+            {/* Input */}
             <div
               className="px-3 py-3 flex-shrink-0"
               style={{ borderTop: "1px solid rgba(74,196,224,0.15)" }}
             >
               <div
                 className="flex items-center gap-2 rounded-xl px-3 py-2"
-                style={{ background: "#132038", border: "1px solid rgba(74,196,224,0.2)" }}
+                style={{
+                  background: "#132038",
+                  border: "1px solid rgba(74,196,224,0.2)",
+                }}
               >
                 <input
                   ref={inputRef}
@@ -181,7 +304,12 @@ export default function MrClientVerse() {
                   style={{ background: "#4AC4E0", color: "#0A1628" }}
                   aria-label="Send"
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
                     <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
                   </svg>
                 </button>
@@ -191,6 +319,7 @@ export default function MrClientVerse() {
         )}
       </AnimatePresence>
 
+      {/* Floating button */}
       <motion.button
         onClick={() => setOpen((v) => !v)}
         whileHover={{ scale: 1.05 }}

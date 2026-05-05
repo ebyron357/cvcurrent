@@ -1,0 +1,129 @@
+Build a production-ready AI agent system (“Mr. V”) for my existing SaaS website.
+
+Context:
+
+* My platform includes a React frontend, a backend API (/chat route), and CRM integration with GoHighLevel
+* The AI agent will live on the website as a chat assistant and act as a sales + support representative
+* The system must be designed to scale into a full SaaS product
+
+Core Objective:
+Create an AI agent that can intelligently interact with website visitors, answer questions, qualify leads, and drive conversions (chat → lead → booking → CRM).
+
+---
+
+Behavior Requirements:
+
+1. General Interaction:
+
+* Respond clearly, professionally, and concisely
+* Maintain a confident, helpful tone (not robotic)
+* Guide conversations instead of just answering passively
+
+2. Context Awareness:
+
+* Use page context (e.g., service page, homepage, pricing page)
+* Adapt responses based on what the user is likely looking for
+
+3. Lead Qualification:
+
+* Ask strategic follow-up questions
+* Identify user intent (exploring, interested, ready to buy)
+* Collect key data:
+
+  * Name
+  * Email
+  * Phone
+  * Business need
+
+4. Conversion Actions:
+
+* When appropriate:
+
+  * Offer to send information
+  * Suggest booking a call
+  * Guide user toward next step
+* Provide booking links or trigger scheduling flows
+
+5. CRM Integration:
+
+* When lead data is captured:
+
+  * Send it to GoHighLevel via API
+  * Tag or categorize the lead
+  * Optionally trigger workflows
+
+---
+
+Technical Requirements:
+
+* Backend:
+
+  * Use existing /chat endpoint
+  * Implement structured message handling (messages array format)
+  * Include logic layer for:
+
+    * intent detection
+    * lead capture triggers
+    * action routing (CRM, booking)
+
+* AI:
+
+  * Use a system prompt that defines:
+
+    * brand voice
+    * services offered
+    * conversion behavior
+  * Prevent hallucinations by restricting to known services
+
+* Data Handling:
+
+  * Store conversation state (short-term memory)
+  * Structure responses for frontend display
+
+---
+
+Frontend Requirements:
+
+* Chat widget integration:
+
+  * Floating chat bubble
+  * Opens into conversation panel
+* Display:
+
+  * User messages + AI responses
+  * Loading/typing state
+* Trigger:
+
+  * Allow opening chat via button (e.g., “Chat with AI”)
+
+---
+
+Conversion Optimization:
+
+* The AI should:
+
+  * Move conversations toward outcomes (not just chat)
+  * Avoid long unnecessary responses
+  * Recognize when to ask vs when to act
+
+---
+
+Output Format:
+
+Provide:
+
+1. Backend logic structure (Node.js / Express)
+2. Example /chat route with:
+
+   * message handling
+   * AI call
+   * lead detection logic
+3. Example system prompt for Mr. V
+4. Frontend integration notes (React)
+5. Explanation of how CRM (GoHighLevel) integration should be triggered
+
+---
+
+Goal:
+
+Build an AI agent that functions as a 24/7 sales assistant—capable of answering questions, qualifying leads, and converting visitors into customers automatically.
