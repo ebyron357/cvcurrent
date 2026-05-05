@@ -231,6 +231,73 @@ export default function VideoTemplate({
           );
         })}
       </div>
+
+      {/* Persistent watermark — shown on middle scenes only */}
+      <motion.div
+        className="absolute"
+        style={{
+          left: '8vw',
+          top: '5.5vh',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.75rem',
+          zIndex: 50,
+          pointerEvents: 'none',
+        }}
+        animate={{
+          opacity: baseSceneKey === 'intro' || baseSceneKey === 'outro' ? 0 : 0.35,
+        }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {/* CV diamond mark */}
+        <div
+          style={{
+            width: 'clamp(22px, 2.2vw, 36px)',
+            height: 'clamp(22px, 2.2vw, 36px)',
+            background: 'linear-gradient(135deg, #4AC4E0 0%, #2a8fa8 100%)',
+            borderRadius: '5px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          <span style={{
+            fontFamily: 'var(--font-display)',
+            fontWeight: 900,
+            fontSize: 'clamp(10px, 1vw, 17px)',
+            color: '#ffffff',
+            letterSpacing: '-0.04em',
+            lineHeight: 1,
+          }}>
+            CV
+          </span>
+        </div>
+
+        {/* Wordmark text */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+          <span style={{
+            fontFamily: 'var(--font-display)',
+            fontWeight: 800,
+            fontSize: 'clamp(12px, 1.2vw, 20px)',
+            color: '#ffffff',
+            letterSpacing: '-0.02em',
+            lineHeight: 1,
+          }}>
+            Client<span style={{ color: '#4AC4E0' }}>Verse</span>
+          </span>
+          <span style={{
+            fontFamily: 'var(--font-body)',
+            fontWeight: 500,
+            fontSize: 'clamp(7px, 0.6vw, 9px)',
+            color: 'rgba(74,196,224,0.7)',
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+          }}>
+            Business OS
+          </span>
+        </div>
+      </motion.div>
     </div>
   );
 }
