@@ -14,6 +14,7 @@ export function Navbar() {
     { href: "/features", label: "Capabilities" },
     { href: "/pricing", label: "Pricing" },
     { href: "/resources", label: "Resources" },
+    { href: "/revenue-calculator", label: "Revenue Leak ↗" },
     { href: "/contact", label: "Contact" },
   ];
 

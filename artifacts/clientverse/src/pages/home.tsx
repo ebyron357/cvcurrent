@@ -2,7 +2,8 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ChartBar, Wrench, Gauge } from "@phosphor-icons/react";
+import { Link } from "wouter";
+import { ChartBar, Wrench, Gauge, PhoneSlash } from "@phosphor-icons/react";
 
 const pillars = [
   {
@@ -51,6 +52,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.25 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button
               size="lg"
@@ -60,6 +62,17 @@ export default function Home() {
               <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
                 Book a Systems Review
               </a>
+            </Button>
+            <Button
+              size="lg"
+              asChild
+              variant="outline"
+              className="border-[#1E2D4A] text-white hover:border-[#4AC4E0]/40 hover:bg-[#4AC4E0]/5 text-base px-8 h-14 flex items-center gap-2"
+            >
+              <Link href="/revenue-calculator">
+                <PhoneSlash size={18} weight="duotone" />
+                Calculate My Revenue Leak
+              </Link>
             </Button>
           </motion.div>
         </section>

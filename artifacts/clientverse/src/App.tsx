@@ -19,6 +19,7 @@ import Resources from "@/pages/resources";
 import CaseStudies from "@/pages/case-studies";
 import Podcasts from "@/pages/podcasts";
 import Videos from "@/pages/videos";
+import RevenueCalculator from "@/pages/revenue-calculator";
 import NotFound from "@/pages/not-found";
 import MrClientVerse from "@/components/mr-clientverse";
 
@@ -43,6 +44,7 @@ function Router() {
       <Route path="/case-studies" component={CaseStudies} />
       <Route path="/podcasts" component={Podcasts} />
       <Route path="/videos" component={Videos} />
+      <Route path="/revenue-calculator" component={RevenueCalculator} />
       <Route component={NotFound} />
     </Switch>
   );
