@@ -20,6 +20,10 @@ import CaseStudies from "@/pages/case-studies";
 import Podcasts from "@/pages/podcasts";
 import Videos from "@/pages/videos";
 import RevenueCalculator from "@/pages/revenue-calculator";
+import RoiCalculator from "@/pages/roi-calculator";
+import AiReadiness from "@/pages/ai-readiness";
+import Clarity from "@/pages/clarity";
+import SaigOs from "@/pages/saig-os";
 import NotFound from "@/pages/not-found";
 import MrClientVerse from "@/components/mr-clientverse";
 
@@ -45,6 +49,10 @@ function Router() {
       <Route path="/podcasts" component={Podcasts} />
       <Route path="/videos" component={Videos} />
       <Route path="/revenue-calculator" component={RevenueCalculator} />
+      <Route path="/roi-calculator" component={RoiCalculator} />
+      <Route path="/ai-readiness" component={AiReadiness} />
+      <Route path="/clarity" component={Clarity} />
+      <Route path="/saig-os" component={SaigOs} />
       <Route component={NotFound} />
     </Switch>
   );

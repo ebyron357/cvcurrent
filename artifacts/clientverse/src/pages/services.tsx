@@ -2,63 +2,55 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { CheckCircle, ArrowRight } from "@phosphor-icons/react";
+import { Link } from "wouter";
+import {
+  CheckCircle,
+  ArrowRight,
+  Robot,
+  ChartBar,
+  Megaphone,
+  Phone,
+  Globe,
+  Star,
+  Shield,
+  Buildings,
+  CurrencyDollar,
+  Wrench,
+  ChatCircle,
+  UsersThree,
+} from "@phosphor-icons/react";
 
-const serviceCategories = [
-  {
-    id: "growth",
-    title: "Growth Systems",
-    description: "Systems designed to generate pipeline, track leads, and close deals predictably.",
-    features: ["CRM Implementation", "Lead Scoring", "Pipeline Automation", "Sales Dashboards"],
-  },
-  {
-    id: "scale",
-    title: "Scale Systems",
-    description: "Infrastructure that handles increasing volume without breaking or requiring more headcount.",
-    features: ["Process Standardization", "Capacity Planning", "Automated Onboarding", "Fulfillment Workflows"],
-  },
-  {
-    id: "enterprise",
-    title: "Enterprise Systems",
-    description: "Custom, complex operational ecosystems for mature organizations.",
-    features: ["ERP Integration", "Data Warehousing", "Custom Applications", "Security Compliance"],
-  },
-  {
-    id: "ai-services",
-    title: "AI Services",
-    description: "Practical artificial intelligence deployment to reduce manual work.",
-    features: ["Custom AI Agents", "Support Automation", "Content Generation", "Data Analysis"],
-  },
-  {
-    id: "content",
-    title: "Content & Social Media",
-    description: "Engines that distribute your message across channels automatically.",
-    features: ["Distribution Workflows", "Asset Management", "Scheduling Systems", "Performance Tracking"],
-  },
-  {
-    id: "web",
-    title: "Websites, Funnels & E-commerce",
-    description: "High-converting digital storefronts connected directly to your operations.",
-    features: ["Conversion Optimization", "Payment Infrastructure", "Inventory Sync", "Analytics Setup"],
-  },
-  {
-    id: "consulting",
-    title: "Business Systems & Consulting",
-    description: "Strategic guidance on how to architect your company for maximum efficiency.",
-    features: ["Tech Stack Audits", "Process Mapping", "Vendor Selection", "Change Management"],
-  },
-  {
-    id: "outsourcing",
-    title: "Outsourcing & Partnerships",
-    description: "Connecting your automated systems with reliable human operators.",
-    features: ["BPO Integration", "SOP Documentation", "Quality Assurance", "Communication Hubs"],
-  },
-  {
-    id: "support",
-    title: "Ongoing Support & Optimization",
-    description: "Continuous improvement and maintenance of your operational backbone.",
-    features: ["System Monitoring", "Iterative Improvements", "Helpdesk Support", "Performance Reviews"],
-  },
+const recurringServices = [
+  { name: "Reputation Management", price: "$297/mo", Icon: Star, desc: "Review monitoring and request automation across 50+ platforms. Every client gets it. Flat vendor cost regardless of client count.", tag: "High margin" },
+  { name: "Local SEO", price: "$997/mo", Icon: Globe, desc: "Fully managed local search optimization — keyword research, on-page, citations, and monthly reporting. Outsourced, white-labeled.", tag: "Managed" },
+  { name: "Google + Meta Ads Management", price: "$997–2,497/mo", Icon: Megaphone, desc: "Done-for-you paid ad campaigns across Google and Meta. Strategy, creative, optimization, and monthly reporting — all handled.", tag: "High margin" },
+  { name: "Social Media Management", price: "$297/mo", Icon: ChatCircle, desc: "Content creation, scheduling, and posting across platforms. Outsourced to a vetted content partner at flat monthly cost.", tag: "Managed" },
+  { name: "Done-For-You Content Creation", price: "$497/mo", Icon: Globe, desc: "Blog posts, landing page copy, and brand content — AI-drafted and human-refined. Delivered white-labeled under your brand.", tag: "Managed" },
+  { name: "AI Voice Agent Management", price: "$497/mo", Icon: Phone, desc: "24/7 AI receptionist that books appointments, handles FAQs, and escalates intelligently. Configured and managed for the client.", tag: "AI-powered" },
+  { name: "Call Tracking & Recording", price: "$97/mo", Icon: Phone, desc: "Every inbound call tracked, recorded, and visible in the client dashboard. Shows which ads and channels drive real calls.", tag: "Managed" },
+  { name: "Voicemail Drop Campaigns", price: "$197/mo", Icon: Phone, desc: "Pre-recorded voicemails dropped directly to prospect inboxes — phone never rings. VA-managed execution.", tag: "Managed" },
+  { name: "Website Maintenance", price: "$197/mo", Icon: Wrench, desc: "Ongoing site updates, speed optimization, uptime monitoring, and plugin/security patches. Outsourced via vetted partners.", tag: "Managed" },
+  { name: "WhatsApp Business Campaigns", price: "$197/mo", Icon: ChatCircle, desc: "Outbound WhatsApp messaging campaigns — appointment reminders, promotions, and re-engagement. Native GHL execution.", tag: "Managed" },
+];
+
+const oneTimeServices = [
+  { name: "AI Stack Audit (C.L.A.R.I.T.Y. Framework™)", price: "$497–$997", Icon: ChartBar, desc: "7-point evaluation of your entire AI and automation stack. Produces a written report with quantified revenue leaks and a prioritized 90-day roadmap.", highlight: true },
+  { name: "AI Implementation", price: "$1,500–$3,000", Icon: Robot, desc: "Full GHL build — pipelines, automations, AI agents, and staff walkthrough. Managed via vetted Extendly and Upwork contractors." },
+  { name: "AI Audit + Implementation Bundle", price: "$1,997", Icon: Robot, desc: "Audit and implementation delivered together. Client saves $500. You close both in one call." },
+  { name: "AI Security Audit", price: "$497–$997", Icon: Shield, desc: "Personal delivery only. Maps exposed data, weak access controls, and staff vulnerabilities. Cybersecurity background is the moat — no competitor can replicate this." },
+  { name: "AI Security Setup", price: "$1,500–$2,500", Icon: Shield, desc: "Execution of security recommendations — 2FA rollout, data protocol setup, phishing training. Delivered via vetted veteran tech professionals." },
+  { name: "Website Build", price: "$2,500–$5,000", Icon: Globe, desc: "Full website design and build delivered white-labeled. You maintain the client relationship. Includes landing pages and funnel setup." },
+  { name: "Capital Stack Setup", price: "$4,500–$6,500", Icon: CurrencyDollar, desc: "Configure 4–5 embedded financial partners (Lendio, Relay, BlueVine, NMI, Stripe Capital) with eligibility monitoring workflows. Zero fulfillment cost." },
+  { name: "SAIG-OS™ AI Governance Setup", price: "$1,500–$7,500", Icon: Shield, desc: "Documented AI governance framework for nonprofits, healthcare, education, and small businesses. Personal delivery. Zero competition.", highlight: true },
+  { name: "Industry Snapshot", price: "$297–$997", Icon: Buildings, desc: "Pre-built GHL account setups for specific industries (HVAC, Dental, Real Estate, Veteran-Owned). Build once. Zero fulfillment after that." },
+  { name: "CRM Audit + Cleanup", price: "$797", Icon: Wrench, desc: "Full account audit via Claude + GHL MCP — duplicate contacts, dead pipelines, broken automations, lost leads. Every fix applied. Written report delivered." },
+];
+
+const mcpServices = [
+  { name: "AI CRM Management", price: "$397/mo", desc: "Weekly AI review of the client's pipeline via Claude + GHL MCP. Stalled leads flagged, dead contacts cleaned, pipeline stays accurate." },
+  { name: "AI Performance Reporting", price: "$297/mo", desc: "Monthly plain-English report showing what's working, what's not, and 3 recommended actions. No dashboards. No spreadsheets. Just answers." },
+  { name: "AI Operations Management", price: "$597/mo", desc: "Weekly and monthly AI-powered reviews of the full account — lead scoring, follow-up gaps, no-show rates, campaign performance." },
+  { name: "Cross-Channel Intelligence Report", price: "$497/mo", desc: "CRM + Google Ads + Meta Ads analyzed together monthly. Shows which campaigns actually drove closed revenue — not just clicks." },
 ];
 
 export default function Services() {
@@ -67,14 +59,14 @@ export default function Services() {
       <Navbar />
 
       <main className="flex-1 pt-32">
-        {/* Header */}
+        {/* Hero */}
         <section className="container mx-auto px-4 pt-16 pb-20 text-center max-w-4xl">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-bold tracking-tight mb-6"
           >
-            What We Build, Repair, and <span className="text-[#4AC4E0]">Operate.</span>
+            Every Service. <span className="text-[#4AC4E0]">Fully Managed.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -82,82 +74,231 @@ export default function Services() {
             transition={{ delay: 0.1 }}
             className="text-xl text-gray-400 max-w-2xl mx-auto"
           >
-            Comprehensive operational engineering. From the front-end funnel to the back-office database.
+            You own the client relationship. We own the delivery. Every service runs under your brand — clients never see our vendors.
           </motion.p>
         </section>
 
-        {/* System Rescue Block */}
-        <section id="system-rescue" className="bg-[#4AC4E0] text-[#0A1628] py-24 my-12">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">System Rescue™</h2>
-              <p className="text-xl font-medium mb-12 opacity-90">
-                Is your current tech stack a mess? We specialize in untangling, fixing, and migrating broken operations.
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {[
-                  { title: "Audit™", body: "Comprehensive review of existing broken systems to identify bottlenecks and failure points." },
-                  { title: "Cleanup™", body: "Data sanitization, removing redundant tools, and simplifying complex zaps/automations." },
-                  { title: "Rebuild™", body: "Re-engineering processes from the ground up using best-in-class architecture." },
-                  { title: "Migration™ & Optimization™", body: "Moving data safely to new platforms and continuously tuning for peak performance." },
-                ].map((item) => (
-                  <div key={item.title} className="bg-[#0A1628]/10 p-6 rounded-xl">
-                    <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
-                    <p>{item.body}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-12">
-                <Button size="lg" asChild className="bg-[#0A1628] hover:bg-[#132038] text-white font-bold h-14 px-8">
+        {/* System Rescue */}
+        <section id="system-rescue" className="bg-[#4AC4E0] text-[#0A1628] py-20 my-8">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <div className="flex flex-col md:flex-row items-start gap-12">
+              <div className="flex-1">
+                <h2 className="text-4xl md:text-5xl font-bold mb-5">System Rescue™</h2>
+                <p className="text-xl font-medium mb-8 opacity-90">
+                  Already have GHL or another CRM but it's a mess? We go in, clean it out, and rebuild it right. New clients with existing accounts get this at onboarding. It reveals every gap — and every gap becomes a service.
+                </p>
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                  {["Duplicate contact cleanup", "Dead pipeline removal", "Broken automation repair", "Lost lead recovery", "Data migration", "Staff re-training"].map((item) => (
+                    <div key={item} className="flex items-center gap-2 text-sm font-medium">
+                      <CheckCircle size={16} weight="fill" />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+                <Button size="lg" asChild className="bg-[#0A1628] hover:bg-[#132038] text-white font-bold h-13 px-8">
                   <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer" className="flex items-center gap-2">
-                    Request a Rescue Audit
+                    Request a Rescue Audit — $797
                     <ArrowRight size={18} weight="bold" />
                   </a>
                 </Button>
+              </div>
+              <div className="md:w-72 space-y-3">
+                {[
+                  { label: "Typical cleanup time", value: "48 hours" },
+                  { label: "Avg issues found", value: "12–20" },
+                  { label: "Upsell conversion rate", value: "~70%" },
+                ].map(({ label, value }) => (
+                  <div key={label} className="bg-[#0A1628]/15 rounded-xl p-5">
+                    <p className="text-2xl font-black">{value}</p>
+                    <p className="text-sm opacity-80">{label}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Standard Services */}
-        <section className="container mx-auto px-4 py-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {serviceCategories.map((service, index) => (
+        {/* MCP Services — new section */}
+        <section className="container mx-auto px-4 py-20 max-w-5xl">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 rounded-full px-4 py-1.5 text-sm text-[#4AC4E0] font-medium mb-5">
+              <Robot size={14} weight="fill" />
+              Claude + GHL MCP — Only 5% of Agencies Know This Exists
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              AI-Powered Managed Services
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Claude connects directly to each client's GHL account via MCP (Model Context Protocol). No Zapier. No middleware. Claude reads pipelines, flags issues, and writes back — all in plain English. These are services your competitors have never heard of.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {mcpServices.map(({ name, price, desc }) => (
               <motion.div
-                key={service.id}
-                id={service.id}
-                initial={{ opacity: 0, y: 20 }}
+                key={name}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="bg-[#0D1B2E] border border-[#1E2D4A] p-8 rounded-2xl flex flex-col hover:border-[#4AC4E0]/30 transition-colors duration-300"
+                className="bg-[#0D1B2E] border border-[#4AC4E0]/20 hover:border-[#4AC4E0]/40 rounded-2xl p-7 transition-colors duration-300"
               >
-                <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                <p className="text-gray-400 mb-6 flex-1 text-sm leading-relaxed">{service.description}</p>
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <h3 className="text-lg font-bold">{name}</h3>
+                  <span className="text-[#4AC4E0] font-bold text-sm shrink-0">{price}</span>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-8 bg-[#0D1B2E] border border-[#1E2D4A] rounded-xl px-6 py-4 flex items-center gap-3">
+            <Robot size={20} color="#4AC4E0" weight="duotone" className="shrink-0" />
+            <p className="text-sm text-gray-400">
+              Setup takes under 15 minutes per client. Claude reads contacts, pipelines, conversations, tags, and custom fields — and writes back. Official GHL MCP: <span className="text-[#4AC4E0]">marketplace.gohighlevel.com/docs/other/mcp</span>
+            </p>
+          </div>
+        </section>
 
-                <ul className="space-y-2.5">
-                  {service.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <CheckCircle size={18} color="#4AC4E0" weight="duotone" className="shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+        {/* Monthly Recurring */}
+        <section className="bg-[#0D1B2E] border-y border-[#1E2D4A] py-20">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Monthly <span className="text-[#4AC4E0]">Recurring Add-Ons</span>
+              </h2>
+              <p className="text-gray-400 max-w-xl mx-auto">
+                Layer onto any base tier. Every service is managed — you never touch the execution.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {recurringServices.map(({ name, price, Icon, desc, tag }) => (
+                <motion.div
+                  key={name}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="bg-[#0A1628] border border-[#1E2D4A] hover:border-[#4AC4E0]/30 rounded-2xl p-7 transition-colors duration-300"
+                >
+                  <div className="flex items-start gap-4">
+                    <div
+                      className="rounded-xl flex items-center justify-center shrink-0"
+                      style={{
+                        width: 48,
+                        height: 48,
+                        background: "rgba(74,196,224,0.08)",
+                        border: "1.5px solid rgba(74,196,224,0.5)",
+                        boxShadow: "0 0 12px rgba(74,196,224,0.10)",
+                      }}
+                    >
+                      <Icon size={22} color="#4AC4E0" weight="duotone" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between gap-3 mb-1">
+                        <h3 className="font-bold text-base">{name}</h3>
+                        <div className="text-right shrink-0">
+                          <p className="text-[#4AC4E0] font-bold text-sm">{price}</p>
+                          <p className="text-xs text-gray-500">{tag}</p>
+                        </div>
+                      </div>
+                      <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* One-Time Services */}
+        <section className="container mx-auto px-4 py-20 max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              One-Time <span className="text-[#4AC4E0]">Services</span>
+            </h2>
+            <p className="text-gray-400 max-w-xl mx-auto">
+              Engagements that close fast and convert to recurring platform clients.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {oneTimeServices.map(({ name, price, Icon, desc, highlight }) => (
+              <motion.div
+                key={name}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className={`bg-[#0D1B2E] rounded-2xl p-7 border transition-colors duration-300 ${
+                  highlight ? "border-[#4AC4E0]/40 ring-1 ring-[#4AC4E0]/10" : "border-[#1E2D4A] hover:border-[#4AC4E0]/30"
+                }`}
+              >
+                <div className="flex items-start gap-4">
+                  <div
+                    className="rounded-xl flex items-center justify-center shrink-0"
+                    style={{
+                      width: 48,
+                      height: 48,
+                      background: "rgba(74,196,224,0.08)",
+                      border: "1.5px solid rgba(74,196,224,0.5)",
+                      boxShadow: "0 0 12px rgba(74,196,224,0.10)",
+                    }}
+                  >
+                    <Icon size={22} color="#4AC4E0" weight="duotone" />
+                  </div>
+                  <div>
+                    <div className="flex items-start justify-between gap-3 mb-1">
+                      <h3 className="font-bold text-base">{name}</h3>
+                      <p className="text-[#4AC4E0] font-bold text-sm shrink-0">{price}</p>
+                    </div>
+                    <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
         </section>
 
+        {/* SAIG-OS callout */}
+        <section className="container mx-auto px-4 pb-16 max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-[#0D1B2E] border border-[#4AC4E0]/30 rounded-2xl p-10 md:p-12 flex flex-col md:flex-row items-center gap-8"
+          >
+            <div
+              className="shrink-0 rounded-xl flex items-center justify-center"
+              style={{ width: 72, height: 72, background: "rgba(74,196,224,0.08)", border: "1.5px solid rgba(74,196,224,0.5)", boxShadow: "0 0 20px rgba(74,196,224,0.15)" }}
+            >
+              <Shield size={36} color="#4AC4E0" weight="duotone" />
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <p className="text-xs text-[#4AC4E0] font-bold tracking-widest uppercase mb-2">Proprietary Product</p>
+              <h3 className="text-2xl font-bold mb-3">SAIG-OS™ AI Governance — For Nonprofits, Healthcare & Education</h3>
+              <p className="text-gray-400 leading-relaxed">
+                The only AI governance framework built specifically for organizations that can't afford to get compliance wrong. Personal delivery. Zero competition. No outsourcing.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 shrink-0">
+              <Button asChild className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold px-7 h-11">
+                <Link href="/saig-os">Learn More <ArrowRight size={16} weight="bold" className="inline ml-1" /></Link>
+              </Button>
+            </div>
+          </motion.div>
+        </section>
+
         {/* Bottom CTA */}
-        <section className="container mx-auto px-4 py-24 text-center border-t border-[#1E2D4A]">
-          <h2 className="text-3xl font-bold mb-6">Ready to engineer your operations?</h2>
-          <Button size="lg" asChild className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold text-lg px-8 h-14">
-            <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
-              Book a Systems Review
-            </a>
-          </Button>
+        <section className="container mx-auto px-4 py-20 text-center border-t border-[#1E2D4A]">
+          <h2 className="text-3xl font-bold mb-4">Not sure which services you need?</h2>
+          <p className="text-gray-400 mb-8 max-w-xl mx-auto">
+            Book a C.L.A.R.I.T.Y. Audit. In 30 minutes we'll map every gap in your stack and tell you exactly what to build first.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" asChild className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold text-base px-8 h-13">
+              <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
+                Book a C.L.A.R.I.T.Y. Audit
+              </a>
+            </Button>
+            <Button size="lg" asChild variant="outline" className="border-[#1E2D4A] text-white hover:border-[#4AC4E0]/30 h-13 px-8">
+              <Link href="/clarity">Learn About the Framework</Link>
+            </Button>
+          </div>
         </section>
       </main>
 
