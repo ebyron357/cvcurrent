@@ -2,27 +2,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-
-function CheckItem({ text }: { text: string }) {
-  return (
-    <li className="flex items-start gap-3">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="shrink-0 mt-0.5">
-        <circle cx="9" cy="9" r="8" stroke="#4AC4E0" strokeWidth="1.2" opacity="0.4" />
-        <path d="M5.5 9 L7.5 11.5 L12.5 6" stroke="#4AC4E0" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-      <span className="text-sm text-gray-300">{text}</span>
-    </li>
-  );
-}
-
-function ArrowRight() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="ml-2 shrink-0">
-      <path d="M3 9 H15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M10 4.5 L15 9 L10 13.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
+import { CheckCircle, ArrowRight } from "@phosphor-icons/react";
 
 const serviceCategories = [
   {
@@ -131,8 +111,9 @@ export default function Services() {
 
               <div className="mt-12">
                 <Button size="lg" asChild className="bg-[#0A1628] hover:bg-[#132038] text-white font-bold h-14 px-8">
-                  <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer" className="flex items-center">
-                    Request a Rescue Audit <ArrowRight />
+                  <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer" className="flex items-center gap-2">
+                    Request a Rescue Audit
+                    <ArrowRight size={18} weight="bold" />
                   </a>
                 </Button>
               </div>
@@ -158,7 +139,10 @@ export default function Services() {
 
                 <ul className="space-y-2.5">
                   {service.features.map((feature, i) => (
-                    <CheckItem key={i} text={feature} />
+                    <li key={i} className="flex items-start gap-3">
+                      <CheckCircle size={18} color="#4AC4E0" weight="duotone" className="shrink-0 mt-0.5" />
+                      <span className="text-sm text-gray-300">{feature}</span>
+                    </li>
                   ))}
                 </ul>
               </motion.div>

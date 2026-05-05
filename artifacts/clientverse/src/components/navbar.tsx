@@ -1,25 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-
-function IconMenu() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="3" y1="18" x2="15" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconClose() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-      <path d="M17 5 L5 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path d="M5 5 L17 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
+import { List, X } from "@phosphor-icons/react";
 
 export function Navbar() {
   const [location] = useLocation();
@@ -31,6 +13,7 @@ export function Navbar() {
     { href: "/about", label: "About" },
     { href: "/features", label: "Capabilities" },
     { href: "/pricing", label: "Pricing" },
+    { href: "/resources", label: "Resources" },
     { href: "/contact", label: "Contact" },
   ];
 
@@ -74,7 +57,10 @@ export function Navbar() {
           data-testid="nav-mobile-toggle"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
-          {mobileOpen ? <IconClose /> : <IconMenu />}
+          {mobileOpen
+            ? <X size={26} weight="bold" />
+            : <List size={26} weight="bold" />
+          }
         </button>
       </div>
 
