@@ -2,10 +2,103 @@ import { useRef, useCallback, useEffect, useState } from 'react';
 
 // Cinematic ambient audio engine using Web Audio API
 // No external files required — fully procedural synthesis
-// D minor tonality: D2, A2, F3, C4, D4 (cinematic, authoritative)
+// D minor tonality with per-scene chord/filter variations
 
-const DRONE_FREQS = [73.4, 73.4 * 1.003, 110.0, 174.6, 220.0];
-const REVERB_DURATION = 3.0; // seconds
+const REVERB_DURATION = 3.0;
+
+// --- Per-scene audio textures ---
+// Each scene has a distinct chord cluster, filter brightness, and LFO character
+// All stay in the same D-minor family — no jarring jumps, just emotional shifts
+
+interface SceneAudioProfile {
+  // Drone oscillator frequencies (5 voices)
+  droneFreqs: [number, number, number, number, number];
+  // Sub-bass frequency
+  subFreq: number;
+  // High shimmer frequency
+  shimmerFreq: number;
+  // Lowpass filter cutoff
+  filterFreq: number;
+  // Filter resonance
+  filterQ: number;
+  // LFO rate (filter sweep speed)
+  lfoFreq: number;
+  // LFO depth (filter sweep depth)
+  lfoDepth: number;
+  // Master volume target
+  masterTarget: number;
+}
+
+const SCENE_PROFILES: Record<string, SceneAudioProfile> = {
+  // Intro — D minor baseline, warm and mysterious entry
+  intro: {
+    droneFreqs: [73.4, 73.62, 110.0, 174.6, 261.6],
+    subFreq: 36.7,
+    shimmerFreq: 880,
+    filterFreq: 900,
+    filterQ: 0.8,
+    lfoFreq: 0.08,
+    lfoDepth: 280,
+    masterTarget: 0.72,
+  },
+  // System Rescue — C minor, darker and heavier; the "problem" scene
+  systemRescue: {
+    droneFreqs: [65.4, 65.6, 98.0, 155.6, 233.1],
+    subFreq: 32.7,
+    shimmerFreq: 698,
+    filterFreq: 660,
+    filterQ: 1.2,
+    lfoFreq: 0.055,
+    lfoDepth: 200,
+    masterTarget: 0.68,
+  },
+  // AI Services — F major feel, filter opens up, lifting and expansive
+  aiServices: {
+    droneFreqs: [87.3, 87.57, 130.8, 196.0, 329.6],
+    subFreq: 43.65,
+    shimmerFreq: 1047,
+    filterFreq: 1100,
+    filterQ: 0.7,
+    lfoFreq: 0.11,
+    lfoDepth: 320,
+    masterTarget: 0.74,
+  },
+  // Growth Systems — A minor feel, ascending energy and momentum
+  growthSystems: {
+    droneFreqs: [110.0, 110.33, 164.8, 261.6, 392.0],
+    subFreq: 55.0,
+    shimmerFreq: 1175,
+    filterFreq: 1260,
+    filterQ: 0.6,
+    lfoFreq: 0.13,
+    lfoDepth: 360,
+    masterTarget: 0.76,
+  },
+  // Consulting — G major feel, warm and confident resolution
+  consulting: {
+    droneFreqs: [98.0, 98.29, 146.8, 220.0, 329.6],
+    subFreq: 49.0,
+    shimmerFreq: 987,
+    filterFreq: 980,
+    filterQ: 0.85,
+    lfoFreq: 0.09,
+    lfoDepth: 260,
+    masterTarget: 0.72,
+  },
+  // Outro — D major, resolved and triumphant; filter fully open, slowest LFO
+  outro: {
+    droneFreqs: [73.4, 73.62, 110.0, 185.0, 246.9],
+    subFreq: 36.7,
+    shimmerFreq: 1109,
+    filterFreq: 1060,
+    filterQ: 0.65,
+    lfoFreq: 0.05,
+    lfoDepth: 240,
+    masterTarget: 0.75,
+  },
+};
+
+const TRANSITION_TIME = 1.6; // seconds for smooth crossfade between scenes
 
 const STORAGE_KEY = 'cv_audio_muted';
 
@@ -42,17 +135,22 @@ interface AudioEngine {
   isMuted: boolean;
   toggleMute: () => void;
   playTransitionSfx: () => void;
+  setScene: (sceneKey: string) => void;
 }
 
 export function useAudioEngine(): AudioEngine {
   const ctxRef = useRef<AudioContext | null>(null);
   const masterGainRef = useRef<GainNode | null>(null);
+  // Drone oscillators in order: [voice0, voice1, voice2, voice3, voice4, sub, shimmer]
   const oscNodesRef = useRef<OscillatorNode[]>([]);
+  const lpFilterRef = useRef<BiquadFilterNode | null>(null);
   const lfoRef = useRef<OscillatorNode | null>(null);
+  const lfoGainRef = useRef<GainNode | null>(null);
   const startedRef = useRef(false);
+  // Track the last scene key so engine boots into the correct profile on mid-video unmute
+  const currentSceneKeyRef = useRef<string>('intro');
   const [isMuted, setIsMuted] = useState<boolean>(() => getSavedMutePreference());
 
-  // Build and start the ambient engine
   const startEngine = useCallback(() => {
     if (startedRef.current) return;
     startedRef.current = true;
@@ -79,26 +177,30 @@ export function useAudioEngine(): AudioEngine {
     dryGain.gain.setValueAtTime(0.65, ctx.currentTime);
     dryGain.connect(masterGain);
 
-    // Lowpass filter for warmth
+    // Lowpass filter for warmth — start at the current scene's profile
+    // (handles mid-video unmute: user may have already scrolled past intro)
+    const profile = SCENE_PROFILES[currentSceneKeyRef.current] ?? SCENE_PROFILES['intro'];
     const lpFilter = ctx.createBiquadFilter();
     lpFilter.type = 'lowpass';
-    lpFilter.frequency.setValueAtTime(900, ctx.currentTime);
-    lpFilter.Q.setValueAtTime(0.8, ctx.currentTime);
+    lpFilter.frequency.setValueAtTime(profile.filterFreq, ctx.currentTime);
+    lpFilter.Q.setValueAtTime(profile.filterQ, ctx.currentTime);
     lpFilter.connect(dryGain);
     lpFilter.connect(convolver);
+    lpFilterRef.current = lpFilter;
 
-    // LFO modulating filter cutoff (slow, organic movement)
+    // LFO modulating filter cutoff
     const lfo = ctx.createOscillator();
     lfo.type = 'sine';
-    lfo.frequency.setValueAtTime(0.08, ctx.currentTime); // very slow
+    lfo.frequency.setValueAtTime(profile.lfoFreq, ctx.currentTime);
     const lfoGain = ctx.createGain();
-    lfoGain.gain.setValueAtTime(280, ctx.currentTime);
+    lfoGain.gain.setValueAtTime(profile.lfoDepth, ctx.currentTime);
     lfo.connect(lfoGain);
     lfoGain.connect(lpFilter.frequency);
     lfo.start();
     lfoRef.current = lfo;
+    lfoGainRef.current = lfoGain;
 
-    // Second slower LFO for vibrato/tremolo depth
+    // Second slower LFO for tremolo depth
     const lfo2 = ctx.createOscillator();
     lfo2.type = 'sine';
     lfo2.frequency.setValueAtTime(0.05, ctx.currentTime);
@@ -106,18 +208,17 @@ export function useAudioEngine(): AudioEngine {
     lfo2Gain.gain.setValueAtTime(0.06, ctx.currentTime);
     lfo2.connect(lfo2Gain);
 
-    // Drone oscillators — detuned cluster for lush pad
+    // Drone oscillators — detuned cluster (5 voices)
     const oscGain = ctx.createGain();
     oscGain.gain.setValueAtTime(0.22, ctx.currentTime);
     lfo2Gain.connect(oscGain.gain); // tremolo
     lfo2.start();
     oscGain.connect(lpFilter);
 
-    DRONE_FREQS.forEach((freq, i) => {
+    profile.droneFreqs.forEach((freq, i) => {
       const osc = ctx.createOscillator();
       osc.type = i < 2 ? 'sawtooth' : 'sine';
       osc.frequency.setValueAtTime(freq, ctx.currentTime);
-      // Slight detune for chorusing
       osc.detune.setValueAtTime((i - 2) * 7, ctx.currentTime);
       const perOscGain = ctx.createGain();
       perOscGain.gain.setValueAtTime(i < 2 ? 0.55 : 0.4, ctx.currentTime);
@@ -127,21 +228,21 @@ export function useAudioEngine(): AudioEngine {
       oscNodesRef.current.push(osc);
     });
 
-    // Sub-bass oscillator (D1) — very subtle foundation
+    // Sub-bass oscillator — bypass reverb for tightness
     const subOsc = ctx.createOscillator();
     subOsc.type = 'sine';
-    subOsc.frequency.setValueAtTime(36.7, ctx.currentTime);
+    subOsc.frequency.setValueAtTime(profile.subFreq, ctx.currentTime);
     const subGain = ctx.createGain();
     subGain.gain.setValueAtTime(0.12, ctx.currentTime);
     subOsc.connect(subGain);
-    subGain.connect(masterGain); // bypass reverb for sub
+    subGain.connect(masterGain);
     subOsc.start();
-    oscNodesRef.current.push(subOsc);
+    oscNodesRef.current.push(subOsc); // index 5
 
-    // High shimmer — very quiet, adds air
+    // High shimmer — adds air, feeds into reverb only
     const shimmerOsc = ctx.createOscillator();
     shimmerOsc.type = 'sine';
-    shimmerOsc.frequency.setValueAtTime(880, ctx.currentTime); // A5
+    shimmerOsc.frequency.setValueAtTime(profile.shimmerFreq, ctx.currentTime);
     shimmerOsc.detune.setValueAtTime(4, ctx.currentTime);
     const shimmerGain = ctx.createGain();
     shimmerGain.gain.setValueAtTime(0.025, ctx.currentTime);
@@ -156,11 +257,84 @@ export function useAudioEngine(): AudioEngine {
     shimmerOsc.connect(shimmerGain);
     shimmerGain.connect(convolver);
     shimmerOsc.start();
-    oscNodesRef.current.push(shimmerOsc);
+    oscNodesRef.current.push(shimmerOsc); // index 6
 
     // Fade master in slowly
-    masterGain.gain.linearRampToValueAtTime(0.72, ctx.currentTime + 3.5);
+    masterGain.gain.linearRampToValueAtTime(profile.masterTarget, ctx.currentTime + 3.5);
   }, []);
+
+  // Smoothly transition all audio parameters to a new scene profile
+  const setScene = useCallback((sceneKey: string) => {
+    const baseKey = sceneKey.replace(/_r[12]$/, '');
+    const profile = SCENE_PROFILES[baseKey];
+    if (!profile) return;
+
+    // Always track the current scene key so startEngine boots correctly on mid-video unmute
+    currentSceneKeyRef.current = baseKey;
+
+    if (!ctxRef.current || !startedRef.current) return;
+    const ctx = ctxRef.current;
+    if (ctx.state === 'suspended') return;
+
+    const t = ctx.currentTime;
+    const ramp = TRANSITION_TIME;
+
+    // Modulate filter — the most audible shift
+    if (lpFilterRef.current) {
+      lpFilterRef.current.frequency.cancelScheduledValues(t);
+      lpFilterRef.current.frequency.setValueAtTime(lpFilterRef.current.frequency.value, t);
+      lpFilterRef.current.frequency.linearRampToValueAtTime(profile.filterFreq, t + ramp);
+      lpFilterRef.current.Q.cancelScheduledValues(t);
+      lpFilterRef.current.Q.setValueAtTime(lpFilterRef.current.Q.value, t);
+      lpFilterRef.current.Q.linearRampToValueAtTime(profile.filterQ, t + ramp);
+    }
+
+    // Modulate LFO rate and depth
+    if (lfoRef.current) {
+      lfoRef.current.frequency.cancelScheduledValues(t);
+      lfoRef.current.frequency.setValueAtTime(lfoRef.current.frequency.value, t);
+      lfoRef.current.frequency.linearRampToValueAtTime(profile.lfoFreq, t + ramp);
+    }
+    if (lfoGainRef.current) {
+      lfoGainRef.current.gain.cancelScheduledValues(t);
+      lfoGainRef.current.gain.setValueAtTime(lfoGainRef.current.gain.value, t);
+      lfoGainRef.current.gain.linearRampToValueAtTime(profile.lfoDepth, t + ramp);
+    }
+
+    // Modulate drone oscillator frequencies (indices 0-4)
+    profile.droneFreqs.forEach((freq, i) => {
+      const osc = oscNodesRef.current[i];
+      if (osc) {
+        osc.frequency.cancelScheduledValues(t);
+        osc.frequency.setValueAtTime(osc.frequency.value, t);
+        osc.frequency.linearRampToValueAtTime(freq, t + ramp);
+      }
+    });
+
+    // Modulate sub-bass (index 5)
+    const subOsc = oscNodesRef.current[5];
+    if (subOsc) {
+      subOsc.frequency.cancelScheduledValues(t);
+      subOsc.frequency.setValueAtTime(subOsc.frequency.value, t);
+      subOsc.frequency.linearRampToValueAtTime(profile.subFreq, t + ramp);
+    }
+
+    // Modulate shimmer (index 6)
+    const shimmerOsc = oscNodesRef.current[6];
+    if (shimmerOsc) {
+      shimmerOsc.frequency.cancelScheduledValues(t);
+      shimmerOsc.frequency.setValueAtTime(shimmerOsc.frequency.value, t);
+      shimmerOsc.frequency.linearRampToValueAtTime(profile.shimmerFreq, t + ramp);
+    }
+
+    // Modulate master volume target
+    if (masterGainRef.current && !isMuted) {
+      const master = masterGainRef.current;
+      master.gain.cancelScheduledValues(t);
+      master.gain.setValueAtTime(master.gain.value, t);
+      master.gain.linearRampToValueAtTime(profile.masterTarget, t + ramp);
+    }
+  }, [isMuted]);
 
   const toggleMute = useCallback(() => {
     setIsMuted(prev => {
@@ -169,9 +343,7 @@ export function useAudioEngine(): AudioEngine {
       saveMutePreference(nextMuted);
 
       if (!startedRef.current && !nextMuted) {
-        // First unmute — bootstrap the engine
         startEngine();
-        // Engine fades in via linearRamp inside startEngine
         return nextMuted;
       }
 
@@ -185,8 +357,9 @@ export function useAudioEngine(): AudioEngine {
           if (ctx.state === 'suspended') {
             ctx.resume();
           }
+          const sceneProfile = SCENE_PROFILES[currentSceneKeyRef.current] ?? SCENE_PROFILES['intro'];
           master.gain.cancelScheduledValues(ctx.currentTime);
-          master.gain.setTargetAtTime(0.72, ctx.currentTime, 0.4);
+          master.gain.setTargetAtTime(sceneProfile.masterTarget, ctx.currentTime, 0.4);
         }
       }
 
@@ -230,7 +403,6 @@ export function useAudioEngine(): AudioEngine {
     if (ctx.state === 'suspended') return;
 
     try {
-      // Filtered noise burst — metallic sweep
       const bufLength = Math.floor(ctx.sampleRate * 0.22);
       const noiseBuf = ctx.createBuffer(1, bufLength, ctx.sampleRate);
       const noiseData = noiseBuf.getChannelData(0);
@@ -241,19 +413,16 @@ export function useAudioEngine(): AudioEngine {
       const noiseSource = ctx.createBufferSource();
       noiseSource.buffer = noiseBuf;
 
-      // Bandpass — rising sweep
       const bpFilter = ctx.createBiquadFilter();
       bpFilter.type = 'bandpass';
       bpFilter.frequency.setValueAtTime(300, ctx.currentTime);
       bpFilter.frequency.exponentialRampToValueAtTime(3200, ctx.currentTime + 0.18);
       bpFilter.Q.setValueAtTime(2.5, ctx.currentTime);
 
-      // Gain envelope
       const sfxGain = ctx.createGain();
       sfxGain.gain.setValueAtTime(0.18, ctx.currentTime);
       sfxGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
 
-      // Subtle tonal click to punch through
       const clickOsc = ctx.createOscillator();
       clickOsc.type = 'sine';
       clickOsc.frequency.setValueAtTime(1200, ctx.currentTime);
@@ -288,5 +457,5 @@ export function useAudioEngine(): AudioEngine {
     };
   }, []);
 
-  return { isMuted, toggleMute, playTransitionSfx };
+  return { isMuted, toggleMute, playTransitionSfx, setScene };
 }

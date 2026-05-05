@@ -33,7 +33,7 @@ function getSessionResolution(): Resolution {
 }
 
 export default function VideoWithControls() {
-  const { isMuted, toggleMute, playTransitionSfx } = useAudioEngine();
+  const { isMuted, toggleMute, playTransitionSfx, setScene } = useAudioEngine();
   const prevSceneRef = useRef<string | null>(null);
 
   // Increment to force-remount VideoTemplate (restarts recording lifecycle)
@@ -53,9 +53,10 @@ export default function VideoWithControls() {
       if (prevSceneRef.current !== null && prevSceneRef.current !== sceneKey) {
         playTransitionSfx();
       }
+      setScene(sceneKey);
       prevSceneRef.current = sceneKey;
     },
-    [playTransitionSfx],
+    [playTransitionSfx, setScene],
   );
 
   const handleExportClick = useCallback(() => {
