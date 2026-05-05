@@ -24,6 +24,8 @@ export interface UseVideoPlayerReturn {
   totalScenes: number;
   currentSceneKey: string;
   hasEnded: boolean;
+  jumpToScene: (index: number) => void;
+  sceneKeys: string[];
 }
 
 export function useVideoPlayer(options: UseVideoPlayerOptions): UseVideoPlayerReturn {
@@ -67,11 +69,20 @@ export function useVideoPlayer(options: UseVideoPlayerOptions): UseVideoPlayerRe
     return () => clearTimeout(timer);
   }, [currentScene, totalScenes, durationsArray, hasEnded, loop, onVideoEnd]);
 
+  const jumpToScene = (index: number) => {
+    if (index >= 0 && index < totalScenes) {
+      setCurrentScene(index);
+      setHasEnded(false);
+    }
+  };
+
   return {
     currentScene,
     totalScenes,
     currentSceneKey: sceneKeys[currentScene],
     hasEnded,
+    jumpToScene,
+    sceneKeys,
   };
 }
 

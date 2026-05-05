@@ -17,6 +17,15 @@ export const SCENE_DURATIONS: Record<string, number> = {
   outro: 8000,
 };
 
+const SCENE_LABELS: Record<string, string> = {
+  intro: 'Intro',
+  systemRescue: 'System Rescue',
+  aiServices: 'AI Services',
+  growthSystems: 'Growth Systems',
+  consulting: 'Consulting',
+  outro: 'Outro',
+};
+
 const SCENE_COMPONENTS: Record<string, React.ComponentType> = {
   intro: SceneIntro,
   systemRescue: SceneSystemRescue,
@@ -59,7 +68,7 @@ export default function VideoTemplate({
   loop?: boolean;
   onSceneChange?: (sceneKey: string) => void;
 } = {}) {
-  const { currentScene, currentSceneKey } = useVideoPlayer({ durations, loop });
+  const { currentScene, currentSceneKey, jumpToScene, sceneKeys } = useVideoPlayer({ durations, loop });
 
   useEffect(() => {
     onSceneChange?.(currentSceneKey);
@@ -161,6 +170,67 @@ export default function VideoTemplate({
           <SceneComponent key={currentSceneKey} />
         )}
       </AnimatePresence>
+
+      {/* Scene selector */}
+      <div
+        className="absolute bottom-6 left-1/2 flex items-center gap-3 px-4 py-2 rounded-full"
+        style={{
+          transform: 'translateX(-50%)',
+          background: 'rgba(10,22,40,0.7)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(74,196,224,0.15)',
+          zIndex: 50,
+        }}
+      >
+        {sceneKeys.map((key, index) => {
+          const isActive = baseSceneKey === key;
+          return (
+            <button
+              key={key}
+              onClick={() => jumpToScene(index)}
+              title={SCENE_LABELS[key] ?? key}
+              className="flex flex-col items-center gap-1 group"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '2px 4px' }}
+            >
+              <motion.div
+                animate={{
+                  width: isActive ? 24 : 8,
+                  background: isActive
+                    ? 'rgba(74,196,224,1)'
+                    : 'rgba(74,196,224,0.35)',
+                  boxShadow: isActive ? '0 0 8px rgba(74,196,224,0.7)' : 'none',
+                }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  height: 8,
+                  borderRadius: 4,
+                  flexShrink: 0,
+                }}
+              />
+              <motion.span
+                animate={{
+                  opacity: isActive ? 1 : 0,
+                  height: isActive ? 'auto' : 0,
+                }}
+                transition={{ duration: 0.2 }}
+                style={{
+                  fontSize: 9,
+                  fontFamily: 'Inter, sans-serif',
+                  fontWeight: 500,
+                  color: 'rgba(74,196,224,0.9)',
+                  letterSpacing: '0.05em',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  display: 'block',
+                  lineHeight: 1.2,
+                }}
+              >
+                {SCENE_LABELS[key] ?? key}
+              </motion.span>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
