@@ -56,12 +56,10 @@ Primary CTA: "Book a Systems Review" → https://calendly.com/clientverse/strate
 
 chatRouter.post("/chat", async (req, res) => {
   try {
-    const { messages } = req.body as {
-      messages: Array<{ role: "user" | "assistant"; content: string }>;
-    };
+    const { message } = req.body as { message: string };
 
-    if (!messages || !Array.isArray(messages)) {
-      res.status(400).json({ error: "messages array required" });
+    if (!message || typeof message !== "string") {
+      res.status(400).json({ error: "message string required" });
       return;
     }
 
@@ -69,7 +67,7 @@ chatRouter.post("/chat", async (req, res) => {
       model: "gpt-5-mini",
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
-        ...messages,
+        { role: "user", content: message },
       ],
       max_completion_tokens: 512,
     });
