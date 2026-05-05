@@ -5,6 +5,7 @@ import VideoTemplate, { SCENE_DURATIONS } from './VideoTemplate';
 import { useAudioEngine } from '@/hooks/useAudioEngine';
 
 const TOTAL_VIDEO_MS = Object.values(SCENE_DURATIONS).reduce((a, b) => a + b, 0);
+const TOTAL_VIDEO_S = Math.ceil(TOTAL_VIDEO_MS / 1000);
 
 export default function VideoWithControls() {
   const { isMuted, toggleMute, playTransitionSfx } = useAudioEngine();
@@ -13,7 +14,10 @@ export default function VideoWithControls() {
   // Increment to force-remount VideoTemplate (restarts recording lifecycle)
   const [videoKey, setVideoKey] = useState(0);
   const [isExporting, setIsExporting] = useState(false);
+  const [secondsRemaining, setSecondsRemaining] = useState(TOTAL_VIDEO_S);
   const exportTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const exportStartRef = useRef<number>(0);
 
   const handleSceneChange = useCallback(
     (sceneKey: string) => {
@@ -28,28 +32,45 @@ export default function VideoWithControls() {
   const handleExport = useCallback(() => {
     if (isExporting) return;
 
-    // Clear any previous export timer
+    // Clear any previous timers
     if (exportTimerRef.current) clearTimeout(exportTimerRef.current);
+    if (countdownRef.current) clearInterval(countdownRef.current);
 
     // Force-remount VideoTemplate so useVideoPlayer re-runs its mount effect,
     // which calls window.startRecording?.() and then window.stopRecording?.()
     // automatically at the end of the full playthrough.
     prevSceneRef.current = null;
+    exportStartRef.current = Date.now();
+    setSecondsRemaining(TOTAL_VIDEO_S);
     setIsExporting(true);
     setVideoKey(k => k + 1);
 
+    // Tick countdown every 250ms for smooth updates
+    countdownRef.current = setInterval(() => {
+      const elapsed = Date.now() - exportStartRef.current;
+      const remaining = Math.max(0, Math.ceil((TOTAL_VIDEO_MS - elapsed) / 1000));
+      setSecondsRemaining(remaining);
+    }, 250);
+
     // Mark export complete slightly after the full runtime so the UI is accurate
     exportTimerRef.current = setTimeout(() => {
+      if (countdownRef.current) clearInterval(countdownRef.current);
+      setSecondsRemaining(TOTAL_VIDEO_S);
       setIsExporting(false);
     }, TOTAL_VIDEO_MS + 500);
   }, [isExporting]);
 
-  // Clean up export timer on unmount to avoid stale state updates
+  // Clean up timers on unmount to avoid stale state updates
   useEffect(() => {
     return () => {
       if (exportTimerRef.current) clearTimeout(exportTimerRef.current);
+      if (countdownRef.current) clearInterval(countdownRef.current);
     };
   }, []);
+
+  const progressPct = isExporting
+    ? Math.min(100, ((TOTAL_VIDEO_S - secondsRemaining) / TOTAL_VIDEO_S) * 100)
+    : 0;
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
@@ -62,26 +83,58 @@ export default function VideoWithControls() {
       >
         {/* Export / MP4 button */}
         <div className="relative flex items-center">
-          {/* Tooltip */}
+          {/* Progress bar + countdown tooltip */}
           <motion.div
             style={{
               position: 'absolute',
               right: '110%',
               top: '50%',
               transform: 'translateY(-50%)',
-              whiteSpace: 'nowrap',
               pointerEvents: 'none',
-              fontFamily: 'var(--font-body)',
-              fontSize: 'clamp(10px, 0.85vw, 13px)',
-              color: 'rgba(74,196,224,0.7)',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              gap: '5px',
+              marginRight: '8px',
             }}
             initial={{ opacity: 0, x: 4 }}
-            animate={{ opacity: isExporting ? 0.9 : 0, x: isExporting ? 0 : 4 }}
+            animate={{ opacity: isExporting ? 1 : 0, x: isExporting ? 0 : 4 }}
             transition={{ duration: 0.3 }}
           >
-            Recording…
+            {/* Countdown label */}
+            <div
+              style={{
+                whiteSpace: 'nowrap',
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(10px, 0.85vw, 13px)',
+                color: 'rgba(74,196,224,0.85)',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+              }}
+            >
+              {secondsRemaining > 0 ? `Recording… ${secondsRemaining}s remaining` : 'Finishing…'}
+            </div>
+            {/* Progress bar */}
+            <div
+              style={{
+                width: 'clamp(90px, 8vw, 140px)',
+                height: '3px',
+                background: 'rgba(74,196,224,0.15)',
+                borderRadius: '2px',
+                overflow: 'hidden',
+              }}
+            >
+              <motion.div
+                style={{
+                  height: '100%',
+                  background: 'linear-gradient(90deg, rgba(74,196,224,0.5), rgba(74,196,224,1))',
+                  borderRadius: '2px',
+                  transformOrigin: 'left center',
+                }}
+                animate={{ width: `${progressPct}%` }}
+                transition={{ duration: 0.25, ease: 'linear' }}
+              />
+            </div>
           </motion.div>
 
           <motion.button
