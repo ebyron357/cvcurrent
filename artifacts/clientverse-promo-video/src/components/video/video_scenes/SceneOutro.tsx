@@ -9,9 +9,9 @@ export function SceneOutro() {
   useEffect(() => {
     const timers = [
       setTimeout(() => setPhase(1), 80),
-      setTimeout(() => setPhase(2), 600),
-      setTimeout(() => setPhase(3), 1500),
-      setTimeout(() => setPhase(4), 2600),
+      setTimeout(() => setPhase(2), 500),
+      setTimeout(() => setPhase(3), 1400),
+      setTimeout(() => setPhase(4), 2500),
       setTimeout(() => setPhase(5), 3800),
     ];
     return () => timers.forEach(clearTimeout);
@@ -51,19 +51,35 @@ export function SceneOutro() {
         />
       ))}
 
-      {/* Center teal dot */}
+      {/* CV diamond logo mark */}
       <motion.div
         style={{
-          width: 'clamp(12px, 1.5vw, 24px)',
-          height: 'clamp(12px, 1.5vw, 24px)',
-          background: '#4AC4E0',
-          borderRadius: '50%',
-          marginBottom: '4vh',
+          width: 'clamp(40px, 4.5vw, 70px)',
+          height: 'clamp(40px, 4.5vw, 70px)',
+          background: 'linear-gradient(135deg, #4AC4E0 0%, #2a8fa8 100%)',
+          borderRadius: '10px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: '2.5vh',
+          boxShadow: '0 0 30px rgba(74,196,224,0.45)',
+          flexShrink: 0,
         }}
-        initial={{ scale: 0, opacity: 0 }}
-        animate={phase >= 1 ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-      />
+        initial={{ scale: 0, opacity: 0, rotate: -15 }}
+        animate={phase >= 1 ? { scale: 1, opacity: 1, rotate: 0 } : { scale: 0, opacity: 0, rotate: -15 }}
+        transition={{ type: 'spring', stiffness: 380, damping: 22, delay: 0.08 }}
+      >
+        <span style={{
+          fontFamily: 'var(--font-display)',
+          fontWeight: 900,
+          fontSize: 'clamp(18px, 2vw, 32px)',
+          color: '#ffffff',
+          letterSpacing: '-0.04em',
+          lineHeight: 1,
+        }}>
+          CV
+        </span>
+      </motion.div>
 
       {/* Logo name — character reveal */}
       <div style={{ perspective: '1400px', marginBottom: '3vh' }}>
@@ -84,9 +100,9 @@ export function SceneOutro() {
               animate={phase >= 2 ? { opacity: 1, y: 0, rotateX: 0 } : { opacity: 0, y: 70, rotateX: -50 }}
               transition={{
                 type: 'spring',
-                stiffness: 350,
+                stiffness: 380,
                 damping: 24,
-                delay: phase >= 2 ? i * 0.04 : 0,
+                delay: phase >= 2 ? i * 0.038 : 0,
               }}
             >
               {char}
@@ -139,7 +155,7 @@ export function SceneOutro() {
         animate={phase >= 4 ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.6 }}
       >
-        One partner.
+        One partner. Every system.
       </motion.p>
 
       {/* Teal bottom bar that grows */}

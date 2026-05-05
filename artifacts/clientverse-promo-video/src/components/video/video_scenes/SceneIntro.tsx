@@ -7,10 +7,10 @@ export function SceneIntro() {
   useEffect(() => {
     const timers = [
       setTimeout(() => setPhase(1), 80),
-      setTimeout(() => setPhase(2), 400),
-      setTimeout(() => setPhase(3), 1100),
-      setTimeout(() => setPhase(4), 2200),
-      setTimeout(() => setPhase(5), 3800),
+      setTimeout(() => setPhase(2), 350),
+      setTimeout(() => setPhase(3), 900),
+      setTimeout(() => setPhase(4), 1800),
+      setTimeout(() => setPhase(5), 3200),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -27,10 +27,72 @@ export function SceneIntro() {
       exit={{ opacity: 0, scale: 1.04 }}
       transition={{ duration: 0.18, ease: 'circOut' }}
     >
+      {/* ClientVerse wordmark — top-left logo lockup */}
+      <motion.div
+        className="absolute"
+        style={{ left: '8vw', top: '5.5vh', display: 'flex', alignItems: 'center', gap: '0.75rem' }}
+        initial={{ opacity: 0, y: -10 }}
+        animate={phase >= 1 ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      >
+        {/* CV diamond mark */}
+        <motion.div
+          style={{
+            width: 'clamp(28px, 3vw, 46px)',
+            height: 'clamp(28px, 3vw, 46px)',
+            background: 'linear-gradient(135deg, #4AC4E0 0%, #2a8fa8 100%)',
+            borderRadius: '6px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+            boxShadow: '0 0 20px rgba(74,196,224,0.35)',
+          }}
+          initial={{ scale: 0, rotate: -20 }}
+          animate={phase >= 1 ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -20 }}
+          transition={{ type: 'spring', stiffness: 420, damping: 22, delay: 0.05 }}
+        >
+          <span style={{
+            fontFamily: 'var(--font-display)',
+            fontWeight: 900,
+            fontSize: 'clamp(13px, 1.4vw, 22px)',
+            color: '#ffffff',
+            letterSpacing: '-0.04em',
+            lineHeight: 1,
+          }}>
+            CV
+          </span>
+        </motion.div>
+
+        {/* Wordmark text */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+          <span style={{
+            fontFamily: 'var(--font-display)',
+            fontWeight: 800,
+            fontSize: 'clamp(15px, 1.6vw, 26px)',
+            color: '#ffffff',
+            letterSpacing: '-0.02em',
+            lineHeight: 1,
+          }}>
+            Client<span style={{ color: '#4AC4E0' }}>Verse</span>
+          </span>
+          <span style={{
+            fontFamily: 'var(--font-body)',
+            fontWeight: 500,
+            fontSize: 'clamp(8px, 0.75vw, 11px)',
+            color: 'rgba(74,196,224,0.7)',
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+          }}>
+            Business OS
+          </span>
+        </div>
+      </motion.div>
+
       {/* Teal accent bar — draws in */}
       <motion.div
         className="absolute left-0"
-        style={{ top: '12vh', height: '2px', background: 'linear-gradient(90deg, #4AC4E0, rgba(74,196,224,0))', originX: 0 }}
+        style={{ top: '17vh', height: '2px', background: 'linear-gradient(90deg, #4AC4E0, rgba(74,196,224,0))', originX: 0 }}
         initial={{ scaleX: 0, width: '55vw' }}
         animate={phase >= 1 ? { scaleX: 1, width: '55vw' } : { scaleX: 0, width: '55vw' }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -65,7 +127,7 @@ export function SceneIntro() {
       {/* Main headline — character stagger */}
       <div
         className="absolute"
-        style={{ left: '8vw', top: '28vh', perspective: '1200px' }}
+        style={{ left: '8vw', top: '24vh', perspective: '1200px' }}
       >
         <div style={{ fontFamily: 'var(--font-display)', fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 0.88 }}>
           <div className="flex flex-wrap" style={{ maxWidth: '80vw' }}>
@@ -83,9 +145,9 @@ export function SceneIntro() {
                 animate={phase >= 2 ? { opacity: 1, y: 0, rotateX: 0 } : { opacity: 0, y: 60, rotateX: -45 }}
                 transition={{
                   type: 'spring',
-                  stiffness: 380,
-                  damping: 26,
-                  delay: phase >= 2 ? i * 0.022 : 0,
+                  stiffness: 400,
+                  damping: 28,
+                  delay: phase >= 2 ? i * 0.018 : 0,
                 }}
               >
                 {char === ' ' ? '\u00A0' : char}
@@ -119,7 +181,7 @@ export function SceneIntro() {
           {subline}
         </motion.p>
 
-        {/* Tag */}
+        {/* CTA tag */}
         <motion.div
           style={{ marginTop: '3vh', display: 'flex', alignItems: 'center', gap: '1rem' }}
           initial={{ opacity: 0, y: 10 }}
@@ -135,7 +197,7 @@ export function SceneIntro() {
             letterSpacing: '0.15em',
             textTransform: 'uppercase',
           }}>
-            ClientVerse
+            The Platform Built For Growth
           </span>
         </motion.div>
       </div>
