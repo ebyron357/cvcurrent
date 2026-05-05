@@ -5,7 +5,7 @@
     "filepath": "src/pages/slides/Slide01Title.tsx",
     "title": "Title",
     "description": "The Operational Backbone Your Company Has Been Missing.",
-    "speakerNotes": ""
+    "speakerNotes": "Welcome and thank you for your time. What you're looking at is the core promise of ClientVerse: we are the operational backbone that most scaling companies desperately need but never build. Most companies invest heavily in sales, marketing, and product — but the infrastructure holding all of it together is duct-taped, undocumented, and one bad week away from breaking. That's the gap we fill. In the next ten slides, I'll show you exactly how we do it, what that looks like in practice, and how we work with companies like yours. Let's get into it."
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567802",
@@ -13,7 +13,7 @@
     "filepath": "src/pages/slides/Slide02Problem.tsx",
     "title": "The Challenge",
     "description": "Scaling breaks systems that were never built to scale.",
-    "speakerNotes": ""
+    "speakerNotes": "Here's the pattern we see over and over again. A company grows fast — revenue is up, team is expanding, clients are coming in — and then things start breaking. Not because the team isn't smart, but because the systems were never architected to handle volume. There are three root causes. First, tech debt compounds silently. Every patched automation and disconnected tool creates fragility that shows up at the worst possible moment. Second, no one actually owns operations. Sales owns revenue. Fulfillment owns delivery. But the infrastructure between them? It's a grey zone. And third — the instinct is always to hire more people. But if the system is broken, more people just create more chaos. You have to fix the architecture first. That's where we come in."
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567803",
@@ -21,7 +21,7 @@
     "filepath": "src/pages/slides/Slide03WhatWeDo.tsx",
     "title": "What We Do",
     "description": "A Full Operational Ecosystem. Built to Run.",
-    "speakerNotes": ""
+    "speakerNotes": "ClientVerse is a full operational ecosystem — we're not a software vendor, and we're not a staffing agency. We build, repair, and operate the systems, automation, AI, and infrastructure that scaling companies need. Think of us as a dedicated operations partner embedded in your business. The three modes we work in are Build, Repair, and Operate. Build is for companies that need to create something net new. Repair — our System Rescue™ protocol — is for companies that are buried in legacy chaos. And Operate is a retained partnership where we run and optimize your infrastructure on an ongoing basis. Most clients start in one mode and expand into others as the relationship deepens."
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567804",
@@ -29,7 +29,7 @@
     "filepath": "src/pages/slides/Slide04HowWeWork.tsx",
     "title": "How We Work",
     "description": "Every engagement follows a deliberate mode — Build, Repair, or Operate.",
-    "speakerNotes": ""
+    "speakerNotes": "Every engagement we take on starts with a clear mode selection — because showing up without a defined scope is how projects fail. Build engagements are project-scoped: we design, construct, and hand over a fully documented system. No ambiguity, no open-ended retainers you didn't ask for. Repair is our System Rescue™ protocol — we go deep into your existing stack, audit everything, clean up the wreckage, and rebuild on a stable foundation. And Operate is for companies that don't have an internal RevOps or operations function — we become that function. The key distinction: we always know which mode we're in, and so does the client. That clarity is what lets us move fast without creating new problems."
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567805",
@@ -37,7 +37,7 @@
     "filepath": "src/pages/slides/Slide05Services.tsx",
     "title": "Service Architecture",
     "description": "10 service categories covering the full operational stack.",
-    "speakerNotes": ""
+    "speakerNotes": "This slide shows the full breadth of what we cover — ten service categories across the entire operational stack. Growth Systems handles CRM setup, lead scoring, and pipeline automation. Scale Systems focuses on process standardization and fulfillment workflows so you can actually deliver at volume. Enterprise Systems covers ERP integration and custom applications for more complex organizations. AI Services deploys custom agents and automation where it creates real operational value. System Rescue™ is our repair arm — audit, cleanup, rebuild, migration, and ongoing optimization. Beyond those, we handle Content and Social distribution, Web and Funnel conversion work, Consulting and tech stack audits, Outsourcing and BPO integration, and Ongoing Support with continuous monitoring. The reason we cover this much ground is that operational problems don't live in one category. They span all of them."
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567806",
@@ -45,7 +45,7 @@
     "filepath": "src/pages/slides/Slide06SystemRescue.tsx",
     "title": "System Rescue™",
     "description": "Audit™, Cleanup™, Rebuild™, Migration™, Optimization™.",
-    "speakerNotes": ""
+    "speakerNotes": "System Rescue™ is our flagship offering and honestly the one that gets the most urgent inbound. If your tech stack is broken — and most of our clients know it is before they call us — this is where we start. The protocol has five stages. Audit: we do a full diagnostic of every system, automation, and data flow. We map what exists, what's broken, and what's costing you money. Cleanup: we remove the dead weight — broken automations, duplicate records, zombie integrations. Rebuild: we re-architect the core workflows on a clean, documented foundation. Migration: if you need to move platforms, we handle it cleanly with no data loss and no downtime. And Optimization: once the system is stable, we don't walk away — we continuously improve it. The reason we trademark each phase is because they're repeatable, documented processes. Not guesswork."
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567807",
@@ -53,7 +53,7 @@
     "filepath": "src/pages/slides/Slide07AIServices.tsx",
     "title": "AI Services",
     "description": "Practical AI deployed to production.",
-    "speakerNotes": ""
+    "speakerNotes": "AI is one of the most overhyped and underdelivered categories in business right now. Everyone is talking about it. Very few companies are actually running AI in production in a way that generates measurable ROI. That's the gap we fill. We build Custom AI Agents — purpose-built agents that handle specific workflows autonomously, not demos that get shelved after the first meeting. We deploy Support Automation that reduces ticket volume without degrading the quality of the response your customers receive. We build Content Generation pipelines that integrate directly into your CMS and publish on schedule. And we extract real insight from operational data through automated reporting and data analysis. Everything we deploy is documented, monitored, and operational — not experimental."
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567808",
@@ -61,7 +61,7 @@
     "filepath": "src/pages/slides/Slide08Engagement.tsx",
     "title": "Engagement Models",
     "description": "Build, System Rescue™, Operate, Enterprise Systems.",
-    "speakerNotes": ""
+    "speakerNotes": "We structure our engagements around your actual situation, not a pricing tier we made up. Build is project-scoped: you need a specific system, we build it, document it, and hand it over. Clean start, clear finish. System Rescue™ is for companies in operational distress — technical debt, broken CRM migrations, automations that no one understands anymore. We go in, fix it, and leave it stable. Operate is a retained partnership — we act as your operations team on an ongoing basis, which is ideal when you don't have internal RevOps capacity and can't justify the headcount yet. And Enterprise Systems is for larger organizations with multi-department complexity, compliance requirements, and infrastructure at serious scale. If you're unsure which model fits, that's what the Systems Review call is for — we'll scope it precisely."
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567809",
@@ -69,7 +69,7 @@
     "filepath": "src/pages/slides/Slide09WhoWeServe.tsx",
     "title": "Who We Serve",
     "description": "Companies building for serious scale.",
-    "speakerNotes": ""
+    "speakerNotes": "We are very intentional about who we work with — and equally clear about who we don't. Our clients share three characteristics. One: they're already generating revenue and growing, but their backend systems are straining under the load. Two: there's no dedicated operations function — often it's a founder or a sales leader who is personally absorbing the ops burden, which is unsustainable. Three: they need a platform-agnostic partner — not a vendor pushing a specific software stack, not a reseller with a margin to protect. They need an independent operator who can look at their entire stack objectively and build what's right for them. Just as important: if you're looking for generic subscription software, a GoHighLevel reseller, or off-the-shelf templates, we are genuinely not the right fit. We build custom. That's the only way we work."
   },
   {
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567810",
@@ -77,6 +77,6 @@
     "filepath": "src/pages/slides/Slide10CTA.tsx",
     "title": "Start With a Systems Review",
     "description": "Book a strategy call at calendly.com/clientverse/strategy-call.",
-    "speakerNotes": ""
+    "speakerNotes": "The next step is simple: book a Systems Review. This is a focused strategy call where we diagnose your biggest operational bottleneck and scope a precise engagement. No generic proposals, no upsells into a subscription you didn't ask for — just a clear picture of what's broken and what fixing it would look like. You can book directly at calendly.com/clientverse/strategy-call. If you have questions before then, reach us at support@clientverse.io. Thank you for your time today. The companies that move fastest aren't the ones who close the most deals — they're the ones whose operations can actually support the growth. That's what we build."
   }
 ]
