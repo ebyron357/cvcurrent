@@ -6,8 +6,6 @@ interface Message {
   content: string;
 }
 
-const API_BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
-
 export default function MrClientVerse() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -43,7 +41,7 @@ export default function MrClientVerse() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_BASE}/api/chat`, {
+      const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
