@@ -1,0 +1,31 @@
+kind = "slides"
+previewPath = "/cv-pitch-deck/"
+title = "ClientVerse Pitch Deck"
+version = "1.0.0"
+id = "artifacts/cv-pitch-deck"
+router = "path"
+
+[[integratedSkills]]
+name = "slides"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/cv-pitch-deck/" ]
+localPort = 20866
+
+[services.development]
+run = "pnpm --filter @workspace/cv-pitch-deck run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/cv-pitch-deck", "run", "build" ]
+publicDir = "artifacts/cv-pitch-deck/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20866"
+BASE_PATH = "/cv-pitch-deck/"

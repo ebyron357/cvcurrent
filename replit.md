@@ -39,6 +39,16 @@ See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and pa
 - **No backend** — fully static frontend, no API routes
 - **Note**: `vite.config.ts` hard-requires `PORT` and `BASE_PATH` env vars. These are wired automatically by Replit workflows — do NOT run `pnpm dev` ad-hoc without them.
 
+### ClientVerse Pitch Deck (`artifacts/cv-pitch-deck`)
+- **Type**: slides artifact
+- **Preview path**: `/cv-pitch-deck/`
+- **Port**: 20866 (set via `PORT` env var)
+- **Description**: 10-slide company pitch deck covering problem, services, System Rescue™, engagement models, and CTA
+- **Brand**: Dark navy `#0A1628`, teal `#4AC4E0`, Inter font
+- **Slides**: Title, The Challenge, What We Do, How We Work, Service Architecture, System Rescue™, AI Services, Engagement Models, Who We Serve, CTA
+- **Hero image**: `public/hero-bg.png`
+- **Note**: `artifacts/clientverse-pitch-deck` is a deprecated predecessor — do not use it. `cv-pitch-deck` is canonical.
+
 ### API Server (`artifacts/api-server`)
 - **Type**: Express API server
 - **Preview path**: `/api`
