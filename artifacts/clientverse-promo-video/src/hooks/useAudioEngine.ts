@@ -7,6 +7,24 @@ import { useRef, useCallback, useEffect, useState } from 'react';
 const DRONE_FREQS = [73.4, 73.4 * 1.003, 110.0, 174.6, 220.0];
 const REVERB_DURATION = 3.0; // seconds
 
+const STORAGE_KEY = 'cv_audio_muted';
+
+function getSavedMutePreference(): boolean {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === null) return true; // first-ever visit: always start muted
+    return saved === 'true';
+  } catch {
+    return true;
+  }
+}
+
+function saveMutePreference(muted: boolean): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, String(muted));
+  } catch { /* ignore quota/security errors */ }
+}
+
 function buildImpulseResponse(ctx: AudioContext): AudioBuffer {
   const length = Math.floor(ctx.sampleRate * REVERB_DURATION);
   const buf = ctx.createBuffer(2, length, ctx.sampleRate);
@@ -32,7 +50,7 @@ export function useAudioEngine(): AudioEngine {
   const oscNodesRef = useRef<OscillatorNode[]>([]);
   const lfoRef = useRef<OscillatorNode | null>(null);
   const startedRef = useRef(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState<boolean>(() => getSavedMutePreference());
 
   // Build and start the ambient engine
   const startEngine = useCallback(() => {
@@ -148,6 +166,8 @@ export function useAudioEngine(): AudioEngine {
     setIsMuted(prev => {
       const nextMuted = !prev;
 
+      saveMutePreference(nextMuted);
+
       if (!startedRef.current && !nextMuted) {
         // First unmute — bootstrap the engine
         startEngine();
@@ -173,6 +193,35 @@ export function useAudioEngine(): AudioEngine {
       return nextMuted;
     });
   }, [startEngine]);
+
+  // If the user previously unmuted, pre-start the engine so it's ready.
+  // The AudioContext will be suspended until a user gesture, at which point
+  // we resume it automatically on the first interaction.
+  useEffect(() => {
+    const savedMuted = getSavedMutePreference();
+    if (savedMuted) return; // user left it muted — do nothing
+
+    // Start the engine (AudioContext begins suspended — browser autoplay policy)
+    startEngine();
+
+    // Resume + unmute on the very first interaction gesture
+    const resume = () => {
+      if (ctxRef.current && ctxRef.current.state === 'suspended') {
+        ctxRef.current.resume();
+      }
+      document.removeEventListener('click', resume, true);
+      document.removeEventListener('keydown', resume, true);
+    };
+
+    document.addEventListener('click', resume, true);
+    document.addEventListener('keydown', resume, true);
+
+    return () => {
+      document.removeEventListener('click', resume, true);
+      document.removeEventListener('keydown', resume, true);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Per-scene transition SFX: short digital sweep/whoosh
   const playTransitionSfx = useCallback(() => {
