@@ -65,33 +65,21 @@ chatRouter.post("/chat", async (req, res) => {
       return;
     }
 
-    res.setHeader("Content-Type", "text/event-stream");
-    res.setHeader("Cache-Control", "no-cache");
-    res.setHeader("Connection", "keep-alive");
-
-    const stream = await openai.chat.completions.create({
+    const response = await openai.chat.completions.create({
       model: "gpt-5-mini",
-      max_completion_tokens: 512,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         ...messages,
       ],
-      stream: true,
+      max_completion_tokens: 512,
     });
 
-    for await (const chunk of stream) {
-      const content = chunk.choices[0]?.delta?.content;
-      if (content) {
-        res.write(`data: ${JSON.stringify({ content })}\n\n`);
-      }
-    }
-
-    res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
-    res.end();
-  } catch (err) {
-    console.error("Chat error:", err);
-    res.write(`data: ${JSON.stringify({ error: "Something went wrong." })}\n\n`);
-    res.end();
+    res.json({
+      reply: response.choices[0].message.content,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Something went wrong" });
   }
 });
 

@@ -18,13 +18,13 @@ export default function MrClientVerse() {
     },
   ]);
   const [input, setInput] = useState("");
-  const [streaming, setStreaming] = useState(false);
+  const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, streaming]);
+  }, [messages, loading]);
 
   useEffect(() => {
     if (open) {
@@ -34,16 +34,13 @@ export default function MrClientVerse() {
 
   async function sendMessage() {
     const text = input.trim();
-    if (!text || streaming) return;
+    if (!text || loading) return;
 
     const userMsg: Message = { role: "user", content: text };
     const updatedMessages = [...messages, userMsg];
-    setMessages(updatedMessages);
+    setMessages([...updatedMessages, { role: "assistant", content: "" }]);
     setInput("");
-    setStreaming(true);
-
-    const assistantMsg: Message = { role: "assistant", content: "" };
-    setMessages([...updatedMessages, assistantMsg]);
+    setLoading(true);
 
     try {
       const res = await fetch(`${API_BASE}/api/chat`, {
@@ -57,52 +54,17 @@ export default function MrClientVerse() {
         }),
       });
 
-      const reader = res.body?.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
-      let fullContent = "";
+      const data = await res.json();
+      const reply = data.reply ?? "I'm having trouble connecting right now. Please try again.";
 
-      if (!reader) throw new Error("No stream");
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split("\n");
-        buffer = lines.pop() ?? "";
-
-        for (const line of lines) {
-          if (!line.startsWith("data: ")) continue;
-          const raw = line.slice(6);
-          try {
-            const parsed = JSON.parse(raw);
-            if (parsed.content) {
-              fullContent += parsed.content;
-              setMessages((prev) => {
-                const next = [...prev];
-                next[next.length - 1] = {
-                  role: "assistant",
-                  content: fullContent,
-                };
-                return next;
-              });
-            }
-          } catch {
-          }
-        }
-      }
+      setMessages([...updatedMessages, { role: "assistant", content: reply }]);
     } catch {
-      setMessages((prev) => {
-        const next = [...prev];
-        next[next.length - 1] = {
-          role: "assistant",
-          content: "I'm having trouble connecting right now. Please try again.",
-        };
-        return next;
-      });
+      setMessages([
+        ...updatedMessages,
+        { role: "assistant", content: "I'm having trouble connecting right now. Please try again." },
+      ]);
     } finally {
-      setStreaming(false);
+      setLoading(false);
     }
   }
 
@@ -216,12 +178,12 @@ export default function MrClientVerse() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKey}
                   placeholder="Ask about our services…"
-                  disabled={streaming}
+                  disabled={loading}
                   className="flex-1 bg-transparent text-sm text-white placeholder-gray-500 outline-none disabled:opacity-50"
                 />
                 <button
                   onClick={sendMessage}
-                  disabled={streaming || !input.trim()}
+                  disabled={loading || !input.trim()}
                   className="flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-lg transition-all disabled:opacity-30"
                   style={{ background: "#4AC4E0", color: "#0A1628" }}
                   aria-label="Send"
