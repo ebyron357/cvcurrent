@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import * as Linking from "expo-linking";
-import React from "react";
+import React, { useState } from "react";
 import {
   Platform,
   Pressable,
@@ -12,6 +12,8 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { BookingReminderModal } from "@/components/BookingReminderModal";
+import { scheduleBookingConfirmation } from "@/hooks/useBookingNotification";
 import { useColors } from "@/hooks/useColors";
 
 const CALENDLY_URL = "https://calendly.com/clientverse/strategy-call";
@@ -44,15 +46,19 @@ export default function HomeScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const isWeb = Platform.OS === "web";
+  const [reminderVisible, setReminderVisible] = useState(false);
 
   const handleBooking = async () => {
     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    void scheduleBookingConfirmation();
     await Linking.openURL(CALENDLY_URL);
+    if (!isWeb) setReminderVisible(true);
   };
 
   const topPadding = isWeb ? 67 : insets.top;
 
   return (
+    <>
     <ScrollView
       style={[styles.scroll, { backgroundColor: colors.background }]}
       contentContainerStyle={[
@@ -166,6 +172,11 @@ export default function HomeScreen() {
         </Pressable>
       </View>
     </ScrollView>
+    <BookingReminderModal
+      visible={reminderVisible}
+      onClose={() => setReminderVisible(false)}
+    />
+    </>
   );
 }
 

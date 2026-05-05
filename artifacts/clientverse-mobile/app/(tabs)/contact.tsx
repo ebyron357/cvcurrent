@@ -14,6 +14,8 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { BookingReminderModal } from "@/components/BookingReminderModal";
+import { scheduleBookingConfirmation } from "@/hooks/useBookingNotification";
 import { useColors } from "@/hooks/useColors";
 
 const CALENDLY_URL = "https://calendly.com/clientverse/strategy-call";
@@ -337,10 +339,13 @@ export default function ContactScreen() {
   const insets = useSafeAreaInsets();
   const isWeb = Platform.OS === "web";
   const topPadding = isWeb ? 67 : insets.top;
+  const [reminderVisible, setReminderVisible] = useState(false);
 
   const handleBooking = async () => {
     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    void scheduleBookingConfirmation();
     await Linking.openURL(CALENDLY_URL);
+    if (!isWeb) setReminderVisible(true);
   };
 
   const handleEmail = async () => {
@@ -348,6 +353,7 @@ export default function ContactScreen() {
   };
 
   return (
+    <>
     <ScrollView
       style={[styles.scroll, { backgroundColor: colors.background }]}
       contentContainerStyle={[
@@ -469,6 +475,11 @@ export default function ContactScreen() {
         <FAQItem key={faq.q} faq={faq} />
       ))}
     </ScrollView>
+    <BookingReminderModal
+      visible={reminderVisible}
+      onClose={() => setReminderVisible(false)}
+    />
+    </>
   );
 }
 
