@@ -383,10 +383,10 @@ export default function SaigOs() {
               <UsersThree size={36} color="#4AC4E0" weight="duotone" />
             </div>
             <div className="flex-1 text-center md:text-left">
-              <p className="text-xs text-[#4AC4E0] font-bold tracking-widest uppercase mb-2">Federal & SDVOSB Eligible</p>
+              <p className="text-xs text-[#4AC4E0] font-bold tracking-widest uppercase mb-2">Federal & Veteran-Owned Eligible</p>
               <h3 className="text-2xl font-bold mb-3">SAIG-OS for Government Contractors</h3>
               <p className="text-gray-400 leading-relaxed">
-                As a Service-Disabled Veteran-Owned Small Business, ClientVerse can deliver SAIG-OS as part of CMMC and federal AI compliance readiness engagements. Government agencies can procure through the GSA Schedule once registered — no full procurement process required. NAICS codes: 541511, 541519, 541613.
+                As a veteran-owned small business, ClientVerse can deliver SAIG-OS as part of CMMC and federal AI compliance readiness engagements. Government agencies can procure through the GSA Schedule once registered — no full procurement process required. NAICS codes: 541511, 541519, 541613.
               </p>
             </div>
             <Button

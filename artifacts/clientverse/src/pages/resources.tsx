@@ -70,7 +70,7 @@ const guides = [
   },
   {
     title: "Veteran Entrepreneurs: The AI Tools That Run Your Business",
-    description: "Built specifically for veteran-owned businesses entering the AI era — what to implement first, what to avoid, and how to access SDVOSB-specific resources.",
+    description: "Built specifically for veteran-owned businesses entering the AI era — what to implement first, what to avoid, and how to access veteran-owned business resources.",
     cta: "Read via Consultation",
   },
 ];

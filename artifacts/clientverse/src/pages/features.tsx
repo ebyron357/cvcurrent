@@ -104,7 +104,7 @@ const comparison = [
   { feature: "7-day go-live", cv: true, reseller: false, agency: false, diy: false },
   { feature: "Proprietary audit methodology", cv: true, reseller: false, agency: false, diy: false },
   { feature: "Embedded business funding", cv: true, reseller: false, agency: false, diy: false },
-  { feature: "SDVOSB / Federal eligible", cv: true, reseller: false, agency: false, diy: false },
+  { feature: "Veteran-owned / Federal eligible", cv: true, reseller: false, agency: false, diy: false },
   { feature: "AI Security Audit", cv: true, reseller: false, agency: false, diy: false },
   { feature: "Under $1,000/mo for full stack", cv: true, reseller: true, agency: false, diy: true },
 ];

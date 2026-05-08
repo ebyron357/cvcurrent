@@ -76,7 +76,7 @@ const tiers = [
     name: "ENTERPRISE / FEDERAL",
     price: null,
     setup: null,
-    badge: "SDVOSB Eligible",
+    badge: "Veteran-Owned",
     replaces: "Full custom stack",
     tagline: "Federal-grade infrastructure. Compliance-ready. Custom-built.",
     features: [
@@ -85,7 +85,7 @@ const tiers = [
       "AI Security Audit",
       "Compliance documentation",
       "Federal contract readiness",
-      "SDVOSB positioning support",
+      "Veteran-owned business positioning",
       "Custom integrations & SLAs",
     ],
   },
