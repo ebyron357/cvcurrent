@@ -18,6 +18,8 @@ import {
   Wrench,
   ChatCircle,
   UsersThree,
+  MagnifyingGlass,
+  HandCoins,
 } from "@phosphor-icons/react";
 
 const recurringServices = [
@@ -26,7 +28,8 @@ const recurringServices = [
   { name: "Google + Meta Ads Management", price: "$997–2,497/mo", Icon: Megaphone, desc: "Done-for-you paid ad campaigns across Google and Meta. Strategy, creative, optimization, and monthly reporting — all handled.", tag: "High margin" },
   { name: "Social Media Management", price: "$297/mo", Icon: ChatCircle, desc: "Content creation, scheduling, and posting across platforms. Outsourced to a vetted content partner at flat monthly cost.", tag: "Managed" },
   { name: "Done-For-You Content Creation", price: "$497/mo", Icon: Globe, desc: "Blog posts, landing page copy, and brand content — AI-drafted and human-refined. Delivered white-labeled under your brand.", tag: "Managed" },
-  { name: "AI Voice Agent Management", price: "$497/mo", Icon: Phone, desc: "24/7 AI receptionist that books appointments, handles FAQs, and escalates intelligently. Configured and managed for the client.", tag: "AI-powered" },
+  { name: "AI Voice Agent Management", price: "$497/mo", Icon: Phone, desc: "24/7 AI receptionist powered by Retell AI. Includes 1,000 minutes/mo — books appointments, handles FAQs, escalates intelligently. Overage billed at $0.35/min. Configured and managed.", tag: "AI-powered" },
+  { name: "AI Search Visibility (GEO/AEO)", price: "$497–$997/mo", Icon: MagnifyingGlass, desc: "Optimize your business to appear in ChatGPT, Perplexity, and Gemini answers — not just Google. Includes monthly AI visibility audit, structured data, and schema markup. Emerging category with almost zero local competition.", tag: "Premium" },
   { name: "Call Tracking & Recording", price: "$97/mo", Icon: Phone, desc: "Every inbound call tracked, recorded, and visible in the client dashboard. Shows which ads and channels drive real calls.", tag: "Managed" },
   { name: "Voicemail Drop Campaigns", price: "$197/mo", Icon: Phone, desc: "Pre-recorded voicemails dropped directly to prospect inboxes — phone never rings. VA-managed execution.", tag: "Managed" },
   { name: "Website Maintenance", price: "$197/mo", Icon: Wrench, desc: "Ongoing site updates, speed optimization, uptime monitoring, and plugin/security patches. Outsourced via vetted partners.", tag: "Managed" },
@@ -41,6 +44,7 @@ const oneTimeServices = [
   { name: "AI Security Setup", price: "$1,500–$2,500", Icon: Shield, desc: "Execution of security recommendations — 2FA rollout, data protocol setup, phishing training. Delivered via vetted veteran tech professionals." },
   { name: "Website Build", price: "$2,500–$5,000", Icon: Globe, desc: "Full website design and build delivered white-labeled. You maintain the client relationship. Includes landing pages and funnel setup." },
   { name: "Capital Stack Setup", price: "$4,500–$6,500", Icon: CurrencyDollar, desc: "Configure 4–5 embedded financial partners (Lendio, Relay, BlueVine, NMI, Stripe Capital) with eligibility monitoring workflows. Zero fulfillment cost." },
+  { name: "Client Financing Setup (Wisetack)", price: "$500", Icon: HandCoins, desc: "Help your clients offer 'buy now, pay later' to their own customers — raising close rates and average ticket size. Partner/referral model — zero tech build. Best for HVAC, dental, roofing, med spa, and home services clients.", highlight: false },
   { name: "SAIG-OS™ AI Governance Setup", price: "$1,500–$7,500", Icon: Shield, desc: "Documented AI governance framework for nonprofits, healthcare, education, and small businesses. Personal delivery. Zero competition.", highlight: true },
   { name: "Industry Snapshot", price: "$297–$997", Icon: Buildings, desc: "Pre-built GHL account setups for specific industries (HVAC, Dental, Real Estate, Veteran-Owned). Build once. Zero fulfillment after that." },
   { name: "CRM Audit + Cleanup", price: "$797", Icon: Wrench, desc: "Full account audit via Claude + GHL MCP — duplicate contacts, dead pipelines, broken automations, lost leads. Every fix applied. Written report delivered." },
@@ -154,6 +158,113 @@ export default function Services() {
             <p className="text-sm text-gray-400">
               Setup takes under 15 minutes per client. Claude reads contacts, pipelines, conversations, tags, and custom fields — and writes back. Official GHL MCP: <span className="text-[#4AC4E0]">marketplace.gohighlevel.com/docs/other/mcp</span>
             </p>
+          </div>
+        </section>
+
+        {/* New Services Spotlight */}
+        <section className="container mx-auto px-4 py-16 max-w-5xl">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 rounded-full px-4 py-1.5 text-sm text-[#4AC4E0] font-medium mb-4">
+              New — Just Added
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              Two New Services <span className="text-[#4AC4E0]">Worth Knowing About</span>
+            </h2>
+            <p className="text-gray-400 max-w-xl mx-auto text-sm">
+              One raises your clients' close rates. The other puts them in front of AI search engines before any competitor does.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* AI Search Visibility */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-[#0D1B2E] border border-[#4AC4E0]/30 rounded-2xl p-8"
+            >
+              <div className="flex items-start gap-4 mb-5">
+                <div
+                  className="rounded-xl flex items-center justify-center shrink-0"
+                  style={{ width: 56, height: 56, background: "rgba(74,196,224,0.08)", border: "1.5px solid rgba(74,196,224,0.5)", boxShadow: "0 0 16px rgba(74,196,224,0.15)" }}
+                >
+                  <MagnifyingGlass size={26} color="#4AC4E0" weight="duotone" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="font-bold text-lg">AI Search Visibility</h3>
+                    <span className="text-[10px] font-bold text-[#4AC4E0] bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 px-2 py-0.5 rounded-full uppercase tracking-wider">GEO / AEO</span>
+                  </div>
+                  <p className="text-[#4AC4E0] font-semibold text-sm">$497–$997/mo retainer</p>
+                </div>
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed mb-5">
+                Google is no longer the only search engine that matters. ChatGPT, Perplexity, and Gemini are answering questions your clients' customers are asking — and right now, almost no local business shows up. We fix that with structured data, schema markup, and monthly AI visibility audits.
+              </p>
+              <div className="space-y-2 mb-5">
+                {[
+                  "Monthly AI visibility report (ChatGPT, Perplexity, Gemini)",
+                  "Structured data + schema markup implementation",
+                  "Sell the audit first — tools engaged after client pays",
+                  "Near-zero local competition — genuine first-mover advantage",
+                ].map((point) => (
+                  <div key={point} className="flex items-start gap-2 text-xs text-gray-300">
+                    <CheckCircle size={13} weight="duotone" color="#4AC4E0" className="mt-0.5 shrink-0" />
+                    {point}
+                  </div>
+                ))}
+              </div>
+              <Button asChild size="sm" className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold w-full flex items-center gap-1.5">
+                <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
+                  Get an AI Visibility Audit <ArrowRight size={14} weight="bold" />
+                </a>
+              </Button>
+            </motion.div>
+
+            {/* Wisetack Client Financing */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.08 }}
+              className="bg-[#0D1B2E] border border-[#4AC4E0]/30 rounded-2xl p-8"
+            >
+              <div className="flex items-start gap-4 mb-5">
+                <div
+                  className="rounded-xl flex items-center justify-center shrink-0"
+                  style={{ width: 56, height: 56, background: "rgba(74,196,224,0.08)", border: "1.5px solid rgba(74,196,224,0.5)", boxShadow: "0 0 16px rgba(74,196,224,0.15)" }}
+                >
+                  <HandCoins size={26} color="#4AC4E0" weight="duotone" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="font-bold text-lg">Client Financing Setup</h3>
+                    <span className="text-[10px] font-bold text-[#4AC4E0] bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 px-2 py-0.5 rounded-full uppercase tracking-wider">Wisetack</span>
+                  </div>
+                  <p className="text-[#4AC4E0] font-semibold text-sm">$500 one-time setup</p>
+                </div>
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed mb-5">
+                Help your clients offer "buy now, pay later" to their own customers. When a $4,000 HVAC job becomes 12 payments of $350, more customers say yes — and your client closes bigger tickets without doing anything differently. Partner model — no software to build, no cash to carry.
+              </p>
+              <div className="space-y-2 mb-5">
+                {[
+                  "Best for HVAC, dental, roofing, med spa, home services",
+                  "Partner/referral model — zero upfront cost to ClientVerse",
+                  "Raises client close rates and average ticket size immediately",
+                  "No financing infrastructure to build — Wisetack handles everything",
+                ].map((point) => (
+                  <div key={point} className="flex items-start gap-2 text-xs text-gray-300">
+                    <CheckCircle size={13} weight="duotone" color="#4AC4E0" className="mt-0.5 shrink-0" />
+                    {point}
+                  </div>
+                ))}
+              </div>
+              <Button asChild size="sm" className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold w-full flex items-center gap-1.5">
+                <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
+                  Add Financing to My Client Stack <ArrowRight size={14} weight="bold" />
+                </a>
+              </Button>
+            </motion.div>
           </div>
         </section>
 

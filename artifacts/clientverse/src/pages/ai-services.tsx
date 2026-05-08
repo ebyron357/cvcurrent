@@ -24,10 +24,10 @@ const services = [
     Icon: Phone,
     name: "AI Voice Agent",
     tagline: "Your business answers every call. 24 hours a day. 7 days a week.",
-    price: "$497/mo",
+    price: "$497/mo — 1,000 min included",
     setupTime: "48-hr setup",
     description:
-      "A fully trained AI receptionist that handles inbound calls, answers FAQs using your business knowledge, books appointments directly into your calendar, and escalates complex calls to a human. It speaks naturally — full conversations, not menu trees.",
+      "A fully trained AI receptionist powered by Retell AI that handles inbound calls, answers FAQs using your business knowledge, books appointments directly into your calendar, and escalates complex calls to a human. Includes 1,000 minutes per month — overage billed at $0.35/min. Speaks naturally — full conversations, not menu trees.",
     problems: [
       "Missed calls after hours that go to voicemail and never call back",
       "Front desk staff spending 40% of their day answering the same 8 questions",
@@ -36,6 +36,7 @@ const services = [
     ],
     outcomes: [
       "Every call answered under 2 rings, 24/7/365",
+      "1,000 minutes/mo included — overage at $0.35/min, billed transparently",
       "Appointments booked without a human involved",
       "FAQs handled automatically — pricing, hours, services, location",
       "Call recordings and transcripts in your dashboard",
