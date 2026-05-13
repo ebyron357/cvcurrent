@@ -238,7 +238,7 @@ export default function MrClientVerse() {
                       className="inline-block text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-90"
                       style={{ background: "#4AC4E0", color: "#0A1628" }}
                     >
-                      Book a Systems Review →
+                      Book Your Revenue Audit →
                     </a>
                   </motion.div>
                 )}
@@ -254,10 +254,10 @@ export default function MrClientVerse() {
                     }}
                   >
                     <p className="font-semibold text-white mb-1">
-                      Ready to scope your project?
+                      Ready to find your revenue leak?
                     </p>
                     <p className="text-gray-400 text-xs mb-2">
-                      A Systems Review is a focused 30-min call to map your situation and define next steps.
+                      A free 30-minute Revenue Audit maps your gaps, puts a dollar value on each one, and gives you a written report within 48 hours.
                     </p>
                     <a
                       href="https://calendly.com/clientverse/strategy-call"
@@ -266,7 +266,7 @@ export default function MrClientVerse() {
                       className="inline-block text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-90"
                       style={{ background: "#4AC4E0", color: "#0A1628" }}
                     >
-                      Book a Systems Review →
+                      Book Your Revenue Audit →
                     </a>
                   </motion.div>
                 )}

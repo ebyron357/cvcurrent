@@ -396,7 +396,7 @@ export default function Pricing() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Book a Systems Review
+                  Book Your Revenue Audit
                 </a>
               </Button>
             </div>

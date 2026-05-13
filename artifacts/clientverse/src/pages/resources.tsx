@@ -254,7 +254,7 @@ export default function Resources() {
                   rel="noreferrer"
                   className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-semibold px-8 py-4 rounded-lg hover:border-[#4AC4E0]/40 transition-colors text-sm"
                 >
-                  Book a Systems Review
+                  Book Your Revenue Audit
                 </a>
               </div>
             </div>

@@ -3,6 +3,93 @@ import { Footer } from "@/components/footer";
 import { Link, useParams } from "wouter";
 
 const posts: Record<string, { title: string; date: string; category: string; content: string }> = {
+  "hvac-missed-calls": {
+    title: "HVAC Companies Miss 38% of Inbound Calls. Here's What That Costs.",
+    date: "May 8, 2026",
+    category: "Home Services",
+    content: `Your phone rings. You're on a job. It goes to voicemail. The customer calls the next company in Google and books with them.
+
+You never know it happened.
+
+This is the single most expensive operational gap in home services — and it compounds invisibly. You can't track what you don't answer.
+
+**The math on a typical HVAC company:**
+
+Let's say your company misses 15 calls a week. Your average job value is $800. Your close rate on calls you actually answer is 35%.
+
+That's 15 × 0.35 × $800 = $4,200 in missed revenue every week. $18,200 per month. $218,000 per year.
+
+Most HVAC owners we audit are missing 20–30 calls per week during peak season. The annual leak usually lands between $40,000 and $120,000 — revenue they worked for, advertised for, and then didn't pick up.
+
+**Why voicemail doesn't fix this:**
+
+Customers who call and get voicemail do not leave a message. Voicemail callback rates in home services are under 10%. They call the next company.
+
+**What actually fixes it:**
+
+Two systems, deployed in under 48 hours:
+
+1. **Missed call text-back** — fires an SMS to every missed caller within 60 seconds. It opens a conversation before they've found an alternative. Recovery rate: 20–40% of previously lost calls.
+
+2. **AI voice agent** — answers inbound calls 24/7, including nights, weekends, and busy hours. Handles FAQs, books directly into your calendar, and escalates complex calls to a human.
+
+Together, these two systems typically recover $1,500–$4,000 in the first month — without adding headcount.
+
+**What this doesn't fix:**
+
+The calls you miss because your Google Business Profile shows the wrong phone number, your Yelp listing is outdated, or your website loads too slowly on mobile. These are separate gaps — covered in a Revenue Audit.
+
+If you want to see your exact leak number, the calculator at /revenue-calculator takes 60 seconds and uses your actual numbers.`,
+  },
+  "dental-review-gap": {
+    title: "The Dental Review Gap: Why Your Rating Is Lower Than It Should Be",
+    date: "April 22, 2026",
+    category: "Healthcare",
+    content: `The math of dental practice reviews is brutal — and almost nobody talks about it.
+
+A patient has a great appointment. They leave satisfied. They go home, forget to review you, and move on with their life.
+
+A patient has a frustrating experience — long wait, billing confusion, a miscommunication. They're annoyed. They pick up their phone on the drive home and leave a 1-star review.
+
+This asymmetry is why the average dental practice has a 3.8–4.1 star rating despite doing excellent clinical work. The unhappy minority is systematically more motivated than the happy majority.
+
+**The compounding problem:**
+
+New patient acquisition in dentistry runs almost entirely on Google and word of mouth. When a prospective patient searches "dentist near me," they see:
+
+- Your name
+- Your star rating
+- How many reviews you have
+- The most recent review
+
+If your competitor has 200 reviews at 4.7 stars and you have 31 reviews at 3.9 stars, you lose the click before they ever see your website.
+
+**What fixes this — permanently:**
+
+The solution isn't asking your staff to remind patients to review you. That works for 2 weeks and then stops.
+
+The fix is automated:
+
+**1. Post-appointment review request sequence.** An SMS fires 4 hours after checkout (not immediately — patients are more receptive after they've had time to process the visit). It includes a direct link to your Google review page. No login, no friction.
+
+**2. Negative sentiment filter.** If a patient replies with a complaint or signals dissatisfaction, the message routes to your office manager instead of Google. You get a chance to recover the relationship before it becomes a 1-star public post.
+
+**3. Response templates for existing reviews.** Every negative review on every platform gets a professional, HIPAA-compliant response drafted and posted within 24 hours. This signals to prospective patients that you're engaged and accountable — which actually increases trust.
+
+**What one practice did in 90 days:**
+
+A dental practice we worked with had 23 Google reviews at 3.8 stars when we started. Three months after deploying the review request sequence:
+
+- 89 total reviews
+- 4.7-star average
+- 22% increase in new patient consultation requests
+
+The clinical work didn't change. The operational system around capturing satisfied patient feedback did.
+
+**The cost of inaction:**
+
+Every week you operate without a review capture system, satisfied patients leave without reviewing you. The gap between your real reputation and your online reputation widens. This is one of the five gaps we assess in every Revenue Audit.`,
+  },
   "why-most-crms-fail": {
     title: "Why Most CRM Implementations Fail (And How to Fix Yours)",
     date: "April 15, 2025",
@@ -47,28 +134,34 @@ AI amplifies what already exists in your operations. If your lead follow-up is i
 Companies that jump to AI in step one are building on sand. The smart path is slower and more durable.`,
   },
   "what-is-a-systems-review": {
-    title: "What Happens in a Systems Review — And Why It's the First Step",
-    date: "March 10, 2025",
+    title: "What Happens in a Revenue Audit — And Why It's the First Step",
+    date: "March 10, 2026",
     category: "Operations",
     content: `Before we build anything, we map everything.
 
-A Systems Review is a structured technical diagnosis of how your business actually operates — not how you think it operates, and not how it's documented in the onboarding deck nobody reads.
+A Revenue Audit is a structured 30-minute session where we diagnose how your business actually operates — not how you think it operates, and not how it's supposed to work in theory.
 
-**What we look at:**
+**What the audit covers:**
 
-- Your current tech stack: what tools you're using, what they're supposed to do, and what they're actually doing
-- Your data flows: how information moves between systems, where it gets lost or duplicated, where manual work fills the gaps
-- Your automation layer: what's already running, what's broken, what's missing
-- Your team processes: how work gets assigned, tracked, completed, and reported
-- Your bottlenecks: the two or three places where everything slows down
+We use the C.L.A.R.I.T.Y. Framework™ to assess 7 categories: lead capture, response time, follow-up sequences, pipeline health, reputation management, AI readiness, and operational efficiency. Each category gets assessed and scored.
+
+- Your current tech stack — what tools you're paying for and what they're actually doing
+- Your inbound flow — how leads come in, how fast they're followed up, what percentage are lost
+- Your automation layer — what's running, what's broken, what's missing entirely
+- Your reputation footprint — reviews, listings, response patterns
+- Your biggest leak — we identify the single highest-ROI fix and start there
 
 **What you get out of it:**
 
-A clear, honest picture of your operational baseline. We identify what to fix immediately, what to build, and what to leave alone. No vendor recommendations, no upsell agenda — just the diagnosis.
+A written C.L.A.R.I.T.Y. report delivered within 48 hours. Every gap documented. Every fix prioritized by ROI impact. A 90-day roadmap to close the gaps in the right order.
+
+No vendor recommendations unless they apply. No upsell pressure. Just the diagnosis — and an honest recommendation on whether ClientVerse is the right fit.
 
 **Why it comes first:**
 
-We don't scope work without a review. Every engagement that gets skipped this step ends up redoing it anyway, usually after discovering that what the client asked for isn't actually what they need. The review saves time and money, and it ensures that what we build is right for your actual operation — not a template solution applied to a misunderstood problem.`,
+We don't build anything without the audit. Every engagement that skips this step ends up redoing it — because what the client asked for isn't always what they actually need. The audit takes 30 minutes and eliminates months of misdirected effort.
+
+Most clients find $2,000–$8,000 per month in recoverable revenue in the first session.`,
   },
   "growth-vs-scale-systems": {
     title: "Growth Systems vs. Scale Systems: What's the Difference?",
@@ -162,7 +255,7 @@ export default function BlogPost() {
               className="inline-block bg-[#4AC4E0] text-[#0A1628] font-bold px-8 py-4 rounded-lg hover:bg-[#3bb1cc] transition-colors"
               data-testid="blog-cta"
             >
-              Book a Systems Review
+              Book Your Revenue Audit
             </a>
           </div>
         </div>

@@ -340,7 +340,7 @@ export default function AiServices() {
               Which AI services are right <span className="text-[#4AC4E0]">for your business?</span>
             </h2>
             <p className="text-gray-400 mb-8 text-lg leading-relaxed">
-              Take the 5-question AI Readiness Quiz and get a personalized recommendation — or book a free Systems Review and we'll map your stack live.
+              Take the 5-question AI Readiness Quiz and get a personalized recommendation — or book a free Revenue Audit and we'll map your full AI stack live.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold px-8 h-13 flex items-center gap-2">

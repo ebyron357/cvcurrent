@@ -239,7 +239,7 @@ export default function Faq() {
           <div className="bg-[#0D1B2E] border border-[#4AC4E0]/20 rounded-2xl p-10 md:p-12 text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Still have questions?</h2>
             <p className="text-gray-400 mb-8 max-w-lg mx-auto leading-relaxed">
-              Book a free 30-minute Systems Review and get every question answered live — with a custom recommendation for your specific business at the end.
+              Book a free 30-minute Revenue Audit and get every question answered live — with a custom recommendation for your specific business at the end.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -248,7 +248,7 @@ export default function Faq() {
                 className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold px-8 h-12 flex items-center gap-2"
               >
                 <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
-                  Book a Free Systems Review <ArrowRight size={16} weight="bold" />
+                  Book Your Free Revenue Audit <ArrowRight size={16} weight="bold" />
                 </a>
               </Button>
               <Button

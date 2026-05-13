@@ -5,8 +5,8 @@ import { Link } from "wouter";
 const insights = [
   {
     type: "Article",
-    title: "The 5 Automation Wins Every B2B Company Should Build First",
-    description: "Not all automation is created equal. These five workflows deliver the highest leverage — fast setup, immediate impact, easy maintenance.",
+    title: "The 5 Automation Wins Every Service Business Should Build First",
+    description: "Not all automation is created equal. These five workflows deliver the highest leverage for HVAC, dental, real estate, and home services — fast setup, immediate impact, easy maintenance.",
     href: "/blog/automation-before-ai",
   },
   {

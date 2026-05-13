@@ -12,7 +12,7 @@ const videos = [
     title: "Building Your First Automation: A Step-by-Step Walkthrough",
     duration: "18:32",
     category: "Tutorial",
-    description: "We walk through the architecture of a high-leverage B2B automation from scratch. Process mapping, trigger logic, conditions, actions, and testing.",
+    description: "We walk through the architecture of a high-leverage service business automation from scratch — missed call response, follow-up sequences, and appointment booking. Process mapping, trigger logic, conditions, actions, and testing.",
   },
   {
     title: "CRM Setup for Growth: The Right Way to Structure Your Pipeline",

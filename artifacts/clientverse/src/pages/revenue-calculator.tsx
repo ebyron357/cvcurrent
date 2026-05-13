@@ -12,7 +12,11 @@ import {
   CheckCircle,
   ChartBar,
   ArrowLeft,
+  ClipboardText,
+  CalendarCheck,
+  Rocket,
 } from "@phosphor-icons/react";
+import { Link } from "wouter";
 
 type Step = "q1" | "q2" | "q3" | "capture" | "result";
 
@@ -536,6 +540,123 @@ export default function RevenueCalculator() {
             </div>
           )}
         </section>
+
+        {/* What happens after your number */}
+        <section className="container mx-auto px-4 py-20 max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              After Your Number — <span className="text-[#4AC4E0]">Here's What Happens</span>
+            </h2>
+            <p className="text-gray-400 max-w-xl mx-auto text-sm">
+              The calculator gives you the leak. The Revenue Audit gives you the fix — with a written report and a prioritized 90-day roadmap.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              {
+                Icon: CalendarCheck,
+                step: "01",
+                title: "Book Your Revenue Audit",
+                desc: "30 minutes. Free. We review your current stack, confirm your leak estimate, and identify every gap by category.",
+              },
+              {
+                Icon: ClipboardText,
+                step: "02",
+                title: "Receive Your C.L.A.R.I.T.Y. Report",
+                desc: "Within 48 hours — a written 7-point assessment. Every revenue leak quantified. Every fix prioritized by ROI impact.",
+              },
+              {
+                Icon: Rocket,
+                step: "03",
+                title: "Go Live in 7 Days",
+                desc: "Your CRM, AI follow-up, and automation systems live in 7 days or less. Revenue starts coming back immediately.",
+              },
+            ].map(({ Icon, step, title, desc }) => (
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-[#0D1B2E] border border-[#1E2D4A] rounded-2xl p-7 text-center"
+              >
+                <div className="text-4xl font-black text-[#4AC4E0]/20 mb-4 select-none">{step}</div>
+                <div
+                  className="rounded-xl flex items-center justify-center mx-auto mb-4"
+                  style={{ width: 48, height: 48, background: "rgba(74,196,224,0.08)", border: "1.5px solid rgba(74,196,224,0.5)" }}
+                >
+                  <Icon size={22} color="#4AC4E0" weight="duotone" />
+                </div>
+                <h3 className="font-bold text-base mb-2">{title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Button asChild size="lg" className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold px-8 h-13 flex items-center gap-2 mx-auto w-fit">
+              <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
+                Book Your Revenue Audit — Free <ArrowRight size={16} weight="bold" />
+              </a>
+            </Button>
+          </div>
+        </section>
+
+        {/* What the calculator doesn't capture */}
+        <section className="bg-[#0D1B2E] border-y border-[#1E2D4A] py-16">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div>
+                <p className="text-xs text-[#4AC4E0] font-bold tracking-widest uppercase mb-3">Important Context</p>
+                <h2 className="text-2xl font-bold mb-4">This calculator only counts missed calls. Your actual leak is likely larger.</h2>
+                <p className="text-gray-400 leading-relaxed text-sm mb-4">
+                  The calculator above isolates one leak — inbound calls that go unanswered. But there are 5 other operational gaps that lose revenue just as fast: dead quote follow-up, no-show appointments, reviews never requested, stale pipeline leads, and staff time on manual tasks.
+                </p>
+                <p className="text-gray-400 leading-relaxed text-sm">
+                  The Revenue Audit identifies all six categories — with a dollar value on each one and a prioritized fix for each.
+                </p>
+              </div>
+              <div className="space-y-3">
+                {[
+                  { label: "Missed calls (this calculator)", included: true },
+                  { label: "Dead quote follow-up", included: false },
+                  { label: "No-show appointments with no recovery", included: false },
+                  { label: "Reviews never requested", included: false },
+                  { label: "Stale leads in dead pipeline", included: false },
+                  { label: "Staff time on manual repetitive tasks", included: false },
+                ].map(({ label, included }) => (
+                  <div key={label} className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-sm ${included ? "border-[#4AC4E0]/30 bg-[#4AC4E0]/5 text-white" : "border-[#1E2D4A] text-gray-500"}`}>
+                    <div className={`w-2 h-2 rounded-full shrink-0 ${included ? "bg-[#4AC4E0]" : "bg-gray-700"}`} />
+                    {label}
+                    {!included && <span className="ml-auto text-xs text-gray-600">Audit only</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Trust strip */}
+        <section className="container mx-auto px-4 py-16 max-w-4xl text-center">
+          <p className="text-gray-500 text-sm mb-8">What our clients say about the Revenue Audit</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              { quote: "The audit identified $23,000 in annual revenue I didn't know I was losing. We fixed it in the first week.", attr: "HVAC company owner, Southeast" },
+              { quote: "I expected a sales pitch. I got a 7-page written report with specific fixes and ROI projections. That's not what I expected.", attr: "Dental practice manager" },
+              { quote: "Within 30 minutes I knew exactly what was broken and why. The 7-day go-live was real — we hit it exactly.", attr: "Veteran-owned roofing company" },
+            ].map(({ quote, attr }) => (
+              <motion.div
+                key={attr}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-[#0D1B2E] border border-[#1E2D4A] rounded-2xl p-7 text-left"
+              >
+                <p className="text-gray-300 text-sm leading-relaxed mb-4">"{quote}"</p>
+                <p className="text-gray-500 text-xs">— {attr}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
       </main>
 
       <Footer />

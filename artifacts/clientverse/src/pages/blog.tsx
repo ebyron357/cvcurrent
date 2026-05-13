@@ -4,32 +4,46 @@ import { Link } from "wouter";
 
 const posts = [
   {
+    slug: "hvac-missed-calls",
+    title: "HVAC Companies Miss 38% of Inbound Calls. Here's What That Costs.",
+    date: "May 8, 2026",
+    category: "Home Services",
+    excerpt: "Calls go to voicemail. Customers call the next company. You never know it happened. For a typical HVAC company, this is a $40K+ annual leak — and it's fixable in 48 hours.",
+  },
+  {
+    slug: "dental-review-gap",
+    title: "The Dental Review Gap: Why Your Rating Is Lower Than It Should Be",
+    date: "April 22, 2026",
+    category: "Healthcare",
+    excerpt: "Happy patients leave. Unhappy patients leave a review. This asymmetry kills practices — and it's fixed with one automated workflow, not a marketing campaign.",
+  },
+  {
     slug: "why-most-crms-fail",
     title: "Why Most CRM Implementations Fail (And How to Fix Yours)",
-    date: "April 15, 2025",
+    date: "April 15, 2026",
     category: "Systems",
     excerpt: "The problem isn't the software. It's the lack of process architecture behind it. Here's what proper CRM infrastructure actually looks like.",
   },
   {
     slug: "automation-before-ai",
     title: "Automate Before You AI-ify: The Order That Matters",
-    date: "March 28, 2025",
+    date: "March 28, 2026",
     category: "Automation",
     excerpt: "AI on a broken process is just faster failure. The foundation has to be right first. Here's the sequence that actually scales.",
   },
   {
     slug: "what-is-a-systems-review",
-    title: "What Happens in a Systems Review — And Why It's the First Step",
-    date: "March 10, 2025",
+    title: "What Happens in a Revenue Audit — And Why It's the First Step",
+    date: "March 10, 2026",
     category: "Operations",
-    excerpt: "Before we build anything, we map everything. A Systems Review is a technical diagnosis of how your business actually runs — not how you think it runs.",
+    excerpt: "Before we build anything, we map everything. A Revenue Audit is a technical diagnosis of how your business actually runs — and what it's costing you.",
   },
   {
     slug: "growth-vs-scale-systems",
     title: "Growth Systems vs. Scale Systems: What's the Difference?",
-    date: "February 22, 2025",
+    date: "February 22, 2026",
     category: "Strategy",
-    excerpt: "Growth systems get you to the next milestone. Scale systems let you operate at 10x without 10x headcount. Most companies only build the first one.",
+    excerpt: "Growth systems get you to the next milestone. Scale systems let you operate at 10x without 10x headcount. Most service businesses only ever build the first one.",
   },
 ];
 
@@ -42,11 +56,11 @@ export default function Blog() {
           <div className="mb-16">
             <p className="text-[#4AC4E0] font-semibold uppercase tracking-widest text-sm mb-4">Insights</p>
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Frameworks for Founders<br />
-              <span className="text-[#4AC4E0]">Building Systems That Scale.</span>
+              Revenue. Operations. <br />
+              <span className="text-[#4AC4E0]">Real Numbers.</span>
             </h1>
             <p className="text-white/60 text-xl max-w-2xl">
-              Operational intelligence from the team that builds, repairs, and runs business systems.
+              Field notes, frameworks, and case breakdowns from the team that builds and runs revenue systems for service businesses.
             </p>
           </div>
 
