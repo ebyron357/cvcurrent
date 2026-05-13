@@ -111,7 +111,7 @@ export function Navbar() {
           })}
           <Button asChild className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-semibold ml-2" data-testid="nav-cta">
             <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
-              Book a Systems Review
+              Book Your Revenue Audit
             </a>
           </Button>
         </div>
@@ -181,9 +181,9 @@ export function Navbar() {
               </Link>
             );
           })}
-          <Button asChild className="bg-[#4AC4E0] text-[#0A1628] w-full mt-3" data-testid="nav-mobile-cta">
+          <Button asChild className="bg-[#4AC4E0] text-[#0A1628] w-full mt-3 font-bold" data-testid="nav-mobile-cta">
             <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
-              Book a Systems Review
+              Book Your Revenue Audit
             </a>
           </Button>
         </div>
