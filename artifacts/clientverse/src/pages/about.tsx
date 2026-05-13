@@ -121,9 +121,9 @@ export default function About() {
           >
             <div
               className="shrink-0 rounded-2xl flex items-center justify-center"
-              style={{ width: 72, height: 72, background: "rgba(74,196,224,0.08)", border: "1.5px solid rgba(74,196,224,0.5)", boxShadow: "0 0 20px rgba(74,196,224,0.15)" }}
+              style={{ width: 80, height: 80, background: "linear-gradient(145deg, rgba(74,196,224,0.22) 0%, rgba(74,196,224,0.08) 100%)", border: "1px solid rgba(74,196,224,0.4)", boxShadow: "0 0 32px rgba(74,196,224,0.22), inset 0 1px 0 rgba(255,255,255,0.06)" }}
             >
-              <ShieldCheck size={36} color="#4AC4E0" weight="duotone" />
+              <ShieldCheck size={40} color="#4AC4E0" weight="fill" />
             </div>
             <div className="flex-1">
               <p className="text-xs text-[#4AC4E0] font-bold tracking-widest uppercase mb-3">Veteran-Owned Small Business</p>
@@ -162,9 +162,9 @@ export default function About() {
                 >
                   <div
                     className="mb-5 rounded-2xl flex items-center justify-center"
-                    style={{ width: 56, height: 56, background: "rgba(74,196,224,0.08)", border: "1.5px solid rgba(74,196,224,0.5)", boxShadow: "0 0 16px rgba(74,196,224,0.12)" }}
+                    style={{ width: 64, height: 64, background: "linear-gradient(145deg, rgba(74,196,224,0.22) 0%, rgba(74,196,224,0.08) 100%)", border: "1px solid rgba(74,196,224,0.4)", boxShadow: "0 0 28px rgba(74,196,224,0.2), inset 0 1px 0 rgba(255,255,255,0.05)" }}
                   >
-                    <Icon size={26} color="#4AC4E0" weight="duotone" />
+                    <Icon size={30} color="#4AC4E0" weight="fill" />
                   </div>
                   <h4 className="text-lg font-bold mb-3">{title}</h4>
                   <p className="text-gray-400 text-sm leading-relaxed">{body}</p>
@@ -196,9 +196,9 @@ export default function About() {
               >
                 <div
                   className="shrink-0 rounded-xl flex items-center justify-center"
-                  style={{ width: 44, height: 44, background: "rgba(74,196,224,0.08)", border: "1.5px solid rgba(74,196,224,0.5)" }}
+                  style={{ width: 48, height: 48, background: "linear-gradient(145deg, rgba(74,196,224,0.22) 0%, rgba(74,196,224,0.08) 100%)", border: "1px solid rgba(74,196,224,0.4)", boxShadow: "0 0 20px rgba(74,196,224,0.16), inset 0 1px 0 rgba(255,255,255,0.04)" }}
                 >
-                  <Icon size={20} color="#4AC4E0" weight="duotone" />
+                  <Icon size={22} color="#4AC4E0" weight="fill" />
                 </div>
                 <div>
                   <p className="font-bold text-sm mb-1">{label}</p>

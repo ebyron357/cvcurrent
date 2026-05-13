@@ -159,14 +159,14 @@ export default function Features() {
                 <div
                   className="mb-5 rounded-xl flex items-center justify-center"
                   style={{
-                    width: 52,
-                    height: 52,
-                    background: "rgba(74,196,224,0.08)",
-                    border: "1.5px solid rgba(74,196,224,0.5)",
-                    boxShadow: "0 0 16px rgba(74,196,224,0.12)",
+                    width: 60,
+                    height: 60,
+                    background: "linear-gradient(145deg, rgba(74,196,224,0.22) 0%, rgba(74,196,224,0.08) 100%)",
+                    border: "1px solid rgba(74,196,224,0.4)",
+                    boxShadow: "0 0 28px rgba(74,196,224,0.2), inset 0 1px 0 rgba(255,255,255,0.05)",
                   }}
                 >
-                  <Icon size={26} color="#4AC4E0" weight="duotone" />
+                  <Icon size={28} color="#4AC4E0" weight="fill" />
                 </div>
                 <h3 className="text-lg font-bold mb-2">{title}</h3>
                 <p className="text-gray-400 text-sm mb-5 leading-relaxed">{desc}</p>

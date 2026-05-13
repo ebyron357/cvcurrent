@@ -215,12 +215,18 @@ export default function Home() {
       <main className="flex-1 pt-32">
 
         {/* ── 1. HERO ────────────────────────────────────────────────── */}
-        <section className="container mx-auto px-4 pt-16 pb-24 md:pt-28 md:pb-40 text-center max-w-5xl">
+        <section className="relative container mx-auto px-4 pt-16 pb-24 md:pt-28 md:pb-40 text-center max-w-5xl">
+          {/* Radial glow behind hero */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2 -top-32 w-[900px] h-[600px]"
+            style={{ background: "radial-gradient(ellipse 70% 55% at 50% 5%, rgba(74,196,224,0.11) 0%, rgba(74,196,224,0.04) 45%, transparent 70%)", zIndex: 0 }}
+          />
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 rounded-full px-4 py-1.5 text-sm text-[#4AC4E0] font-medium mb-8"
+            className="relative z-10 inline-flex items-center gap-2 bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 rounded-full px-4 py-1.5 text-sm text-[#4AC4E0] font-medium mb-8"
           >
             <ShieldCheck size={14} weight="fill" />
             Veteran-Owned · 7-Day Go-Live Guarantee · No Contracts
@@ -340,9 +346,9 @@ export default function Home() {
               >
                 <div
                   className="rounded-xl flex items-center justify-center shrink-0 self-start"
-                  style={{ width: 48, height: 48, background: "rgba(74,196,224,0.08)", border: "1.5px solid rgba(74,196,224,0.5)" }}
+                  style={{ width: 52, height: 52, background: "linear-gradient(145deg, rgba(74,196,224,0.22) 0%, rgba(74,196,224,0.08) 100%)", border: "1px solid rgba(74,196,224,0.4)", boxShadow: "0 0 24px rgba(74,196,224,0.18), inset 0 1px 0 rgba(255,255,255,0.05)" }}
                 >
-                  <Icon size={22} color="#4AC4E0" weight="duotone" />
+                  <Icon size={24} color="#4AC4E0" weight="fill" />
                 </div>
                 <div>
                   <h3 className="font-bold text-base mb-2">{title}</h3>
@@ -444,9 +450,9 @@ export default function Home() {
                 <div className="flex items-start justify-between gap-3">
                   <div
                     className="rounded-xl flex items-center justify-center shrink-0"
-                    style={{ width: 52, height: 52, background: "rgba(74,196,224,0.08)", border: "1.5px solid rgba(74,196,224,0.5)", boxShadow: "0 0 16px rgba(74,196,224,0.12)" }}
+                    style={{ width: 56, height: 56, background: "linear-gradient(145deg, rgba(74,196,224,0.22) 0%, rgba(74,196,224,0.08) 100%)", border: "1px solid rgba(74,196,224,0.4)", boxShadow: "0 0 28px rgba(74,196,224,0.2), inset 0 1px 0 rgba(255,255,255,0.05)" }}
                   >
-                    <Icon size={24} color="#4AC4E0" weight="duotone" />
+                    <Icon size={26} color="#4AC4E0" weight="fill" />
                   </div>
                   <span className="text-[10px] font-bold text-[#4AC4E0] bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 px-2.5 py-1 rounded-full uppercase tracking-wider shrink-0">{tag}</span>
                 </div>
@@ -490,7 +496,7 @@ export default function Home() {
                   transition={{ delay: i * 0.08 }}
                   className="bg-[#0A1628] border border-[#1E2D4A] rounded-2xl p-8 flex gap-6 items-start"
                 >
-                  <span className="text-5xl font-black text-[#4AC4E0]/20 leading-none shrink-0 select-none">{n}</span>
+                  <span className="text-5xl font-black text-[#4AC4E0]/40 leading-none shrink-0 select-none">{n}</span>
                   <div>
                     <h3 className="font-bold text-lg mb-2">{title}</h3>
                     <p className="text-gray-400 text-sm leading-relaxed">{body}</p>
@@ -611,9 +617,9 @@ export default function Home() {
                 >
                   <div
                     className="mb-6 rounded-2xl flex items-center justify-center"
-                    style={{ width: 64, height: 64, background: "rgba(74,196,224,0.08)", border: "1.5px solid rgba(74,196,224,0.5)", boxShadow: "0 0 20px rgba(74,196,224,0.12)" }}
+                    style={{ width: 72, height: 72, background: "linear-gradient(145deg, rgba(74,196,224,0.22) 0%, rgba(74,196,224,0.08) 100%)", border: "1px solid rgba(74,196,224,0.4)", boxShadow: "0 0 32px rgba(74,196,224,0.22), inset 0 1px 0 rgba(255,255,255,0.06)" }}
                   >
-                    <Icon size={30} color="#4AC4E0" weight="duotone" />
+                    <Icon size={34} color="#4AC4E0" weight="fill" />
                   </div>
                   <h3 className="text-2xl font-bold mb-3">{label}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed mb-5">{body}</p>
