@@ -13,16 +13,15 @@ import {
   Shield,
   Crown,
   Star,
+  Lock,
 } from "@phosphor-icons/react";
 
 const tiers = [
   {
     Icon: Stack,
     name: "COMMAND",
-    price: 297,
-    setup: 497,
     badge: null,
-    replaces: "$400–600/mo",
+    replaces: "$400–600/mo in tools",
     tagline: "Your complete business operating system — ready in 7 days.",
     features: [
       "CRM & pipeline management",
@@ -37,10 +36,8 @@ const tiers = [
   {
     Icon: Lightning,
     name: "OPERATOR",
-    price: 497,
-    setup: 997,
     badge: "Most Popular",
-    replaces: "$800–1,100/mo",
+    replaces: "$800–1,100/mo in tools",
     tagline: "Everything in Command plus reputation, calls, and reach.",
     features: [
       "Everything in Command",
@@ -55,10 +52,8 @@ const tiers = [
   {
     Icon: Crown,
     name: "COMMANDER",
-    price: 997,
-    setup: 1497,
     badge: "Best Value",
-    replaces: "$3,000–5,000/mo",
+    replaces: "$3,000–5,000/mo in tools/agencies",
     tagline: "A full AI operations team — at a fraction of agency cost.",
     features: [
       "Everything in Operator",
@@ -74,8 +69,6 @@ const tiers = [
   {
     Icon: Buildings,
     name: "ENTERPRISE / FEDERAL",
-    price: null,
-    setup: null,
     badge: "Veteran-Owned",
     replaces: "Full custom stack",
     tagline: "Federal-grade infrastructure. Compliance-ready. Custom-built.",
@@ -92,16 +85,16 @@ const tiers = [
 ];
 
 const addOns = [
-  { name: "Reputation Management", price: "$297/mo", margin: "67% margin" },
-  { name: "AI CRM Management", price: "$397/mo", margin: "MCP-powered" },
-  { name: "AI Performance Reporting", price: "$297/mo", margin: "Plain-English monthly" },
-  { name: "Local SEO", price: "$997/mo", margin: "Fully managed" },
-  { name: "Google + Meta Ads", price: "$997–2,497/mo", margin: "Done-for-you" },
-  { name: "AI Voice Agent Management", price: "$497/mo", margin: "24/7 coverage" },
-  { name: "Social Media Management", price: "$297/mo", margin: "66% margin" },
-  { name: "AI Operations Management", price: "$597/mo", margin: "MCP-powered" },
-  { name: "Cross-Channel Intelligence", price: "$497/mo", margin: "Ads + CRM unified" },
-  { name: "CRM Audit + Cleanup", price: "$797 one-time", margin: "Full account fix" },
+  { name: "Reputation Management", note: "50+ platform coverage" },
+  { name: "AI CRM Management", note: "MCP-powered" },
+  { name: "AI Performance Reporting", note: "Plain-English monthly" },
+  { name: "Local SEO", note: "Fully managed" },
+  { name: "Google + Meta Ads", note: "Done-for-you" },
+  { name: "AI Voice Agent Management", note: "24/7 coverage" },
+  { name: "Social Media Management", note: "Content + scheduling" },
+  { name: "AI Operations Management", note: "MCP-powered" },
+  { name: "Cross-Channel Intelligence", note: "Ads + CRM unified" },
+  { name: "CRM Audit + Cleanup", note: "Full account fix" },
 ];
 
 export default function Pricing() {
@@ -150,7 +143,7 @@ export default function Pricing() {
           </motion.p>
         </section>
 
-        {/* Annual savings banner */}
+        {/* Pricing note banner */}
         <section className="container mx-auto px-4 mb-12 max-w-5xl">
           <motion.div
             initial={{ opacity: 0 }}
@@ -158,20 +151,29 @@ export default function Pricing() {
             transition={{ delay: 0.2 }}
             className="bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 rounded-2xl px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left"
           >
-            <div>
-              <span className="text-[#4AC4E0] font-bold text-lg">Pay annually — get 2 months free.</span>
-              <span className="text-gray-400 ml-3 text-sm">Lock in today's rate. Cancel-protection for 12 months.</span>
+            <div className="flex items-center gap-3">
+              <Lock size={18} color="#4AC4E0" weight="fill" className="shrink-0" />
+              <div>
+                <span className="text-[#4AC4E0] font-bold text-lg">Pricing is discussed on your Revenue Audit call.</span>
+                <span className="text-gray-400 ml-3 text-sm">We match the right tier to your actual needs — not the other way around.</span>
+              </div>
             </div>
-            <span className="text-white font-semibold text-sm bg-[#4AC4E0]/20 border border-[#4AC4E0]/30 px-4 py-2 rounded-full whitespace-nowrap">
-              Save up to $1,994/yr on Commander
-            </span>
+            <Button
+              asChild
+              size="sm"
+              className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold px-6 shrink-0"
+            >
+              <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
+                Book Your Audit
+              </a>
+            </Button>
           </motion.div>
         </section>
 
         {/* Tier Cards */}
         <section className="container mx-auto px-4 pb-16 max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            {tiers.map(({ Icon, name, price, setup, badge, replaces, tagline, features }, index) => (
+            {tiers.map(({ Icon, name, badge, replaces, tagline, features }, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 24 }}
@@ -203,40 +205,23 @@ export default function Pricing() {
                 <div
                   className="mb-5 rounded-xl flex items-center justify-center"
                   style={{
-                    width: 56,
-                    height: 56,
-                    background: "rgba(74,196,224,0.08)",
-                    border: "1.5px solid rgba(74,196,224,0.5)",
-                    boxShadow: "0 0 16px rgba(74,196,224,0.12)",
+                    width: 60,
+                    height: 60,
+                    background: "linear-gradient(145deg, rgba(74,196,224,0.22) 0%, rgba(74,196,224,0.08) 100%)",
+                    border: "1px solid rgba(74,196,224,0.4)",
+                    boxShadow: "0 0 28px rgba(74,196,224,0.2), inset 0 1px 0 rgba(255,255,255,0.05)",
                   }}
                 >
-                  <Icon size={28} color="#4AC4E0" weight="duotone" />
+                  <Icon size={28} color="#4AC4E0" weight="fill" />
                 </div>
 
                 {/* Tier name */}
-                <p className="text-xs font-bold tracking-widest text-[#4AC4E0] mb-1 uppercase">{name}</p>
-
-                {/* Price */}
-                <div className="mb-2">
-                  {price ? (
-                    <div className="flex items-end gap-1">
-                      <span className="text-4xl font-bold">${price}</span>
-                      <span className="text-gray-400 text-sm mb-1">/mo</span>
-                    </div>
-                  ) : (
-                    <div className="text-4xl font-bold text-[#4AC4E0]">Custom</div>
-                  )}
-                  {setup ? (
-                    <p className="text-xs text-gray-500 mt-1">+ ${setup.toLocaleString()} one-time setup</p>
-                  ) : (
-                    <p className="text-xs text-gray-500 mt-1">Custom setup fee</p>
-                  )}
-                </div>
+                <p className="text-xs font-bold tracking-widest text-[#4AC4E0] mb-2 uppercase">{name}</p>
 
                 {/* Replaces */}
                 <div className="mb-4 bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-3 py-2">
                   <p className="text-xs text-emerald-400">
-                    <span className="font-bold">Replaces</span> {replaces} in tools/agencies
+                    <span className="font-bold">Replaces</span> {replaces}
                   </p>
                 </div>
 
@@ -248,7 +233,7 @@ export default function Pricing() {
                     <li key={i} className="flex items-start gap-2.5 text-sm text-gray-300">
                       <CheckCircle
                         size={16}
-                        weight="duotone"
+                        weight="fill"
                         color="#4AC4E0"
                         className="mt-0.5 shrink-0"
                       />
@@ -272,7 +257,7 @@ export default function Pricing() {
                     rel="noreferrer"
                     className="flex items-center justify-center gap-2"
                   >
-                    {price ? "Get Started" : "Book a Consultation"}
+                    {name === "ENTERPRISE / FEDERAL" ? "Book a Consultation" : "Get Started"}
                     <ArrowRight size={16} weight="bold" />
                   </a>
                 </Button>
@@ -298,7 +283,7 @@ export default function Pricing() {
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {addOns.map(({ name, price, margin }, i) => (
+            {addOns.map(({ name, note }, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 16 }}
@@ -308,15 +293,16 @@ export default function Pricing() {
                 className="bg-[#0D1B2E] border border-[#1E2D4A] hover:border-[#4AC4E0]/30 rounded-xl px-6 py-4 flex items-center justify-between transition-colors duration-300"
               >
                 <div className="flex items-center gap-3">
-                  <CheckCircle size={18} weight="duotone" color="#4AC4E0" className="shrink-0" />
+                  <CheckCircle size={18} weight="fill" color="#4AC4E0" className="shrink-0" />
                   <span className="text-sm font-medium text-white">{name}</span>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm font-bold text-[#4AC4E0]">{price}</p>
-                  <p className="text-xs text-gray-500">{margin}</p>
-                </div>
+                <span className="text-xs text-gray-500">{note}</span>
               </motion.div>
             ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-sm text-gray-500">Add-on pricing discussed on your audit call.</p>
           </div>
         </section>
 
@@ -333,17 +319,17 @@ export default function Pricing() {
               style={{
                 width: 72,
                 height: 72,
-                background: "rgba(74,196,224,0.08)",
-                border: "1.5px solid rgba(74,196,224,0.5)",
-                boxShadow: "0 0 20px rgba(74,196,224,0.15)",
+                background: "linear-gradient(145deg, rgba(74,196,224,0.22) 0%, rgba(74,196,224,0.08) 100%)",
+                border: "1px solid rgba(74,196,224,0.4)",
+                boxShadow: "0 0 32px rgba(74,196,224,0.22), inset 0 1px 0 rgba(255,255,255,0.06)",
               }}
             >
-              <Shield size={36} color="#4AC4E0" weight="duotone" />
+              <Shield size={36} color="#4AC4E0" weight="fill" />
             </div>
             <div className="flex-1 text-center md:text-left">
               <p className="text-xs text-[#4AC4E0] font-bold tracking-widest uppercase mb-2">Start Here</p>
               <h3 className="text-2xl font-bold mb-3">
-                AI Stack Audit — $497–$997
+                Start With Your Revenue Audit
               </h3>
               <p className="text-gray-400 mb-0 leading-relaxed">
                 Every engagement starts with the <span className="text-white font-medium">C.L.A.R.I.T.Y. Framework™</span> audit. We map your current tools, quantify your revenue leaks, and hand you a 90-day roadmap. Most clients find $2,000–$5,000/mo in waste and missed revenue in the first session.

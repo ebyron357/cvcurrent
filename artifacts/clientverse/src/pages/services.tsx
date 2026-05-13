@@ -23,38 +23,38 @@ import {
 } from "@phosphor-icons/react";
 
 const recurringServices = [
-  { name: "Reputation Management", price: "$297/mo", Icon: Star, desc: "Review monitoring and request automation across 50+ platforms. Every client gets it. Flat vendor cost regardless of client count.", tag: "High margin" },
-  { name: "Local SEO", price: "$997/mo", Icon: Globe, desc: "Fully managed local search optimization — keyword research, on-page, citations, and monthly reporting. Outsourced, white-labeled.", tag: "Managed" },
-  { name: "Google + Meta Ads Management", price: "$997–2,497/mo", Icon: Megaphone, desc: "Done-for-you paid ad campaigns across Google and Meta. Strategy, creative, optimization, and monthly reporting — all handled.", tag: "High margin" },
-  { name: "Social Media Management", price: "$297/mo", Icon: ChatCircle, desc: "Content creation, scheduling, and posting across platforms. Outsourced to a vetted content partner at flat monthly cost.", tag: "Managed" },
-  { name: "Done-For-You Content Creation", price: "$497/mo", Icon: Globe, desc: "Blog posts, landing page copy, and brand content — AI-drafted and human-refined. Delivered white-labeled under your brand.", tag: "Managed" },
-  { name: "AI Voice Agent Management", price: "$497/mo", Icon: Phone, desc: "24/7 AI receptionist powered by Retell AI. Includes 1,000 minutes/mo — books appointments, handles FAQs, escalates intelligently. Overage billed at $0.35/min. Configured and managed.", tag: "AI-powered" },
-  { name: "AI Search Visibility (GEO/AEO)", price: "$497–$997/mo", Icon: MagnifyingGlass, desc: "Optimize your business to appear in ChatGPT, Perplexity, and Gemini answers — not just Google. Includes monthly AI visibility audit, structured data, and schema markup. Emerging category with almost zero local competition.", tag: "Premium" },
-  { name: "Call Tracking & Recording", price: "$97/mo", Icon: Phone, desc: "Every inbound call tracked, recorded, and visible in the client dashboard. Shows which ads and channels drive real calls.", tag: "Managed" },
-  { name: "Voicemail Drop Campaigns", price: "$197/mo", Icon: Phone, desc: "Pre-recorded voicemails dropped directly to prospect inboxes — phone never rings. VA-managed execution.", tag: "Managed" },
-  { name: "Website Maintenance", price: "$197/mo", Icon: Wrench, desc: "Ongoing site updates, speed optimization, uptime monitoring, and plugin/security patches. Outsourced via vetted partners.", tag: "Managed" },
-  { name: "WhatsApp Business Campaigns", price: "$197/mo", Icon: ChatCircle, desc: "Outbound WhatsApp messaging campaigns — appointment reminders, promotions, and re-engagement. Native GHL execution.", tag: "Managed" },
+  { name: "Reputation Management", Icon: Star, desc: "Review monitoring and request automation across 50+ platforms. Every client gets it. Flat vendor cost regardless of client count.", tag: "High margin" },
+  { name: "Local SEO", Icon: Globe, desc: "Fully managed local search optimization — keyword research, on-page, citations, and monthly reporting. Outsourced, white-labeled.", tag: "Managed" },
+  { name: "Google + Meta Ads Management", Icon: Megaphone, desc: "Done-for-you paid ad campaigns across Google and Meta. Strategy, creative, optimization, and monthly reporting — all handled.", tag: "High margin" },
+  { name: "Social Media Management", Icon: ChatCircle, desc: "Content creation, scheduling, and posting across platforms. Outsourced to a vetted content partner at flat monthly cost.", tag: "Managed" },
+  { name: "Done-For-You Content Creation", Icon: Globe, desc: "Blog posts, landing page copy, and brand content — AI-drafted and human-refined. Delivered white-labeled under your brand.", tag: "Managed" },
+  { name: "AI Voice Agent Management", Icon: Phone, desc: "24/7 AI receptionist powered by Retell AI. Includes 1,000 minutes/mo — books appointments, handles FAQs, escalates intelligently. Configured and managed.", tag: "AI-powered" },
+  { name: "AI Search Visibility (GEO/AEO)", Icon: MagnifyingGlass, desc: "Optimize your business to appear in ChatGPT, Perplexity, and Gemini answers — not just Google. Includes monthly AI visibility audit, structured data, and schema markup. Emerging category with almost zero local competition.", tag: "Premium" },
+  { name: "Call Tracking & Recording", Icon: Phone, desc: "Every inbound call tracked, recorded, and visible in the client dashboard. Shows which ads and channels drive real calls.", tag: "Managed" },
+  { name: "Voicemail Drop Campaigns", Icon: Phone, desc: "Pre-recorded voicemails dropped directly to prospect inboxes — phone never rings. VA-managed execution.", tag: "Managed" },
+  { name: "Website Maintenance", Icon: Wrench, desc: "Ongoing site updates, speed optimization, uptime monitoring, and plugin/security patches. Outsourced via vetted partners.", tag: "Managed" },
+  { name: "WhatsApp Business Campaigns", Icon: ChatCircle, desc: "Outbound WhatsApp messaging campaigns — appointment reminders, promotions, and re-engagement. Native GHL execution.", tag: "Managed" },
 ];
 
 const oneTimeServices = [
-  { name: "AI Stack Audit (C.L.A.R.I.T.Y. Framework™)", price: "$497–$997", Icon: ChartBar, desc: "7-point evaluation of your entire AI and automation stack. Produces a written report with quantified revenue leaks and a prioritized 90-day roadmap.", highlight: true },
-  { name: "AI Implementation", price: "$1,500–$3,000", Icon: Robot, desc: "Full GHL build — pipelines, automations, AI agents, and staff walkthrough. Managed via vetted Extendly and Upwork contractors." },
-  { name: "AI Audit + Implementation Bundle", price: "$1,997", Icon: Robot, desc: "Audit and implementation delivered together. Client saves $500. You close both in one call." },
-  { name: "AI Security Audit", price: "$497–$997", Icon: Shield, desc: "Personal delivery only. Maps exposed data, weak access controls, and staff vulnerabilities. Cybersecurity background is the moat — no competitor can replicate this." },
-  { name: "AI Security Setup", price: "$1,500–$2,500", Icon: Shield, desc: "Execution of security recommendations — 2FA rollout, data protocol setup, phishing training. Delivered via vetted veteran tech professionals." },
-  { name: "Website Build", price: "$2,500–$5,000", Icon: Globe, desc: "Full website design and build delivered white-labeled. You maintain the client relationship. Includes landing pages and funnel setup." },
-  { name: "Capital Stack Setup", price: "$4,500–$6,500", Icon: CurrencyDollar, desc: "Configure 4–5 embedded financial partners (Lendio, Relay, BlueVine, NMI, Stripe Capital) with eligibility monitoring workflows. Zero fulfillment cost." },
-  { name: "Client Financing Setup (Wisetack)", price: "$500", Icon: HandCoins, desc: "Help your clients offer 'buy now, pay later' to their own customers — raising close rates and average ticket size. Partner/referral model — zero tech build. Best for HVAC, dental, roofing, med spa, and home services clients.", highlight: false },
-  { name: "SAIG-OS™ AI Governance Setup", price: "$1,500–$7,500", Icon: Shield, desc: "Documented AI governance framework for nonprofits, healthcare, education, and small businesses. Personal delivery. Zero competition.", highlight: true },
-  { name: "Industry Snapshot", price: "$297–$997", Icon: Buildings, desc: "Pre-built GHL account setups for specific industries (HVAC, Dental, Real Estate, Veteran-Owned). Build once. Zero fulfillment after that." },
-  { name: "CRM Audit + Cleanup", price: "$797", Icon: Wrench, desc: "Full account audit via Claude + GHL MCP — duplicate contacts, dead pipelines, broken automations, lost leads. Every fix applied. Written report delivered." },
+  { name: "AI Stack Audit (C.L.A.R.I.T.Y. Framework™)", Icon: ChartBar, desc: "7-point evaluation of your entire AI and automation stack. Produces a written report with quantified revenue leaks and a prioritized 90-day roadmap.", highlight: true },
+  { name: "AI Implementation", Icon: Robot, desc: "Full GHL build — pipelines, automations, AI agents, and staff walkthrough. Managed via vetted Extendly and Upwork contractors." },
+  { name: "AI Audit + Implementation Bundle", Icon: Robot, desc: "Audit and implementation delivered together. Close both in one call." },
+  { name: "AI Security Audit", Icon: Shield, desc: "Personal delivery only. Maps exposed data, weak access controls, and staff vulnerabilities. Cybersecurity background is the moat — no competitor can replicate this." },
+  { name: "AI Security Setup", Icon: Shield, desc: "Execution of security recommendations — 2FA rollout, data protocol setup, phishing training. Delivered via vetted veteran tech professionals." },
+  { name: "Website Build", Icon: Globe, desc: "Full website design and build delivered white-labeled. You maintain the client relationship. Includes landing pages and funnel setup." },
+  { name: "Capital Stack Setup", Icon: CurrencyDollar, desc: "Configure 4–5 embedded financial partners (Lendio, Relay, BlueVine, NMI, Stripe Capital) with eligibility monitoring workflows. Zero fulfillment cost." },
+  { name: "Client Financing Setup (Wisetack)", Icon: HandCoins, desc: "Help your clients offer 'buy now, pay later' to their own customers — raising close rates and average ticket size. Partner/referral model — zero tech build. Best for HVAC, dental, roofing, med spa, and home services clients.", highlight: false },
+  { name: "SAIG-OS™ AI Governance Setup", Icon: Shield, desc: "Documented AI governance framework for nonprofits, healthcare, education, and small businesses. Personal delivery. Zero competition.", highlight: true },
+  { name: "Industry Snapshot", Icon: Buildings, desc: "Pre-built GHL account setups for specific industries (HVAC, Dental, Real Estate, Veteran-Owned). Build once. Zero fulfillment after that." },
+  { name: "CRM Audit + Cleanup", Icon: Wrench, desc: "Full account audit via Claude + GHL MCP — duplicate contacts, dead pipelines, broken automations, lost leads. Every fix applied. Written report delivered." },
 ];
 
 const mcpServices = [
-  { name: "AI CRM Management", price: "$397/mo", desc: "Weekly AI review of the client's pipeline via Claude + GHL MCP. Stalled leads flagged, dead contacts cleaned, pipeline stays accurate." },
-  { name: "AI Performance Reporting", price: "$297/mo", desc: "Monthly plain-English report showing what's working, what's not, and 3 recommended actions. No dashboards. No spreadsheets. Just answers." },
-  { name: "AI Operations Management", price: "$597/mo", desc: "Weekly and monthly AI-powered reviews of the full account — lead scoring, follow-up gaps, no-show rates, campaign performance." },
-  { name: "Cross-Channel Intelligence Report", price: "$497/mo", desc: "CRM + Google Ads + Meta Ads analyzed together monthly. Shows which campaigns actually drove closed revenue — not just clicks." },
+  { name: "AI CRM Management", desc: "Weekly AI review of the client's pipeline via Claude + GHL MCP. Stalled leads flagged, dead contacts cleaned, pipeline stays accurate." },
+  { name: "AI Performance Reporting", desc: "Monthly plain-English report showing what's working, what's not, and 3 recommended actions. No dashboards. No spreadsheets. Just answers." },
+  { name: "AI Operations Management", desc: "Weekly and monthly AI-powered reviews of the full account — lead scoring, follow-up gaps, no-show rates, campaign performance." },
+  { name: "Cross-Channel Intelligence Report", desc: "CRM + Google Ads + Meta Ads analyzed together monthly. Shows which campaigns actually drove closed revenue — not just clicks." },
 ];
 
 export default function Services() {
@@ -101,7 +101,7 @@ export default function Services() {
                 </div>
                 <Button size="lg" asChild className="bg-[#0A1628] hover:bg-[#132038] text-white font-bold h-13 px-8">
                   <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer" className="flex items-center gap-2">
-                    Request a Rescue Audit — $797
+                    Request a System Rescue
                     <ArrowRight size={18} weight="bold" />
                   </a>
                 </Button>
@@ -137,7 +137,7 @@ export default function Services() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {mcpServices.map(({ name, price, desc }) => (
+            {mcpServices.map(({ name, desc }) => (
               <motion.div
                 key={name}
                 initial={{ opacity: 0, y: 16 }}
@@ -145,10 +145,7 @@ export default function Services() {
                 viewport={{ once: true }}
                 className="bg-[#0D1B2E] border border-[#4AC4E0]/20 hover:border-[#4AC4E0]/40 rounded-2xl p-7 transition-colors duration-300"
               >
-                <div className="flex items-start justify-between gap-4 mb-3">
-                  <h3 className="text-lg font-bold">{name}</h3>
-                  <span className="text-[#4AC4E0] font-bold text-sm shrink-0">{price}</span>
-                </div>
+                <h3 className="text-lg font-bold mb-3">{name}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
               </motion.div>
             ))}
@@ -194,7 +191,7 @@ export default function Services() {
                     <h3 className="font-bold text-lg">AI Search Visibility</h3>
                     <span className="text-[10px] font-bold text-[#4AC4E0] bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 px-2 py-0.5 rounded-full uppercase tracking-wider">GEO / AEO</span>
                   </div>
-                  <p className="text-[#4AC4E0] font-semibold text-sm">$497–$997/mo retainer</p>
+                  <p className="text-[#4AC4E0] font-semibold text-sm">Monthly retainer</p>
                 </div>
               </div>
               <p className="text-gray-400 text-sm leading-relaxed mb-5">
@@ -240,7 +237,7 @@ export default function Services() {
                     <h3 className="font-bold text-lg">Client Financing Setup</h3>
                     <span className="text-[10px] font-bold text-[#4AC4E0] bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 px-2 py-0.5 rounded-full uppercase tracking-wider">Wisetack</span>
                   </div>
-                  <p className="text-[#4AC4E0] font-semibold text-sm">$500 one-time setup</p>
+                  <p className="text-[#4AC4E0] font-semibold text-sm">One-time setup</p>
                 </div>
               </div>
               <p className="text-gray-400 text-sm leading-relaxed mb-5">
@@ -280,7 +277,7 @@ export default function Services() {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {recurringServices.map(({ name, price, Icon, desc, tag }) => (
+              {recurringServices.map(({ name, Icon, desc, tag }) => (
                 <motion.div
                   key={name}
                   initial={{ opacity: 0, y: 16 }}
@@ -292,22 +289,19 @@ export default function Services() {
                     <div
                       className="rounded-xl flex items-center justify-center shrink-0"
                       style={{
-                        width: 48,
-                        height: 48,
-                        background: "rgba(74,196,224,0.08)",
-                        border: "1.5px solid rgba(74,196,224,0.5)",
-                        boxShadow: "0 0 12px rgba(74,196,224,0.10)",
+                        width: 52,
+                        height: 52,
+                        background: "linear-gradient(145deg, rgba(74,196,224,0.22) 0%, rgba(74,196,224,0.08) 100%)",
+                        border: "1px solid rgba(74,196,224,0.4)",
+                        boxShadow: "0 0 20px rgba(74,196,224,0.16), inset 0 1px 0 rgba(255,255,255,0.04)",
                       }}
                     >
-                      <Icon size={22} color="#4AC4E0" weight="duotone" />
+                      <Icon size={24} color="#4AC4E0" weight="fill" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-start justify-between gap-3 mb-1">
                         <h3 className="font-bold text-base">{name}</h3>
-                        <div className="text-right shrink-0">
-                          <p className="text-[#4AC4E0] font-bold text-sm">{price}</p>
-                          <p className="text-xs text-gray-500">{tag}</p>
-                        </div>
+                        <span className="text-xs text-gray-500 shrink-0 mt-0.5">{tag}</span>
                       </div>
                       <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
                     </div>
@@ -329,7 +323,7 @@ export default function Services() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {oneTimeServices.map(({ name, price, Icon, desc, highlight }) => (
+            {oneTimeServices.map(({ name, Icon, desc, highlight }) => (
               <motion.div
                 key={name}
                 initial={{ opacity: 0, y: 16 }}
@@ -343,20 +337,17 @@ export default function Services() {
                   <div
                     className="rounded-xl flex items-center justify-center shrink-0"
                     style={{
-                      width: 48,
-                      height: 48,
-                      background: "rgba(74,196,224,0.08)",
-                      border: "1.5px solid rgba(74,196,224,0.5)",
-                      boxShadow: "0 0 12px rgba(74,196,224,0.10)",
+                      width: 52,
+                      height: 52,
+                      background: "linear-gradient(145deg, rgba(74,196,224,0.22) 0%, rgba(74,196,224,0.08) 100%)",
+                      border: "1px solid rgba(74,196,224,0.4)",
+                      boxShadow: "0 0 20px rgba(74,196,224,0.16), inset 0 1px 0 rgba(255,255,255,0.04)",
                     }}
                   >
-                    <Icon size={22} color="#4AC4E0" weight="duotone" />
+                    <Icon size={24} color="#4AC4E0" weight="fill" />
                   </div>
                   <div>
-                    <div className="flex items-start justify-between gap-3 mb-1">
-                      <h3 className="font-bold text-base">{name}</h3>
-                      <p className="text-[#4AC4E0] font-bold text-sm shrink-0">{price}</p>
-                    </div>
+                    <h3 className="font-bold text-base mb-1">{name}</h3>
                     <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
                   </div>
                 </div>

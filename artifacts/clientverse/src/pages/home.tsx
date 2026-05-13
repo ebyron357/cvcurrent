@@ -520,7 +520,7 @@ export default function Home() {
                 <p className="text-xs text-[#4AC4E0] font-bold tracking-widest uppercase mb-4">The C.L.A.R.I.T.Y. Framework™</p>
                 <h2 className="text-3xl md:text-4xl font-bold mb-5">
                   Your Revenue Audit. <br />
-                  <span className="text-[#4AC4E0]">$497 — Delivered in 48 Hours.</span>
+                  <span className="text-[#4AC4E0]">Delivered in 48 Hours.</span>
                 </h2>
                 <p className="text-gray-400 leading-relaxed mb-8">
                   A 7-point operational assessment of your entire business — every gap identified, every fix mapped, every revenue leak given a dollar value. Delivered as a written report with a live walkthrough call.
@@ -693,7 +693,7 @@ export default function Home() {
                 className="bg-[#0A1628] hover:bg-[#132038] text-white font-bold h-14 px-10 text-lg flex items-center gap-2"
               >
                 <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
-                  Book Your Revenue Audit — $497
+                  Book Your Revenue Audit
                   <ArrowRight size={18} weight="bold" />
                 </a>
               </Button>
