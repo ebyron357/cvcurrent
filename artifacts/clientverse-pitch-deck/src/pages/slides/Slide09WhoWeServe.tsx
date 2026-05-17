@@ -59,7 +59,7 @@ export default function Slide09WhoWeServe() {
               <p className="font-body" style={{ fontSize: "1.5vw", color: "rgba(255,255,255,0.50)" }}>Generic subscription software</p>
             </div>
             <div style={{ background: "rgba(10,22,40,0.60)", borderRadius: "0.6vh", padding: "1.5vh 2vw", border: "1px solid rgba(255,255,255,0.08)" }}>
-              <p className="font-body" style={{ fontSize: "1.5vw", color: "rgba(255,255,255,0.50)" }}>A GoHighLevel reseller or agency</p>
+              <p className="font-body" style={{ fontSize: "1.5vw", color: "rgba(255,255,255,0.50)" }}>A platform reseller or white-label agency</p>
             </div>
             <div style={{ background: "rgba(10,22,40,0.60)", borderRadius: "0.6vh", padding: "1.5vh 2vw", border: "1px solid rgba(255,255,255,0.08)" }}>
               <p className="font-body" style={{ fontSize: "1.5vw", color: "rgba(255,255,255,0.50)" }}>Off-the-shelf process templates</p>

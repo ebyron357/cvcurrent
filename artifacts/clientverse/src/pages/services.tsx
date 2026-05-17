@@ -33,12 +33,12 @@ const recurringServices = [
   { name: "Call Tracking & Recording", Icon: Phone, desc: "Every inbound call tracked, recorded, and visible in the client dashboard. Shows which ads and channels drive real calls.", tag: "Managed" },
   { name: "Voicemail Drop Campaigns", Icon: Phone, desc: "Pre-recorded voicemails dropped directly to prospect inboxes — phone never rings. VA-managed execution.", tag: "Managed" },
   { name: "Website Maintenance", Icon: Wrench, desc: "Ongoing site updates, speed optimization, uptime monitoring, and plugin/security patches. Outsourced via vetted partners.", tag: "Managed" },
-  { name: "WhatsApp Business Campaigns", Icon: ChatCircle, desc: "Outbound WhatsApp messaging campaigns — appointment reminders, promotions, and re-engagement. Native GHL execution.", tag: "Managed" },
+  { name: "WhatsApp Business Campaigns", Icon: ChatCircle, desc: "Outbound WhatsApp messaging campaigns — appointment reminders, promotions, and re-engagement. Native platform execution.", tag: "Managed" },
 ];
 
 const oneTimeServices = [
   { name: "AI Stack Audit (C.L.A.R.I.T.Y. Framework™)", Icon: ChartBar, desc: "7-point evaluation of your entire AI and automation stack. Produces a written report with quantified revenue leaks and a prioritized 90-day roadmap.", highlight: true },
-  { name: "AI Implementation", Icon: Robot, desc: "Full GHL build — pipelines, automations, AI agents, and staff walkthrough. Managed via vetted Extendly and Upwork contractors." },
+  { name: "AI Implementation", Icon: Robot, desc: "Full platform build — pipelines, automations, AI agents, and staff walkthrough. Managed via vetted contractors." },
   { name: "AI Audit + Implementation Bundle", Icon: Robot, desc: "Audit and implementation delivered together. Close both in one call." },
   { name: "AI Security Audit", Icon: Shield, desc: "Personal delivery only. Maps exposed data, weak access controls, and staff vulnerabilities. Cybersecurity background is the moat — no competitor can replicate this." },
   { name: "AI Security Setup", Icon: Shield, desc: "Execution of security recommendations — 2FA rollout, data protocol setup, phishing training. Delivered via vetted veteran tech professionals." },
@@ -46,12 +46,12 @@ const oneTimeServices = [
   { name: "Capital Stack Setup", Icon: CurrencyDollar, desc: "Configure 4–5 embedded financial partners (Lendio, Relay, BlueVine, NMI, Stripe Capital) with eligibility monitoring workflows. Zero fulfillment cost." },
   { name: "Client Financing Setup (Wisetack)", Icon: HandCoins, desc: "Help your clients offer 'buy now, pay later' to their own customers — raising close rates and average ticket size. Partner/referral model — zero tech build. Best for HVAC, dental, roofing, med spa, and home services clients.", highlight: false },
   { name: "SAIG-OS™ AI Governance Setup", Icon: Shield, desc: "Documented AI governance framework for nonprofits, healthcare, education, and small businesses. Personal delivery. Zero competition.", highlight: true },
-  { name: "Industry Snapshot", Icon: Buildings, desc: "Pre-built GHL account setups for specific industries (HVAC, Dental, Real Estate, Veteran-Owned). Build once. Zero fulfillment after that." },
-  { name: "CRM Audit + Cleanup", Icon: Wrench, desc: "Full account audit via Claude + GHL MCP — duplicate contacts, dead pipelines, broken automations, lost leads. Every fix applied. Written report delivered." },
+  { name: "Industry Snapshot", Icon: Buildings, desc: "Pre-built account setups for specific industries (HVAC, Dental, Real Estate, Veteran-Owned). Build once. Zero fulfillment after that." },
+  { name: "CRM Audit + Cleanup", Icon: Wrench, desc: "Full account audit via Claude AI — duplicate contacts, dead pipelines, broken automations, lost leads. Every fix applied. Written report delivered." },
 ];
 
 const mcpServices = [
-  { name: "AI CRM Management", desc: "Weekly AI review of the client's pipeline via Claude + GHL MCP. Stalled leads flagged, dead contacts cleaned, pipeline stays accurate." },
+  { name: "AI CRM Management", desc: "Weekly AI review of the client's pipeline via Claude AI. Stalled leads flagged, dead contacts cleaned, pipeline stays accurate." },
   { name: "AI Performance Reporting", desc: "Monthly plain-English report showing what's working, what's not, and 3 recommended actions. No dashboards. No spreadsheets. Just answers." },
   { name: "AI Operations Management", desc: "Weekly and monthly AI-powered reviews of the full account — lead scoring, follow-up gaps, no-show rates, campaign performance." },
   { name: "Cross-Channel Intelligence Report", desc: "CRM + Google Ads + Meta Ads analyzed together monthly. Shows which campaigns actually drove closed revenue — not just clicks." },
@@ -89,7 +89,7 @@ export default function Services() {
               <div className="flex-1">
                 <h2 className="text-4xl md:text-5xl font-bold mb-5">System Rescue™</h2>
                 <p className="text-xl font-medium mb-8 opacity-90">
-                  Already have GHL or another CRM but it's a mess? We go in, clean it out, and rebuild it right. New clients with existing accounts get this at onboarding. It reveals every gap — and every gap becomes a service.
+                  Already have a CRM or automation platform that's a mess? We go in, clean it out, and rebuild it right. New clients with existing accounts get this at onboarding. It reveals every gap — and every gap becomes a service.
                 </p>
                 <div className="grid grid-cols-2 gap-4 mb-8">
                   {["Duplicate contact cleanup", "Dead pipeline removal", "Broken automation repair", "Lost lead recovery", "Data migration", "Staff re-training"].map((item) => (
@@ -127,13 +127,13 @@ export default function Services() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 rounded-full px-4 py-1.5 text-sm text-[#4AC4E0] font-medium mb-5">
               <Robot size={14} weight="fill" />
-              Claude + GHL MCP — Only 5% of Agencies Know This Exists
+              Claude AI Integration — Only 5% of Agencies Know This Exists
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               AI-Powered Managed Services
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Claude connects directly to each client's GHL account via MCP (Model Context Protocol). No Zapier. No middleware. Claude reads pipelines, flags issues, and writes back — all in plain English. These are services your competitors have never heard of.
+              Claude connects directly to each client's CRM via MCP (Model Context Protocol). No Zapier. No middleware. Claude reads pipelines, flags issues, and writes back — all in plain English. These are services your competitors have never heard of.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -153,7 +153,7 @@ export default function Services() {
           <div className="mt-8 bg-[#0D1B2E] border border-[#1E2D4A] rounded-xl px-6 py-4 flex items-center gap-3">
             <Robot size={20} color="#4AC4E0" weight="duotone" className="shrink-0" />
             <p className="text-sm text-gray-400">
-              Setup takes under 15 minutes per client. Claude reads contacts, pipelines, conversations, tags, and custom fields — and writes back. Official GHL MCP: <span className="text-[#4AC4E0]">marketplace.gohighlevel.com/docs/other/mcp</span>
+              Setup takes under 15 minutes per client. Claude reads contacts, pipelines, conversations, tags, and custom fields — and writes back. Powered by the official MCP connector.
             </p>
           </div>
         </section>

@@ -151,8 +151,8 @@ const faqs = [
     a: "No. You describe what you want to happen in your business. We build and manage the systems that make it happen. If something breaks, we fix it.",
   },
   {
-    q: "What if I already have GoHighLevel?",
-    a: "We do a System Rescue™ — audit your existing account, clean it out, and rebuild it to spec. Most GHL accounts we inherit have 12–20 broken or missing configurations.",
+    q: "What if I already have a CRM or automation platform?",
+    a: "We do a System Rescue™ — audit your existing setup, clean it out, and rebuild it to spec. Most accounts we inherit have 12–20 broken or missing configurations.",
   },
   {
     q: "Is there a contract?",
@@ -705,7 +705,7 @@ export default function Home() {
                 {
                   Icon: Wrench,
                   label: "Repair",
-                  body: "Already have GHL or another CRM that's a mess? System Rescue™ audits, cleans, and rebuilds it. Typically 12–20 issues fixed in 48 hours.",
+                  body: "Already have a CRM or automation stack that's a mess? System Rescue™ audits, cleans, and rebuilds it. Typically 12–20 issues fixed in 48 hours.",
                   items: ["Broken automation repair", "Duplicate contact cleanup", "Pipeline restoration", "Data migration", "Lost lead recovery"],
                 },
                 {

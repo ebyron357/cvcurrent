@@ -300,7 +300,7 @@ export default function AiServices() {
                   Your Entire CRM, <span className="text-[#4AC4E0]">Reviewed by AI Every Week</span>
                 </h2>
                 <p className="text-gray-400 mb-6 leading-relaxed">
-                  Alongside the 5 core AI services, every ClientVerse account can be enrolled in AI CRM Management — where Claude AI connects directly to your GHL account via the official MCP server and runs a weekly pipeline review in plain English.
+                  Alongside the 5 core AI services, every ClientVerse account can be enrolled in AI CRM Management — where Claude AI connects directly to your CRM via the official AI connector and runs a weekly pipeline review in plain English.
                 </p>
                 <p className="text-gray-400 mb-8 leading-relaxed">
                   Stalled leads get flagged. Dead contacts get cleaned. Follow-up gaps get identified. You receive a plain-English weekly summary — no dashboards, no spreadsheets, just actionable findings.

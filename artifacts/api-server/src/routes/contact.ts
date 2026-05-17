@@ -69,12 +69,12 @@ async function persistToDb(data: ContactPayload): Promise<boolean> {
   }
 }
 
-async function syncToGHL(data: ContactPayload): Promise<boolean> {
+async function syncToCRM(data: ContactPayload): Promise<boolean> {
   const apiKey = process.env.GHL_API_KEY;
   const locationId = process.env.GHL_LOCATION_ID;
 
   if (!apiKey || !locationId) {
-    console.log("[GHL] No credentials configured — skipping CRM sync");
+    console.log("[CRM] No credentials configured — skipping CRM sync");
     return false;
   }
 
@@ -106,7 +106,7 @@ async function syncToGHL(data: ContactPayload): Promise<boolean> {
     });
 
     if (resV2.ok) {
-      console.log("[GHL] CRM contact created successfully (v2)");
+      console.log("[CRM] Contact created successfully (v2)");
       return true;
     }
 
@@ -115,7 +115,7 @@ async function syncToGHL(data: ContactPayload): Promise<boolean> {
 
     // If 401 on v2, fall back to v1 (standard location API key)
     if (v2Status === 401) {
-      console.log("[GHL] v2 auth failed — falling back to v1 API");
+      console.log("[CRM] v2 auth failed — falling back to v1 API");
       const resV1 = await fetch("https://rest.gohighlevel.com/v1/contacts/", {
         method: "POST",
         headers: {
@@ -126,19 +126,19 @@ async function syncToGHL(data: ContactPayload): Promise<boolean> {
       });
 
       if (resV1.ok) {
-        console.log("[GHL] CRM contact created successfully (v1)");
+        console.log("[CRM] Contact created successfully (v1)");
         return true;
       }
 
       const v1Body = await resV1.text();
-      console.error("[GHL] v1 CRM sync also failed:", resV1.status, v1Body);
+      console.error("[CRM] v1 sync also failed:", resV1.status, v1Body);
       return false;
     }
 
-    console.error("[GHL] v2 CRM sync failed:", v2Status, v2Body);
+    console.error("[CRM] v2 sync failed:", v2Status, v2Body);
     return false;
   } catch (err) {
-    console.error("[GHL] CRM sync network error:", err);
+    console.error("[CRM] sync network error:", err);
     return false;
   }
 }
@@ -253,7 +253,7 @@ contactRouter.post("/contact", async (req, res) => {
 
   const [dbOk, ghlOk, emailOk] = await Promise.all([
     persistToDb(payload),
-    syncToGHL(payload),
+    syncToCRM(payload),
     sendNotificationEmail(payload),
   ]);
 

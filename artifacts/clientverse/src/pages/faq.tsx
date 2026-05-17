@@ -22,11 +22,11 @@ const categories: { label: string; items: FaqItem[] }[] = [
       },
       {
         q: "Do I need any technical knowledge to use this?",
-        a: "No. You don't need to know what GHL is, what an API is, or how automation works. You describe what you want to happen in your business — we build and manage the systems that make it happen. If something breaks, we fix it. If you want to change something, you tell us.",
+        a: "No. You don't need to know what a CRM is, what an API is, or how automation works. You describe what you want to happen in your business — we build and manage the systems that make it happen. If something breaks, we fix it. If you want to change something, you tell us.",
       },
       {
-        q: "Do I need my own GoHighLevel account?",
-        a: "No. Your account lives inside the ClientVerse platform. You get your own sub-account — fully branded with your business — and we configure and manage it for you. You have login access and full visibility into everything.",
+        q: "Do I need my own CRM or software account?",
+        a: "No. Your account lives inside the ClientVerse platform. You get your own workspace — fully branded with your business — and we configure and manage it for you. You have login access and full visibility into everything.",
       },
       {
         q: "What happens during onboarding?",
@@ -64,11 +64,11 @@ const categories: { label: string; items: FaqItem[] }[] = [
     items: [
       {
         q: "What AI tools are actually running in my account?",
-        a: "Your account uses GoHighLevel's native AI features (AI chatbot, AI voice agent, AI Decision Maker in workflows) combined with Claude AI via the official GHL MCP server for account management and reporting. No third-party subscriptions required — it's all included.",
+        a: "Your account uses native AI features (AI chatbot, AI voice agent, AI Decision Maker in workflows) combined with Claude AI via the official MCP connector for account management and reporting. No third-party subscriptions required — it's all included.",
       },
       {
-        q: "What is the GHL MCP integration and why does it matter?",
-        a: "MCP (Model Context Protocol) is an official GoHighLevel integration that lets Claude AI read and write directly to your GHL account — contacts, pipelines, conversations, calendars, and tags. This is what powers the AI CRM Management and AI Operations Management services. Less than 5% of agencies know this exists. We've been using it since launch.",
+        q: "What is the AI CRM integration and why does it matter?",
+        a: "MCP (Model Context Protocol) is an official CRM integration that lets Claude AI read and write directly to your account — contacts, pipelines, conversations, calendars, and tags. This is what powers the AI CRM Management and AI Operations Management services. Less than 5% of agencies know this exists. We've been using it since launch.",
       },
       {
         q: "How does the AI voice agent work?",
@@ -80,7 +80,7 @@ const categories: { label: string; items: FaqItem[] }[] = [
       },
       {
         q: "Is my data secure?",
-        a: "Your account runs on GoHighLevel's SOC 2 Type II certified infrastructure — the same compliance tier as enterprise software. Data is encrypted in transit and at rest. We also offer an AI Security Audit as an add-on service, which reviews your full AI stack for exposure, weak access controls, and staff vulnerabilities.",
+        a: "Your account runs on SOC 2 Type II certified infrastructure — the same compliance tier as enterprise software. Data is encrypted in transit and at rest. We also offer an AI Security Audit as an add-on service, which reviews your full AI stack for exposure, weak access controls, and staff vulnerabilities.",
       },
     ],
   },
@@ -89,7 +89,7 @@ const categories: { label: string; items: FaqItem[] }[] = [
     items: [
       {
         q: "Who actually does the work — do you outsource it?",
-        a: "Managed services (ads, SEO, content, web builds) are delivered through vetted partners — Extendly for GHL configurations, and a curated network of white-label providers. The client relationship stays with you. Proprietary services (C.L.A.R.I.T.Y. Audit, SAIG-OS AI Governance, AI Security Audit) are delivered personally — no outsourcing.",
+        a: "Managed services (ads, SEO, content, web builds) are delivered through vetted partners — a curated network of white-label providers. The client relationship stays with you. Proprietary services (C.L.A.R.I.T.Y. Audit, SAIG-OS AI Governance, AI Security Audit) are delivered personally — no outsourcing.",
       },
       {
         q: "What is the C.L.A.R.I.T.Y. Framework™?",

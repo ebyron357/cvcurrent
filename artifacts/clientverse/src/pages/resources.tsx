@@ -87,13 +87,13 @@ const templates = [
     cta: "Download via Consultation",
   },
   {
-    title: "GHL Snapshot Deployment Checklist",
+    title: "CRM Snapshot Deployment Checklist",
     description: "Step-by-step checklist for deploying an industry snapshot into a new client sub-account — under 15 minutes every time.",
     cta: "Download via Consultation",
   },
   {
-    title: "MCP Setup Guide — Claude + GHL",
-    description: "Internal-grade walkthrough for connecting Claude to a GHL sub-account via Private Integration Token. Covers permissions, security, and test commands.",
+    title: "MCP Setup Guide — Claude AI Integration",
+    description: "Internal-grade walkthrough for connecting Claude to a CRM sub-account via Private Integration Token. Covers permissions, security, and test commands.",
     cta: "Download via Consultation",
   },
 ];

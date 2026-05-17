@@ -62,7 +62,7 @@ const caseStudies = [
     challenge:
       "A real estate team had accumulated 230+ stale contacts in their CRM with no follow-up, no tags, and no pipeline stages. Leads from 6–18 months ago had never received a second touch. The team had no visibility into where deals stood and no automated follow-up running.",
     solution:
-      "Full CRM audit via Claude + GHL MCP in 48 hours — duplicate contacts cleaned, dead pipeline removed, stages rebuilt. A 5-touch reactivation sequence launched to all stale contacts. AI pipeline review set up weekly — stalled deals flagged, follow-up gaps identified, plain-English weekly summary delivered.",
+      "Full CRM audit via Claude AI in 48 hours — duplicate contacts cleaned, dead pipeline removed, stages rebuilt. A 5-touch reactivation sequence launched to all stale contacts. AI pipeline review set up weekly — stalled deals flagged, follow-up gaps identified, plain-English weekly summary delivered.",
     outcomes: [
       "8 deals recovered directly from the reactivation sequence",
       "230 contacts cleaned, tagged, and re-entered into active follow-up",
@@ -81,7 +81,7 @@ const caseStudies = [
     challenge:
       "A veteran-owned roofing company was running 7 separate SaaS tools — a CRM, a scheduling app, a review platform, a text service, an email tool, a proposal builder, and a separate invoicing system. Monthly cost: $1,847. None of them talked to each other. Data was manually re-entered across 4 systems.",
     solution:
-      "System Rescue™ audit identified the full tech stack cost and overlap. GoHighLevel configured to replace 6 of the 7 tools entirely. AI voice agent added for missed call coverage. All client data migrated. Staff trained. Platform go-live in 7 days. Veteran-owned onboarding priority applied.",
+      "System Rescue™ audit identified the full tech stack cost and overlap. Our platform configured to replace 6 of the 7 tools entirely. AI voice agent added for missed call coverage. All client data migrated. Staff trained. Platform go-live in 7 days. Veteran-owned onboarding priority applied.",
     outcomes: [
       "$1,200/mo in SaaS costs eliminated (from $1,847 down to $647)",
       "6 tools replaced by one platform — zero data re-entry",

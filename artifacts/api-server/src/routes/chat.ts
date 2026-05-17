@@ -92,12 +92,12 @@ function stripLeadMarker(text: string): string {
   return text.replace(/__LEAD__[\s\S]*?__LEAD__/g, "").trim();
 }
 
-async function submitToGoHighLevel(lead: LeadData): Promise<void> {
+async function submitToCRM(lead: LeadData): Promise<void> {
   const apiKey = process.env.GHL_API_KEY;
   const locationId = process.env.GHL_LOCATION_ID;
 
   if (!apiKey || !locationId) {
-    console.log("[GHL] Missing GHL_API_KEY or GHL_LOCATION_ID — lead logged:", lead);
+    console.log("[CRM] Missing credentials — lead logged:", lead);
     return;
   }
 
@@ -129,12 +129,12 @@ async function submitToGoHighLevel(lead: LeadData): Promise<void> {
 
     const body = await res.text();
     if (!res.ok) {
-      console.error("[GHL] Failed to submit lead:", res.status, body);
+      console.error("[CRM] Failed to submit lead:", res.status, body);
     } else {
-      console.log("[GHL] Lead submitted successfully:", lead.email);
+      console.log("[CRM] Lead submitted successfully:", lead.email);
     }
   } catch (err) {
-    console.error("[GHL] Error submitting lead:", err);
+    console.error("[CRM] Error submitting lead:", err);
   }
 }
 
@@ -187,7 +187,7 @@ chatRouter.post("/chat", async (req, res) => {
 
     if (leadData) {
       action = "lead_captured";
-      await submitToGoHighLevel(leadData);
+      await submitToCRM(leadData);
     } else if (intent === "ready") {
       action = "suggest_booking";
     }

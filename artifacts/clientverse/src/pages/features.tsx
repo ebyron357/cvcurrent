@@ -305,7 +305,7 @@ export default function Features() {
         <section className="container mx-auto px-4 py-16 text-center border-t border-[#1E2D4A] max-w-3xl">
           <h2 className="text-3xl font-bold mb-4">See it all live in your account.</h2>
           <p className="text-gray-400 mb-8">
-            Every feature above is live in your GHL dashboard within 7 days. Book a Revenue Audit and we'll map exactly which features stop your biggest revenue leaks first.
+            Every feature above is live in your account within 7 days. Book a Revenue Audit and we'll map exactly which features stop your biggest revenue leaks first.
           </p>
           <Button size="lg" asChild className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold text-base px-10 h-13">
             <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
