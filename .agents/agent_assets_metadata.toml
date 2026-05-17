@@ -35,3 +35,9 @@ id = "3QdbZlSN1BKg3zoqk2Nl7"
 uri = "file://.local/outputs/ClientVerse-Pitch-Deck.pdf"
 type = "pdf"
 title = "ClientVerse Pitch Deck (PDF)"
+
+[[outputs]]
+id = "d4iIHiwg9KjTVJb-3bRE-"
+uri = "file://clientverse-project.zip"
+type = "unspecified"
+title = "ClientVerse Project Source Code"
