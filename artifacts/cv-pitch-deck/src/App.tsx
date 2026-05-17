@@ -160,9 +160,178 @@ function AllSlides() {
   );
 }
 
+// Presenter view — shown at /present. Side-by-side: slide iframe + speaker notes panel.
+function PresenterView() {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  const slide = slides[currentIndex];
+  const speakerNotes: string = (slide as any)?.speakerNotes ?? "No notes for this slide.";
+
+  const navigateTo = (index: number) => {
+    const clamped = Math.max(0, Math.min(slides.length - 1, index));
+    setCurrentIndex(clamped);
+    iframeRef.current?.contentWindow?.postMessage(
+      { type: "navigateToSlide", position: slides[clamped].position },
+      "*"
+    );
+  };
+
+  // Forward arrow keys and also track local index
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (["ArrowRight", "ArrowDown", " "].includes(e.key)) {
+        e.preventDefault();
+        setCurrentIndex(i => {
+          const next = Math.min(i + 1, slides.length - 1);
+          iframeRef.current?.contentWindow?.postMessage(
+            { type: "navigateToSlide", position: slides[next].position }, "*"
+          );
+          return next;
+        });
+      } else if (["ArrowLeft", "ArrowUp"].includes(e.key)) {
+        setCurrentIndex(i => {
+          const prev = Math.max(i - 1, 0);
+          iframeRef.current?.contentWindow?.postMessage(
+            { type: "navigateToSlide", position: slides[prev].position }, "*"
+          );
+          return prev;
+        });
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  const navBtnStyle = (disabled: boolean): React.CSSProperties => ({
+    background: "none",
+    border: "1px solid " + (disabled ? "rgba(74,196,224,0.15)" : "rgba(74,196,224,0.35)"),
+    borderRadius: "8px",
+    padding: "6px 16px",
+    color: disabled ? "rgba(74,196,224,0.3)" : "#4AC4E0",
+    fontFamily: "Inter, sans-serif",
+    fontSize: "13px",
+    cursor: disabled ? "not-allowed" : "pointer",
+    letterSpacing: "0.04em",
+    whiteSpace: "nowrap" as const,
+  });
+
+  return (
+    <div style={{ display: "flex", width: "100vw", height: "100vh", background: "#040b18", overflow: "hidden" }}>
+      {/* Left: slide iframe */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
+        {/* Top bar */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 16px", borderBottom: "1px solid rgba(74,196,224,0.1)", flexShrink: 0 }}>
+          <a
+            href={base + "/"}
+            style={{ color: "rgba(74,196,224,0.55)", fontSize: "12px", fontFamily: "Inter, sans-serif", textDecoration: "none", letterSpacing: "0.06em" }}
+          >
+            ← Exit Presenter
+          </a>
+          <span style={{ color: "#4AC4E0", fontSize: "11px", fontFamily: "Inter, sans-serif", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+            Presenter View
+          </span>
+          <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "12px", fontFamily: "Inter, sans-serif" }}>
+            {currentIndex + 1} / {slides.length}
+          </span>
+        </div>
+
+        {/* Slide area */}
+        <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", background: "#050d1a", padding: "12px" }}>
+          <iframe
+            ref={iframeRef}
+            src={`${base}/slide${slides[0]?.position ?? 1}`}
+            style={{ width: "100%", aspectRatio: "16 / 9", border: "none", maxHeight: "100%", borderRadius: "4px" }}
+            title="Slide preview"
+            onLoad={() => {
+              setIframeLoaded(true);
+              if (currentIndex > 0 && slide) {
+                iframeRef.current?.contentWindow?.postMessage(
+                  { type: "navigateToSlide", position: slide.position }, "*"
+                );
+              }
+            }}
+          />
+          {!iframeLoaded && (
+            <div style={{ position: "absolute", color: "rgba(74,196,224,0.4)", fontFamily: "Inter, sans-serif", fontSize: "13px" }}>
+              Loading…
+            </div>
+          )}
+        </div>
+
+        {/* Nav bar */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px", padding: "12px 16px", borderTop: "1px solid rgba(74,196,224,0.1)", flexShrink: 0 }}>
+          <button style={navBtnStyle(currentIndex === 0)} disabled={currentIndex === 0} onClick={() => navigateTo(currentIndex - 1)}>
+            ← Prev
+          </button>
+          <span style={{ color: "rgba(200,220,240,0.7)", fontFamily: "Inter, sans-serif", fontSize: "13px", minWidth: "80px", textAlign: "center" }}>
+            {slide?.title ?? ""}
+          </span>
+          <button style={navBtnStyle(currentIndex === slides.length - 1)} disabled={currentIndex === slides.length - 1} onClick={() => navigateTo(currentIndex + 1)}>
+            Next →
+          </button>
+        </div>
+      </div>
+
+      {/* Right: notes panel */}
+      <div style={{ width: "320px", flexShrink: 0, borderLeft: "1px solid rgba(74,196,224,0.1)", display: "flex", flexDirection: "column", background: "#0A1628" }}>
+        <div style={{ padding: "14px 20px", borderBottom: "1px solid rgba(74,196,224,0.1)", flexShrink: 0 }}>
+          <p style={{ margin: 0, color: "#4AC4E0", fontSize: "10px", fontFamily: "Inter, sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "4px" }}>
+            Speaker Notes
+          </p>
+          <p style={{ margin: 0, color: "rgba(255,255,255,0.9)", fontSize: "14px", fontFamily: "Inter, sans-serif", fontWeight: 700 }}>
+            {slide?.title ?? ""}
+          </p>
+        </div>
+        <div style={{ flex: 1, overflowY: "auto", padding: "20px" }}>
+          <p style={{ margin: 0, color: "rgba(190,215,235,0.85)", fontSize: "14px", fontFamily: "Inter, sans-serif", lineHeight: "1.75" }}>
+            {speakerNotes}
+          </p>
+        </div>
+        {/* Slide thumbnail strip */}
+        <div style={{ borderTop: "1px solid rgba(74,196,224,0.1)", padding: "12px 16px", flexShrink: 0 }}>
+          <p style={{ margin: "0 0 8px", color: "rgba(74,196,224,0.5)", fontSize: "10px", fontFamily: "Inter, sans-serif", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+            All Slides
+          </p>
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+            {slides.map((s, i) => (
+              <button
+                key={s.id}
+                onClick={() => navigateTo(i)}
+                style={{
+                  width: "26px",
+                  height: "18px",
+                  borderRadius: "3px",
+                  border: i === currentIndex ? "1.5px solid #4AC4E0" : "1px solid rgba(74,196,224,0.2)",
+                  background: i === currentIndex ? "rgba(74,196,224,0.18)" : "rgba(74,196,224,0.05)",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: i === currentIndex ? "#4AC4E0" : "rgba(74,196,224,0.4)",
+                  fontSize: "8px",
+                  fontFamily: "Inter, sans-serif",
+                  fontWeight: 600,
+                  padding: 0,
+                }}
+                title={s.title}
+              >
+                {s.position}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // This component is used for the deployed view at `/`
 function SlideViewer() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [dims, setDims] = useState(() => ({
     width: Math.min(window.innerWidth, window.innerHeight * (16 / 9)),
     height: Math.min(window.innerHeight, window.innerWidth * (9 / 16)),
@@ -186,26 +355,97 @@ function SlideViewer() {
       iframeRef.current?.contentWindow?.dispatchEvent(
         new KeyboardEvent("keydown", { key: event.key, code: event.code, bubbles: true }),
       );
+      // Track local index in sync with key presses
+      if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+        setCurrentIndex(i => Math.max(0, i - 1));
+      } else {
+        setCurrentIndex(i => Math.min(slides.length - 1, i + 1));
+      }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  // Also track slide advancement from iframe postMessage (advanceSlide)
+  useEffect(() => {
+    const onMsg = (event: MessageEvent) => {
+      if (event.data?.type === "advanceSlide") {
+        setCurrentIndex(i => Math.min(slides.length - 1, i + 1));
+      }
+    };
+    window.addEventListener("message", onMsg);
+    return () => window.removeEventListener("message", onMsg);
+  }, []);
+
   const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   const firstPosition = slides.length > 0 ? slides[0].position : 1;
 
+  const navigate = (newIndex: number) => {
+    const clamped = Math.max(0, Math.min(slides.length - 1, newIndex));
+    setCurrentIndex(clamped);
+    iframeRef.current?.contentWindow?.postMessage(
+      { type: "navigateToSlide", position: slides[clamped].position }, "*"
+    );
+  };
+
   return (
     <div
-      className="slide-viewer h-screen w-screen overflow-hidden bg-black flex items-center justify-center"
-      onClick={() => iframeRef.current?.focus()}
+      className="slide-viewer h-screen w-screen overflow-hidden bg-black flex flex-col items-center justify-center"
     >
-      <iframe
-        ref={iframeRef}
-        src={`${base}/slide${firstPosition}`}
-        style={{ width: dims.width, height: dims.height, border: "none" }}
-        onLoad={() => iframeRef.current?.focus()}
-        title="Slide viewer"
-      />
+      <div style={{ position: "relative" }} onClick={() => iframeRef.current?.focus()}>
+        <iframe
+          ref={iframeRef}
+          src={`${base}/slide${firstPosition}`}
+          style={{ width: dims.width, height: dims.height, border: "none", display: "block" }}
+          onLoad={() => iframeRef.current?.focus()}
+          title="Slide viewer"
+        />
+      </div>
+
+      {/* Slide counter + presenter link */}
+      <div style={{
+        position: "fixed",
+        bottom: "20px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        display: "flex",
+        alignItems: "center",
+        gap: "12px",
+        background: "rgba(10,22,40,0.85)",
+        backdropFilter: "blur(10px)",
+        border: "1px solid rgba(74,196,224,0.18)",
+        borderRadius: "24px",
+        padding: "8px 16px",
+        zIndex: 50,
+        userSelect: "none",
+      }}>
+        <button
+          onClick={() => navigate(currentIndex - 1)}
+          disabled={currentIndex === 0}
+          style={{ background: "none", border: "none", cursor: currentIndex === 0 ? "not-allowed" : "pointer", color: currentIndex === 0 ? "rgba(74,196,224,0.2)" : "rgba(74,196,224,0.7)", fontSize: "16px", padding: "0 4px", lineHeight: 1 }}
+        >
+          ‹
+        </button>
+        <span style={{ color: "rgba(200,220,240,0.7)", fontFamily: "Inter, sans-serif", fontSize: "12px", minWidth: "40px", textAlign: "center", letterSpacing: "0.06em" }}>
+          {currentIndex + 1} / {slides.length}
+        </span>
+        <button
+          onClick={() => navigate(currentIndex + 1)}
+          disabled={currentIndex === slides.length - 1}
+          style={{ background: "none", border: "none", cursor: currentIndex === slides.length - 1 ? "not-allowed" : "pointer", color: currentIndex === slides.length - 1 ? "rgba(74,196,224,0.2)" : "rgba(74,196,224,0.7)", fontSize: "16px", padding: "0 4px", lineHeight: 1 }}
+        >
+          ›
+        </button>
+        <div style={{ width: "1px", height: "16px", background: "rgba(74,196,224,0.2)" }} />
+        <a
+          href={`${base}/present`}
+          target="_blank"
+          rel="noreferrer"
+          style={{ color: "rgba(74,196,224,0.6)", fontFamily: "Inter, sans-serif", fontSize: "11px", textDecoration: "none", letterSpacing: "0.08em", whiteSpace: "nowrap" }}
+        >
+          Presenter Mode
+        </a>
+      </div>
     </div>
   );
 }
@@ -219,6 +459,7 @@ export default function App() {
     if (
       location !== "/" &&
       location !== "/allslides" &&
+      location !== "/present" &&
       getSlideIndex(location) === -1
     ) {
       if (slides.length > 0) {
@@ -247,5 +488,6 @@ export default function App() {
 
   if (location === "/") return <SlideViewer />;
   if (location === "/allslides") return <AllSlides />;
+  if (location === "/present") return <PresenterView />;
   return <SlideEditor />;
 }

@@ -52,11 +52,6 @@ async function cancelStoredIds(key: string): Promise<void> {
   }
 }
 
-/**
- * Fire an immediate confirmation notification when the booking CTA is tapped.
- * This is decoupled from reminder scheduling — it fires regardless of whether
- * the user sets a reminder.
- */
 export async function scheduleBookingConfirmation(): Promise<void> {
   const granted = await requestPermission();
   if (!granted) return;
@@ -79,14 +74,6 @@ export type ReminderResult =
   | { success: true }
   | { success: false; reason: "permission_denied" | "time_in_past" | "scheduling_error" };
 
-/**
- * Schedule a reminder 24 hours before the provided appointment time.
- * Uses a separate storage key from confirmations so cancelling a reminder
- * never affects the confirmation notification.
- *
- * Note: In the absence of a Calendly webhook, this is called with the
- * appointment time that the user manually enters in BookingReminderModal.
- */
 export async function scheduleAppointmentReminder(
   appointmentTime: Date
 ): Promise<ReminderResult> {
@@ -132,4 +119,72 @@ export async function scheduleAppointmentReminder(
     console.warn("[useBookingNotification] Failed to schedule reminder notification:", err);
     return { success: false, reason: "scheduling_error" };
   }
+}
+
+export interface ReminderDetail {
+  id: string;
+  triggerDate: Date | null;
+  title: string;
+  body: string;
+}
+
+/**
+ * Returns all scheduled reminders that were created by this app.
+ */
+export async function getAllReminderDetails(): Promise<ReminderDetail[]> {
+  if (Platform.OS === "web") return [];
+  try {
+    const [scheduled, raw] = await Promise.all([
+      Notifications.getAllScheduledNotificationsAsync(),
+      AsyncStorage.getItem(REMINDER_STORAGE_KEY),
+    ]);
+    const storedIds: string[] = raw ? (JSON.parse(raw) as string[]) : [];
+    return scheduled
+      .filter((n) => storedIds.includes(n.identifier))
+      .map((n) => {
+        const trigger = n.trigger as Record<string, unknown> | null;
+        let triggerDate: Date | null = null;
+        if (trigger) {
+          if (typeof trigger["value"] === "number") {
+            triggerDate = new Date(trigger["value"] as number);
+          } else if (trigger["dateComponents"] && typeof trigger["seconds"] === "number") {
+            triggerDate = new Date(Date.now() + (trigger["seconds"] as number) * 1000);
+          }
+        }
+        return {
+          id: n.identifier,
+          triggerDate,
+          title: String(n.content.title ?? "Reminder"),
+          body: String(n.content.body ?? ""),
+        };
+      });
+  } catch (err) {
+    console.warn("[useBookingNotification] Failed to get reminder details:", err);
+    return [];
+  }
+}
+
+/**
+ * Cancel a single reminder by its notification ID and remove it from storage.
+ */
+export async function cancelReminderById(id: string): Promise<void> {
+  try {
+    await Notifications.cancelScheduledNotificationAsync(id);
+    const raw = await AsyncStorage.getItem(REMINDER_STORAGE_KEY);
+    if (!raw) return;
+    const ids: string[] = JSON.parse(raw) as string[];
+    await AsyncStorage.setItem(
+      REMINDER_STORAGE_KEY,
+      JSON.stringify(ids.filter((i) => i !== id))
+    );
+  } catch (err) {
+    console.warn("[useBookingNotification] Failed to cancel reminder by ID:", err);
+  }
+}
+
+/**
+ * Cancel ALL scheduled reminders.
+ */
+export async function cancelAllReminders(): Promise<void> {
+  await cancelStoredIds(REMINDER_STORAGE_KEY);
 }

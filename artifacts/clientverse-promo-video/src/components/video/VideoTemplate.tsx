@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useVideoPlayer } from '@/lib/video';
 import { SceneIntro } from './video_scenes/SceneIntro';
 import { SceneSystemRescue } from './video_scenes/SceneSystemRescue';
@@ -63,16 +63,36 @@ export default function VideoTemplate({
   durations = SCENE_DURATIONS,
   loop = true,
   onSceneChange,
+  isPaused = false,
+  watermarkPosition = 'top-left',
 }: {
   durations?: Record<string, number>;
   loop?: boolean;
   onSceneChange?: (sceneKey: string) => void;
+  isPaused?: boolean;
+  watermarkPosition?: 'top-left' | 'bottom-right';
 } = {}) {
-  const { currentScene, currentSceneKey, jumpToScene, sceneKeys } = useVideoPlayer({ durations, loop });
+  const { currentScene, currentSceneKey, jumpToScene, sceneKeys, sceneStartTime, sceneDuration } =
+    useVideoPlayer({ durations, loop, isPaused });
 
   useEffect(() => {
     onSceneChange?.(currentSceneKey);
   }, [currentSceneKey, onSceneChange]);
+
+  // Scene progress bar (0–1) via animation frame
+  const [sceneProgress, setSceneProgress] = useState(0);
+  useEffect(() => {
+    setSceneProgress(0);
+    if (isPaused) return;
+    let rafId: number;
+    const tick = () => {
+      const elapsed = Date.now() - sceneStartTime;
+      setSceneProgress(Math.min(1, elapsed / sceneDuration));
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [sceneStartTime, sceneDuration, isPaused]);
 
   const baseSceneKey = currentSceneKey.replace(/_r[12]$/, '') as keyof typeof SCENE_DURATIONS;
   const sceneIndex = Object.keys(SCENE_DURATIONS).indexOf(baseSceneKey);
@@ -80,12 +100,43 @@ export default function VideoTemplate({
   const accentPos = ACCENT_LINE_POSITIONS[sceneIndex] ?? ACCENT_LINE_POSITIONS[0];
   const orbPos = ACCENT_ORB_POS[sceneIndex] ?? ACCENT_ORB_POS[0];
 
+  const isMiddleScene = baseSceneKey !== 'intro' && baseSceneKey !== 'outro';
+
+  // Watermark position styles
+  const wmStyle: React.CSSProperties =
+    watermarkPosition === 'bottom-right'
+      ? { right: '4vw', bottom: '8vh', left: 'auto', top: 'auto' }
+      : { left: '8vw', top: '5.5vh' };
+
   return (
     <div
       className="relative w-full h-screen overflow-hidden"
       style={{ background: '#0A1628' }}
     >
-      {/* Persistent background — drifting orbs, never unmount */}
+      {/* Scene progress bar — top edge */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '2px',
+          background: 'rgba(74,196,224,0.12)',
+          zIndex: 60,
+        }}
+      >
+        <motion.div
+          style={{
+            height: '100%',
+            background: 'linear-gradient(90deg, rgba(74,196,224,0.6), rgba(74,196,224,1))',
+            transformOrigin: 'left center',
+          }}
+          animate={{ width: `${sceneProgress * 100}%` }}
+          transition={{ duration: 0.1, ease: 'linear' }}
+        />
+      </div>
+
+      {/* Persistent background */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
         {PERSISTENT_ORBS.map((orb, i) => (
           <motion.div
@@ -111,7 +162,7 @@ export default function VideoTemplate({
           />
         ))}
 
-        {/* Grid dots — very subtle */}
+        {/* Grid dots */}
         <div
           className="absolute inset-0"
           style={{
@@ -122,7 +173,7 @@ export default function VideoTemplate({
         />
       </div>
 
-      {/* Persistent accent orb — moves between scenes */}
+      {/* Persistent accent orb */}
       <motion.div
         className="absolute rounded-full"
         style={{
@@ -141,7 +192,7 @@ export default function VideoTemplate({
         transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
       />
 
-      {/* Persistent teal accent line — repositions each scene */}
+      {/* Persistent teal accent line */}
       <motion.div
         className="absolute"
         style={{
@@ -168,6 +219,51 @@ export default function VideoTemplate({
       <AnimatePresence initial={false} mode="popLayout">
         {SceneComponent && (
           <SceneComponent key={currentSceneKey} />
+        )}
+      </AnimatePresence>
+
+      {/* Pause overlay */}
+      <AnimatePresence>
+        {isPaused && (
+          <motion.div
+            key="pause-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'rgba(4,11,24,0.45)',
+              zIndex: 55,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              pointerEvents: 'none',
+            }}
+          >
+            <div style={{
+              width: 'clamp(52px, 5vw, 80px)',
+              height: 'clamp(52px, 5vw, 80px)',
+              borderRadius: '50%',
+              background: 'rgba(10,22,40,0.8)',
+              border: '1.5px solid rgba(74,196,224,0.4)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 'clamp(4px, 0.4vw, 8px)',
+            }}>
+              {/* Pause icon bars */}
+              {[0, 1].map((i) => (
+                <div key={i} style={{
+                  width: 'clamp(4px, 0.4vw, 7px)',
+                  height: 'clamp(18px, 1.8vw, 28px)',
+                  borderRadius: '2px',
+                  background: '#4AC4E0',
+                }} />
+              ))}
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -201,11 +297,7 @@ export default function VideoTemplate({
                   boxShadow: isActive ? '0 0 8px rgba(74,196,224,0.7)' : 'none',
                 }}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                style={{
-                  height: 8,
-                  borderRadius: 4,
-                  flexShrink: 0,
-                }}
+                style={{ height: 8, borderRadius: 4, flexShrink: 0 }}
               />
               <motion.span
                 animate={{
@@ -232,22 +324,20 @@ export default function VideoTemplate({
         })}
       </div>
 
-      {/* Persistent watermark — shown on middle scenes only */}
+      {/* Persistent watermark — fades in on middle scenes, hidden on intro/outro */}
       <motion.div
         className="absolute"
         style={{
-          left: '8vw',
-          top: '5.5vh',
           display: 'flex',
           alignItems: 'center',
           gap: '0.75rem',
           zIndex: 50,
           pointerEvents: 'none',
+          ...wmStyle,
         }}
-        animate={{
-          opacity: baseSceneKey === 'intro' || baseSceneKey === 'outro' ? 0 : 0.35,
-        }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isMiddleScene ? 0.35 : 0 }}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* CV diamond mark */}
         <div

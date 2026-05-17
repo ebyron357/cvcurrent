@@ -15,7 +15,6 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 const queryClient = new QueryClient();
@@ -24,6 +23,15 @@ function RootLayoutNav() {
   return (
     <Stack screenOptions={{ headerBackTitle: "Back" }}>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="reminders"
+        options={{
+          title: "My Reminders",
+          headerStyle: { backgroundColor: "#0A1628" },
+          headerTintColor: "#4AC4E0",
+          headerTitleStyle: { fontFamily: "Inter_700Bold", color: "#ffffff" },
+        }}
+      />
     </Stack>
   );
 }

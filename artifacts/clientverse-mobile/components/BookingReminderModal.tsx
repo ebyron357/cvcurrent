@@ -35,17 +35,22 @@ function buildDays(count: number): Array<{ label: string; short: string; date: D
   return result;
 }
 
-const ALL_HOURS = Array.from({ length: 24 }, (_, i) => i);
-function hourLabel(h: number): string {
-  if (h === 0) return "12:00 AM";
-  if (h < 12) return `${h}:00 AM`;
-  if (h === 12) return "12:00 PM";
-  return `${h - 12}:00 PM`;
+// 30-minute time slots: 12:00 AM, 12:30 AM, 1:00 AM ... 11:30 PM
+const ALL_SLOTS: Array<{ hour: number; minute: number }> = Array.from(
+  { length: 48 },
+  (_, i) => ({ hour: Math.floor(i / 2), minute: (i % 2) * 30 })
+);
+
+function slotLabel(hour: number, minute: number): string {
+  const period = hour >= 12 ? "PM" : "AM";
+  const displayH = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+  const mm = String(minute).padStart(2, "0");
+  return `${displayH}:${mm} ${period}`;
 }
 
-function buildAppointmentDate(dayDate: Date, hour: number): Date {
+function buildAppointmentDate(dayDate: Date, hour: number, minute: number): Date {
   const d = new Date(dayDate);
-  d.setHours(hour, 0, 0, 0);
+  d.setHours(hour, minute, 0, 0);
   return d;
 }
 
@@ -56,9 +61,11 @@ function formatApptDateTime(date: Date): string {
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
   ];
   const h = date.getHours();
+  const m = date.getMinutes();
   const ampm = h >= 12 ? "PM" : "AM";
   const displayH = h > 12 ? h - 12 : h === 0 ? 12 : h;
-  return `${dayNames[date.getDay()]}, ${monthNames[date.getMonth()]} ${date.getDate()} at ${displayH}:00 ${ampm}`;
+  const mm = String(m).padStart(2, "0");
+  return `${dayNames[date.getDay()]}, ${monthNames[date.getMonth()]} ${date.getDate()} at ${displayH}:${mm} ${ampm}`;
 }
 
 type ModalState = "picking" | "submitting" | "success" | "error";
@@ -73,16 +80,17 @@ export function BookingReminderModal({ visible, onClose }: BookingReminderModalP
   const insets = useSafeAreaInsets();
 
   const [selectedDayIdx, setSelectedDayIdx] = useState<number | null>(null);
-  const [selectedHour, setSelectedHour] = useState<number | null>(null);
+  const [selectedSlotIdx, setSelectedSlotIdx] = useState<number | null>(null);
   const [modalState, setModalState] = useState<ModalState>("picking");
   const [errorMsg, setErrorMsg] = useState("");
 
   const days = useMemo(() => buildDays(60), []);
 
   const appointmentTime = useMemo<Date | null>(() => {
-    if (selectedDayIdx === null || selectedHour === null) return null;
-    return buildAppointmentDate(days[selectedDayIdx].date, selectedHour);
-  }, [selectedDayIdx, selectedHour, days]);
+    if (selectedDayIdx === null || selectedSlotIdx === null) return null;
+    const slot = ALL_SLOTS[selectedSlotIdx];
+    return buildAppointmentDate(days[selectedDayIdx].date, slot.hour, slot.minute);
+  }, [selectedDayIdx, selectedSlotIdx, days]);
 
   const reminderTime = useMemo<Date | null>(() => {
     if (!appointmentTime) return null;
@@ -96,7 +104,7 @@ export function BookingReminderModal({ visible, onClose }: BookingReminderModalP
 
   const canConfirm =
     selectedDayIdx !== null &&
-    selectedHour !== null &&
+    selectedSlotIdx !== null &&
     !isPastReminder &&
     modalState === "picking";
 
@@ -128,7 +136,7 @@ export function BookingReminderModal({ visible, onClose }: BookingReminderModalP
 
   const resetAndClose = () => {
     setSelectedDayIdx(null);
-    setSelectedHour(null);
+    setSelectedSlotIdx(null);
     setModalState("picking");
     setErrorMsg("");
     onClose();
@@ -178,12 +186,13 @@ export function BookingReminderModal({ visible, onClose }: BookingReminderModalP
                   Set a 24-Hour Reminder
                 </Text>
                 <Text style={[styles.subtitle, { color: colors.mutedForeground }]}>
-                  When is your Systems Review? Select the date and time and we will
+                  When is your Systems Review? Pick the exact date and time — we will
                   remind you the day before.
                 </Text>
               </View>
             </View>
 
+            {/* Date picker */}
             <View>
               <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
                 DATE
@@ -236,6 +245,7 @@ export function BookingReminderModal({ visible, onClose }: BookingReminderModalP
               </ScrollView>
             </View>
 
+            {/* Time picker — 30-minute slots */}
             <View>
               <Text style={[styles.sectionLabel, { color: colors.mutedForeground }]}>
                 TIME
@@ -245,14 +255,14 @@ export function BookingReminderModal({ visible, onClose }: BookingReminderModalP
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.chipRow}
               >
-                {ALL_HOURS.map((h) => {
-                  const isSelected = selectedHour === h;
+                {ALL_SLOTS.map((slot, idx) => {
+                  const isSelected = selectedSlotIdx === idx;
                   return (
                     <Pressable
-                      key={h}
-                      testID={`time-slot-${h}`}
+                      key={idx}
+                      testID={`time-slot-${idx}`}
                       onPress={() => {
-                        setSelectedHour(h);
+                        setSelectedSlotIdx(idx);
                         if (modalState === "error") setModalState("picking");
                       }}
                       style={({ pressed }) => [
@@ -272,7 +282,7 @@ export function BookingReminderModal({ visible, onClose }: BookingReminderModalP
                           { color: isSelected ? colors.primary : colors.foreground },
                         ]}
                       >
-                        {hourLabel(h)}
+                        {slotLabel(slot.hour, slot.minute)}
                       </Text>
                     </Pressable>
                   );
@@ -280,7 +290,7 @@ export function BookingReminderModal({ visible, onClose }: BookingReminderModalP
               </ScrollView>
             </View>
 
-            {isPastReminder && selectedDayIdx !== null && selectedHour !== null && (
+            {isPastReminder && selectedDayIdx !== null && selectedSlotIdx !== null && (
               <View
                 style={[
                   styles.warnBox,

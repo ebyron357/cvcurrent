@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import * as Linking from "expo-linking";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
@@ -30,8 +31,8 @@ function getApiBaseUrl(): string {
 
 const faqs = [
   {
-    q: "Are you a GoHighLevel agency?",
-    a: "No, we are strictly platform-agnostic. While we are highly capable in platforms like GoHighLevel, HubSpot, Salesforce, and others, our job is to architect the best system for your specific operational needs — not force you into a specific software ecosystem.",
+    q: "Are you locked into a specific platform?",
+    a: "No, we are strictly platform-agnostic. We are highly capable across CRM, automation, and operations platforms, but our job is to architect the best system for your specific operational needs — not force you into a specific software ecosystem.",
   },
   {
     q: "Do you do custom software development?",
@@ -337,6 +338,7 @@ function ContactForm() {
 export default function ContactScreen() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
+  const router = useRouter();
   const isWeb = Platform.OS === "web";
   const topPadding = isWeb ? 67 : insets.top;
   const [reminderVisible, setReminderVisible] = useState(false);
@@ -401,6 +403,26 @@ export default function ContactScreen() {
           style={{ marginLeft: "auto" }}
         />
       </Pressable>
+
+      {/* Manage Reminders link */}
+      {!isWeb && (
+        <Pressable
+          onPress={() => router.push("/reminders")}
+          style={({ pressed }) => ({
+            flexDirection: "row" as const,
+            alignItems: "center" as const,
+            gap: 8,
+            opacity: pressed ? 0.65 : 1,
+            paddingVertical: 2,
+          })}
+        >
+          <Ionicons name="alarm-outline" size={14} color={colors.primary} />
+          <Text style={{ color: colors.primary, fontFamily: "Inter_500Medium", fontSize: 13, letterSpacing: 0.1 }}>
+            Manage my reminders
+          </Text>
+          <Ionicons name="chevron-forward" size={12} color={colors.primary} style={{ marginLeft: "auto" }} />
+        </Pressable>
+      )}
 
       {/* Email CTA */}
       <Pressable

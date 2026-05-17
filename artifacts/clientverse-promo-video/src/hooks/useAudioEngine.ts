@@ -6,31 +6,19 @@ import { useRef, useCallback, useEffect, useState } from 'react';
 
 const REVERB_DURATION = 3.0;
 
-// --- Per-scene audio textures ---
-// Each scene has a distinct chord cluster, filter brightness, and LFO character
-// All stay in the same D-minor family — no jarring jumps, just emotional shifts
-
 interface SceneAudioProfile {
-  // Drone oscillator frequencies (5 voices)
   droneFreqs: [number, number, number, number, number];
-  // Sub-bass frequency
   subFreq: number;
-  // High shimmer frequency
   shimmerFreq: number;
-  // Lowpass filter cutoff
   filterFreq: number;
-  // Filter resonance
   filterQ: number;
-  // LFO rate (filter sweep speed)
   lfoFreq: number;
-  // LFO depth (filter sweep depth)
   lfoDepth: number;
-  // Master volume target
   masterTarget: number;
+  percBpm: number; // 0 = no percussion
 }
 
 const SCENE_PROFILES: Record<string, SceneAudioProfile> = {
-  // Intro — D minor baseline, warm and mysterious entry
   intro: {
     droneFreqs: [73.4, 73.62, 110.0, 174.6, 261.6],
     subFreq: 36.7,
@@ -40,8 +28,8 @@ const SCENE_PROFILES: Record<string, SceneAudioProfile> = {
     lfoFreq: 0.08,
     lfoDepth: 280,
     masterTarget: 0.72,
+    percBpm: 0,
   },
-  // System Rescue — C minor, darker and heavier; the "problem" scene
   systemRescue: {
     droneFreqs: [65.4, 65.6, 98.0, 155.6, 233.1],
     subFreq: 32.7,
@@ -51,8 +39,8 @@ const SCENE_PROFILES: Record<string, SceneAudioProfile> = {
     lfoFreq: 0.055,
     lfoDepth: 200,
     masterTarget: 0.68,
+    percBpm: 72,
   },
-  // AI Services — F major feel, filter opens up, lifting and expansive
   aiServices: {
     droneFreqs: [87.3, 87.57, 130.8, 196.0, 329.6],
     subFreq: 43.65,
@@ -62,8 +50,8 @@ const SCENE_PROFILES: Record<string, SceneAudioProfile> = {
     lfoFreq: 0.11,
     lfoDepth: 320,
     masterTarget: 0.74,
+    percBpm: 108,
   },
-  // Growth Systems — A minor feel, ascending energy and momentum
   growthSystems: {
     droneFreqs: [110.0, 110.33, 164.8, 261.6, 392.0],
     subFreq: 55.0,
@@ -73,8 +61,8 @@ const SCENE_PROFILES: Record<string, SceneAudioProfile> = {
     lfoFreq: 0.13,
     lfoDepth: 360,
     masterTarget: 0.76,
+    percBpm: 120,
   },
-  // Consulting — G major feel, warm and confident resolution
   consulting: {
     droneFreqs: [98.0, 98.29, 146.8, 220.0, 329.6],
     subFreq: 49.0,
@@ -84,8 +72,8 @@ const SCENE_PROFILES: Record<string, SceneAudioProfile> = {
     lfoFreq: 0.09,
     lfoDepth: 260,
     masterTarget: 0.72,
+    percBpm: 84,
   },
-  // Outro — D major, resolved and triumphant; filter fully open, slowest LFO
   outro: {
     droneFreqs: [73.4, 73.62, 110.0, 185.0, 246.9],
     subFreq: 36.7,
@@ -95,27 +83,38 @@ const SCENE_PROFILES: Record<string, SceneAudioProfile> = {
     lfoFreq: 0.05,
     lfoDepth: 240,
     masterTarget: 0.75,
+    percBpm: 0,
   },
 };
 
-const TRANSITION_TIME = 1.6; // seconds for smooth crossfade between scenes
-
+const TRANSITION_TIME = 1.6;
 const STORAGE_KEY = 'cv_audio_muted';
+const VOLUME_KEY = 'cv_audio_volume';
 
 function getSavedMutePreference(): boolean {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === null) return true; // first-ever visit: always start muted
+    if (saved === null) return true;
     return saved === 'true';
   } catch {
     return true;
   }
 }
 
-function saveMutePreference(muted: boolean): void {
+function getSavedVolume(): number {
   try {
-    localStorage.setItem(STORAGE_KEY, String(muted));
-  } catch { /* ignore quota/security errors */ }
+    const v = parseFloat(localStorage.getItem(VOLUME_KEY) ?? '');
+    if (!isNaN(v) && v >= 0 && v <= 1) return v;
+  } catch {}
+  return 0.8;
+}
+
+function saveMutePreference(muted: boolean): void {
+  try { localStorage.setItem(STORAGE_KEY, String(muted)); } catch {}
+}
+
+function saveVolume(vol: number): void {
+  try { localStorage.setItem(VOLUME_KEY, String(vol)); } catch {}
 }
 
 function buildImpulseResponse(ctx: AudioContext): AudioBuffer {
@@ -131,9 +130,30 @@ function buildImpulseResponse(ctx: AudioContext): AudioBuffer {
   return buf;
 }
 
+// Schedule a single soft metallic tick (tempo-synced percussion)
+function schedulePercTick(ctx: AudioContext, destination: AudioNode, t: number, vol: number) {
+  try {
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(6000, t);
+    osc.frequency.exponentialRampToValueAtTime(1800, t + 0.045);
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.09 * vol, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
+
+    osc.connect(gain);
+    gain.connect(destination);
+    osc.start(t);
+    osc.stop(t + 0.08);
+  } catch { /* ignore */ }
+}
+
 interface AudioEngine {
   isMuted: boolean;
+  volume: number;
   toggleMute: () => void;
+  setVolume: (vol: number) => void;
   playTransitionSfx: () => void;
   setScene: (sceneKey: string) => void;
 }
@@ -141,15 +161,33 @@ interface AudioEngine {
 export function useAudioEngine(): AudioEngine {
   const ctxRef = useRef<AudioContext | null>(null);
   const masterGainRef = useRef<GainNode | null>(null);
-  // Drone oscillators in order: [voice0, voice1, voice2, voice3, voice4, sub, shimmer]
+  const percDestRef = useRef<GainNode | null>(null);
   const oscNodesRef = useRef<OscillatorNode[]>([]);
   const lpFilterRef = useRef<BiquadFilterNode | null>(null);
   const lfoRef = useRef<OscillatorNode | null>(null);
   const lfoGainRef = useRef<GainNode | null>(null);
   const startedRef = useRef(false);
-  // Track the last scene key so engine boots into the correct profile on mid-video unmute
   const currentSceneKeyRef = useRef<string>('intro');
+  const percIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [isMuted, setIsMuted] = useState<boolean>(() => getSavedMutePreference());
+  const [volume, setVolumeState] = useState<number>(() => getSavedVolume());
+  const volumeRef = useRef(getSavedVolume());
+
+  // Restart percussion scheduler for the current scene BPM
+  const restartPerc = useCallback((bpm: number) => {
+    if (percIntervalRef.current) {
+      clearInterval(percIntervalRef.current);
+      percIntervalRef.current = null;
+    }
+    if (bpm <= 0 || !ctxRef.current || !percDestRef.current) return;
+    const beatMs = (60 / bpm) * 1000;
+    const ctx = ctxRef.current;
+    const dest = percDestRef.current;
+    percIntervalRef.current = setInterval(() => {
+      if (!ctx || ctx.state !== 'running' || isMuted) return;
+      schedulePercTick(ctx, dest, ctx.currentTime + 0.01, volumeRef.current);
+    }, beatMs);
+  }, [isMuted]);
 
   const startEngine = useCallback(() => {
     if (startedRef.current) return;
@@ -158,13 +196,17 @@ export function useAudioEngine(): AudioEngine {
     const ctx = new AudioContext();
     ctxRef.current = ctx;
 
-    // Master gain
     const masterGain = ctx.createGain();
     masterGain.gain.setValueAtTime(0, ctx.currentTime);
     masterGain.connect(ctx.destination);
     masterGainRef.current = masterGain;
 
-    // Reverb convolver
+    // Separate low-gain bus for percussion (bypasses reverb for clarity)
+    const percGain = ctx.createGain();
+    percGain.gain.setValueAtTime(1, ctx.currentTime);
+    percGain.connect(ctx.destination);
+    percDestRef.current = percGain;
+
     const convolver = ctx.createConvolver();
     convolver.buffer = buildImpulseResponse(ctx);
     const reverbGain = ctx.createGain();
@@ -172,13 +214,10 @@ export function useAudioEngine(): AudioEngine {
     convolver.connect(reverbGain);
     reverbGain.connect(masterGain);
 
-    // Dry signal gain
     const dryGain = ctx.createGain();
     dryGain.gain.setValueAtTime(0.65, ctx.currentTime);
     dryGain.connect(masterGain);
 
-    // Lowpass filter for warmth — start at the current scene's profile
-    // (handles mid-video unmute: user may have already scrolled past intro)
     const profile = SCENE_PROFILES[currentSceneKeyRef.current] ?? SCENE_PROFILES['intro'];
     const lpFilter = ctx.createBiquadFilter();
     lpFilter.type = 'lowpass';
@@ -188,7 +227,6 @@ export function useAudioEngine(): AudioEngine {
     lpFilter.connect(convolver);
     lpFilterRef.current = lpFilter;
 
-    // LFO modulating filter cutoff
     const lfo = ctx.createOscillator();
     lfo.type = 'sine';
     lfo.frequency.setValueAtTime(profile.lfoFreq, ctx.currentTime);
@@ -200,7 +238,6 @@ export function useAudioEngine(): AudioEngine {
     lfoRef.current = lfo;
     lfoGainRef.current = lfoGain;
 
-    // Second slower LFO for tremolo depth
     const lfo2 = ctx.createOscillator();
     lfo2.type = 'sine';
     lfo2.frequency.setValueAtTime(0.05, ctx.currentTime);
@@ -208,10 +245,9 @@ export function useAudioEngine(): AudioEngine {
     lfo2Gain.gain.setValueAtTime(0.06, ctx.currentTime);
     lfo2.connect(lfo2Gain);
 
-    // Drone oscillators — detuned cluster (5 voices)
     const oscGain = ctx.createGain();
     oscGain.gain.setValueAtTime(0.22, ctx.currentTime);
-    lfo2Gain.connect(oscGain.gain); // tremolo
+    lfo2Gain.connect(oscGain.gain);
     lfo2.start();
     oscGain.connect(lpFilter);
 
@@ -228,7 +264,6 @@ export function useAudioEngine(): AudioEngine {
       oscNodesRef.current.push(osc);
     });
 
-    // Sub-bass oscillator — bypass reverb for tightness
     const subOsc = ctx.createOscillator();
     subOsc.type = 'sine';
     subOsc.frequency.setValueAtTime(profile.subFreq, ctx.currentTime);
@@ -237,9 +272,8 @@ export function useAudioEngine(): AudioEngine {
     subOsc.connect(subGain);
     subGain.connect(masterGain);
     subOsc.start();
-    oscNodesRef.current.push(subOsc); // index 5
+    oscNodesRef.current.push(subOsc);
 
-    // High shimmer — adds air, feeds into reverb only
     const shimmerOsc = ctx.createOscillator();
     shimmerOsc.type = 'sine';
     shimmerOsc.frequency.setValueAtTime(profile.shimmerFreq, ctx.currentTime);
@@ -257,19 +291,20 @@ export function useAudioEngine(): AudioEngine {
     shimmerOsc.connect(shimmerGain);
     shimmerGain.connect(convolver);
     shimmerOsc.start();
-    oscNodesRef.current.push(shimmerOsc); // index 6
+    oscNodesRef.current.push(shimmerOsc);
 
-    // Fade master in slowly
-    masterGain.gain.linearRampToValueAtTime(profile.masterTarget, ctx.currentTime + 3.5);
-  }, []);
+    const targetVol = profile.masterTarget * volumeRef.current;
+    masterGain.gain.linearRampToValueAtTime(targetVol, ctx.currentTime + 3.5);
 
-  // Smoothly transition all audio parameters to a new scene profile
+    // Start percussion for the current scene
+    restartPerc(profile.percBpm);
+  }, [restartPerc]);
+
   const setScene = useCallback((sceneKey: string) => {
     const baseKey = sceneKey.replace(/_r[12]$/, '');
     const profile = SCENE_PROFILES[baseKey];
     if (!profile) return;
 
-    // Always track the current scene key so startEngine boots correctly on mid-video unmute
     currentSceneKeyRef.current = baseKey;
 
     if (!ctxRef.current || !startedRef.current) return;
@@ -279,7 +314,17 @@ export function useAudioEngine(): AudioEngine {
     const t = ctx.currentTime;
     const ramp = TRANSITION_TIME;
 
-    // Modulate filter — the most audible shift
+    // #38 — Brief master volume dip at scene boundary for a clean "breath"
+    if (masterGainRef.current && !isMuted) {
+      const master = masterGainRef.current;
+      const dipTarget = master.gain.value * 0.65;
+      const fullTarget = profile.masterTarget * volumeRef.current;
+      master.gain.cancelScheduledValues(t);
+      master.gain.setValueAtTime(master.gain.value, t);
+      master.gain.linearRampToValueAtTime(dipTarget, t + 0.22);
+      master.gain.linearRampToValueAtTime(fullTarget, t + 0.22 + ramp);
+    }
+
     if (lpFilterRef.current) {
       lpFilterRef.current.frequency.cancelScheduledValues(t);
       lpFilterRef.current.frequency.setValueAtTime(lpFilterRef.current.frequency.value, t);
@@ -289,7 +334,6 @@ export function useAudioEngine(): AudioEngine {
       lpFilterRef.current.Q.linearRampToValueAtTime(profile.filterQ, t + ramp);
     }
 
-    // Modulate LFO rate and depth
     if (lfoRef.current) {
       lfoRef.current.frequency.cancelScheduledValues(t);
       lfoRef.current.frequency.setValueAtTime(lfoRef.current.frequency.value, t);
@@ -301,7 +345,6 @@ export function useAudioEngine(): AudioEngine {
       lfoGainRef.current.gain.linearRampToValueAtTime(profile.lfoDepth, t + ramp);
     }
 
-    // Modulate drone oscillator frequencies (indices 0-4)
     profile.droneFreqs.forEach((freq, i) => {
       const osc = oscNodesRef.current[i];
       if (osc) {
@@ -311,7 +354,6 @@ export function useAudioEngine(): AudioEngine {
       }
     });
 
-    // Modulate sub-bass (index 5)
     const subOsc = oscNodesRef.current[5];
     if (subOsc) {
       subOsc.frequency.cancelScheduledValues(t);
@@ -319,7 +361,6 @@ export function useAudioEngine(): AudioEngine {
       subOsc.frequency.linearRampToValueAtTime(profile.subFreq, t + ramp);
     }
 
-    // Modulate shimmer (index 6)
     const shimmerOsc = oscNodesRef.current[6];
     if (shimmerOsc) {
       shimmerOsc.frequency.cancelScheduledValues(t);
@@ -327,19 +368,30 @@ export function useAudioEngine(): AudioEngine {
       shimmerOsc.frequency.linearRampToValueAtTime(profile.shimmerFreq, t + ramp);
     }
 
-    // Modulate master volume target
-    if (masterGainRef.current && !isMuted) {
-      const master = masterGainRef.current;
-      master.gain.cancelScheduledValues(t);
-      master.gain.setValueAtTime(master.gain.value, t);
-      master.gain.linearRampToValueAtTime(profile.masterTarget, t + ramp);
+    // #37 — Update percussion BPM for the new scene
+    restartPerc(profile.percBpm);
+  }, [isMuted, restartPerc]);
+
+  const setVolume = useCallback((vol: number) => {
+    const clamped = Math.max(0, Math.min(1, vol));
+    volumeRef.current = clamped;
+    setVolumeState(clamped);
+    saveVolume(clamped);
+    if (masterGainRef.current && ctxRef.current && !isMuted && startedRef.current) {
+      const ctx = ctxRef.current;
+      if (ctx.state !== 'suspended') {
+        const profile = SCENE_PROFILES[currentSceneKeyRef.current] ?? SCENE_PROFILES['intro'];
+        const target = profile.masterTarget * clamped;
+        masterGainRef.current.gain.cancelScheduledValues(ctx.currentTime);
+        masterGainRef.current.gain.setValueAtTime(masterGainRef.current.gain.value, ctx.currentTime);
+        masterGainRef.current.gain.linearRampToValueAtTime(target, ctx.currentTime + 0.15);
+      }
     }
   }, [isMuted]);
 
   const toggleMute = useCallback(() => {
     setIsMuted(prev => {
       const nextMuted = !prev;
-
       saveMutePreference(nextMuted);
 
       if (!startedRef.current && !nextMuted) {
@@ -351,33 +403,31 @@ export function useAudioEngine(): AudioEngine {
         const ctx = ctxRef.current;
         const master = masterGainRef.current;
         if (nextMuted) {
+          if (percIntervalRef.current) {
+            clearInterval(percIntervalRef.current);
+            percIntervalRef.current = null;
+          }
           master.gain.cancelScheduledValues(ctx.currentTime);
           master.gain.setTargetAtTime(0, ctx.currentTime, 0.4);
         } else {
-          if (ctx.state === 'suspended') {
-            ctx.resume();
-          }
+          if (ctx.state === 'suspended') ctx.resume();
           const sceneProfile = SCENE_PROFILES[currentSceneKeyRef.current] ?? SCENE_PROFILES['intro'];
           master.gain.cancelScheduledValues(ctx.currentTime);
-          master.gain.setTargetAtTime(sceneProfile.masterTarget, ctx.currentTime, 0.4);
+          master.gain.setTargetAtTime(sceneProfile.masterTarget * volumeRef.current, ctx.currentTime, 0.4);
+          restartPerc(sceneProfile.percBpm);
         }
       }
 
       return nextMuted;
     });
-  }, [startEngine]);
+  }, [startEngine, restartPerc]);
 
-  // If the user previously unmuted, pre-start the engine so it's ready.
-  // The AudioContext will be suspended until a user gesture, at which point
-  // we resume it automatically on the first interaction.
   useEffect(() => {
     const savedMuted = getSavedMutePreference();
-    if (savedMuted) return; // user left it muted — do nothing
+    if (savedMuted) return;
 
-    // Start the engine (AudioContext begins suspended — browser autoplay policy)
     startEngine();
 
-    // Resume + unmute on the very first interaction gesture
     const resume = () => {
       if (ctxRef.current && ctxRef.current.state === 'suspended') {
         ctxRef.current.resume();
@@ -396,7 +446,6 @@ export function useAudioEngine(): AudioEngine {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Per-scene transition SFX: short digital sweep/whoosh
   const playTransitionSfx = useCallback(() => {
     if (!ctxRef.current || isMuted) return;
     const ctx = ctxRef.current;
@@ -441,14 +490,12 @@ export function useAudioEngine(): AudioEngine {
       noiseSource.stop(ctx.currentTime + 0.22);
       clickOsc.start(ctx.currentTime);
       clickOsc.stop(ctx.currentTime + 0.07);
-    } catch {
-      // Silently swallow any Web Audio errors
-    }
+    } catch { /* ignore */ }
   }, [isMuted]);
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
+      if (percIntervalRef.current) clearInterval(percIntervalRef.current);
       oscNodesRef.current.forEach(osc => {
         try { osc.stop(); } catch { /* already stopped */ }
       });
@@ -457,5 +504,5 @@ export function useAudioEngine(): AudioEngine {
     };
   }, []);
 
-  return { isMuted, toggleMute, playTransitionSfx, setScene };
+  return { isMuted, volume, toggleMute, setVolume, playTransitionSfx, setScene };
 }
