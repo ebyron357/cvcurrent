@@ -34,20 +34,17 @@ function getTierRecommendation(annualLeak: number) {
   if (annualLeak < 30000)
     return {
       tier: "COMMAND",
-      price: "$297/mo",
       reason:
         "The Command tier's missed call text-back and AI lead response will start recovering your missed opportunities immediately — in under 7 days.",
     };
   if (annualLeak < 80000)
     return {
       tier: "OPERATOR",
-      price: "$497/mo",
       reason:
         "Operator adds call tracking and AI chatbot on top of the full CRM stack — so every lead channel is covered, not just inbound calls.",
     };
   return {
     tier: "COMMANDER",
-    price: "$997/mo",
     reason:
       "At your volume, you need the full stack — AI voice agent, lead intelligence, and done-for-you ads management to replace what you're losing.",
   };
@@ -78,7 +75,7 @@ export default function RevenueCalculator() {
           name,
           email,
           phone,
-          message: `Revenue Leak Calculator Lead — Annual Leak: ${formatCurrency(annualLeak)} | Missed calls/wk: ${missed} | Avg job value: ${formatCurrency(jobValue)} | Close rate: ${closeRate}% | Recommended tier: ${rec.tier} ${rec.price}`,
+          message: `Revenue Leak Calculator Lead — Annual Leak: ${formatCurrency(annualLeak)} | Missed calls/wk: ${missed} | Avg job value: ${formatCurrency(jobValue)} | Close rate: ${closeRate}% | Recommended tier: ${rec.tier}`,
         }),
       });
     } catch {}
@@ -465,7 +462,7 @@ export default function RevenueCalculator() {
                     <div>
                       <p className="text-xs text-[#4AC4E0] font-bold tracking-widest uppercase mb-0.5">Recommended Plan</p>
                       <h3 className="text-2xl font-bold">
-                        {rec.tier} — <span className="text-[#4AC4E0]">{rec.price}</span>
+                        {rec.tier}
                       </h3>
                     </div>
                   </div>
@@ -513,13 +510,7 @@ export default function RevenueCalculator() {
                   <p className="text-sm text-emerald-400 font-semibold mb-1">The Math</p>
                   <p className="text-gray-300 text-sm">
                     If ClientVerse recovers just <span className="text-white font-bold">15%</span> of your annual leak, that's{" "}
-                    <span className="text-emerald-400 font-bold">{formatCurrency(annualLeak * 0.15)}/yr</span> returned —
-                    against a {rec.price} investment of{" "}
-                    <span className="text-white font-bold">
-                      {formatCurrency(
-                        parseInt(rec.price.replace(/[^0-9]/g, "")) * 12
-                      )}/yr.
-                    </span>
+                    <span className="text-emerald-400 font-bold">{formatCurrency(annualLeak * 0.15)}/yr</span> returned to your business — without any new marketing spend.
                   </p>
                 </div>
               </motion.div>

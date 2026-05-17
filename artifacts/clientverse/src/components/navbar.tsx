@@ -4,25 +4,24 @@ import { useState } from "react";
 import { List, X, CaretDown } from "@phosphor-icons/react";
 
 const navLinks = [
-  { href: "/", label: "Home" },
   {
-    label: "Services",
+    label: "Platform",
     children: [
-      { href: "/services", label: "All Services" },
-      { href: "/ai-services", label: "AI Services" },
+      { href: "/features", label: "Capabilities" },
+      { href: "/ai-studio", label: "AI Studio" },
       { href: "/saig-os", label: "SAIG-OS™ Governance" },
       { href: "/clarity", label: "C.L.A.R.I.T.Y. Framework™" },
+      { href: "/services", label: "All Services" },
     ],
   },
-  { href: "/features", label: "Capabilities" },
   { href: "/pricing", label: "Pricing" },
   {
     label: "Resources",
     children: [
-      { href: "/resources", label: "All Resources" },
       { href: "/revenue-calculator", label: "Revenue Leak Calculator" },
       { href: "/roi-calculator", label: "ROI Calculator" },
       { href: "/ai-readiness", label: "AI Readiness Quiz" },
+      { href: "/case-studies", label: "Case Studies" },
       { href: "/faq", label: "FAQ" },
     ],
   },

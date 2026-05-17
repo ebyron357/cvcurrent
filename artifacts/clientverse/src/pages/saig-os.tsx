@@ -20,8 +20,6 @@ import {
 const tiers = [
   {
     name: "Foundation",
-    price: "$1,500–$3,000",
-    cadence: "one-time",
     description: "Documented AI governance baseline for organizations deploying AI for the first time.",
     includes: [
       "AI inventory & usage documentation",
@@ -33,8 +31,6 @@ const tiers = [
   },
   {
     name: "Standard",
-    price: "$3,500–$7,500",
-    cadence: "per year",
     badge: "Most Common",
     description: "Ongoing governance oversight with quarterly reviews and policy updates as your AI stack evolves.",
     includes: [
@@ -49,8 +45,6 @@ const tiers = [
   },
   {
     name: "Oversight",
-    price: "$7,500–$15,000",
-    cadence: "per year",
     description: "Full-scope governance for regulated industries — healthcare, education, and federal contractors.",
     includes: [
       "Everything in Standard",
@@ -309,14 +303,14 @@ export default function SaigOs() {
         <section className="container mx-auto px-4 py-20 max-w-5xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              SAIG-OS <span className="text-[#4AC4E0]">Pricing</span>
+              SAIG-OS <span className="text-[#4AC4E0]">Engagement Tiers</span>
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
-              No vendor cost. No outsourcing. Delivered personally using a proprietary framework no competitor can replicate.
+              No vendor cost. No outsourcing. Delivered personally using a proprietary framework no competitor can replicate. Investment discussed on your consultation call.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {tiers.map(({ name, price, cadence, badge, description, includes }) => (
+            {tiers.map(({ name, badge, description, includes }) => (
               <motion.div
                 key={name}
                 initial={{ opacity: 0, y: 20 }}
@@ -331,11 +325,7 @@ export default function SaigOs() {
                     {badge}
                   </div>
                 )}
-                <p className="text-xs font-bold tracking-widest text-[#4AC4E0] uppercase mb-2">{name}</p>
-                <div className="mb-1">
-                  <span className="text-3xl font-bold">{price}</span>
-                </div>
-                <p className="text-xs text-gray-500 mb-4">{cadence}</p>
+                <p className="text-xs font-bold tracking-widest text-[#4AC4E0] uppercase mb-3">{name}</p>
                 <p className="text-gray-400 text-sm mb-6 leading-relaxed">{description}</p>
                 <ul className="space-y-2.5 mb-8 flex-1">
                   {includes.map((item) => (

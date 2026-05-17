@@ -84,15 +84,15 @@ const platformFeatures = [
   },
   {
     Icon: Brain,
-    title: "Claude + GHL MCP Integration",
-    desc: "Claude AI connects directly to each client's account via the official GHL MCP server — no middleware needed. Plain-English AI operations.",
-    bullets: ["39 official GHL tools accessible by Claude", "Read and write contacts, pipelines, tags", "AI-powered weekly CRM reviews", "Monthly performance analysis in plain English"],
+    title: "Claude MCP Integration",
+    desc: "Claude AI connects directly to each client's CRM account via an official MCP server — no middleware needed. Plain-English AI operations.",
+    bullets: ["39 official CRM tools accessible by Claude", "Read and write contacts, pipelines, tags", "AI-powered weekly CRM reviews", "Monthly performance analysis in plain English"],
     highlight: true,
   },
   {
     Icon: Shield,
     title: "SOC 2 Type II Infrastructure",
-    desc: "ClientVerse runs on GoHighLevel's SOC 2 Type II certified infrastructure — the same compliance tier as enterprise software.",
+    desc: "ClientVerse runs on enterprise-grade SOC 2 Type II certified infrastructure — the same compliance tier as Fortune 500 software.",
     bullets: ["SOC 2 Type II certified platform", "HIPAA-eligible data handling", "Unlocks enterprise and government contracts", "AI Security Audit available as add-on"],
   },
 ];
@@ -101,12 +101,12 @@ const comparison = [
   { feature: "All-in-one platform", cv: true, reseller: false, agency: false, diy: false },
   { feature: "AI-native (Claude MCP)", cv: true, reseller: false, agency: false, diy: false },
   { feature: "Fully managed delivery", cv: true, reseller: false, agency: true, diy: false },
-  { feature: "7-day go-live", cv: true, reseller: false, agency: false, diy: false },
+  { feature: "7-day go-live guarantee", cv: true, reseller: false, agency: false, diy: false },
   { feature: "Proprietary audit methodology", cv: true, reseller: false, agency: false, diy: false },
   { feature: "Embedded business funding", cv: true, reseller: false, agency: false, diy: false },
   { feature: "Veteran-owned / Federal eligible", cv: true, reseller: false, agency: false, diy: false },
   { feature: "AI Security Audit", cv: true, reseller: false, agency: false, diy: false },
-  { feature: "Under $1,000/mo for full stack", cv: true, reseller: true, agency: false, diy: true },
+  { feature: "Operational AI workforce layer", cv: true, reseller: false, agency: false, diy: false },
 ];
 
 export default function Features() {
@@ -122,7 +122,7 @@ export default function Features() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-bold tracking-tight mb-6"
           >
-            What the Platform <span className="text-[#4AC4E0]">Actually Does</span>
+            The Platform That <span className="text-[#4AC4E0]">Operates Your Business</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -195,11 +195,11 @@ export default function Features() {
           </div>
           <div className="bg-[#0D1B2E] border border-[#1E2D4A] rounded-2xl overflow-hidden">
             <div className="grid grid-cols-5 text-center text-xs font-bold uppercase tracking-wider border-b border-[#1E2D4A]">
-              <div className="col-span-1 p-4 text-left text-gray-400">Feature</div>
+              <div className="col-span-1 p-4 text-left text-gray-400">Capability</div>
               <div className="p-4 text-[#4AC4E0]">ClientVerse</div>
-              <div className="p-4 text-gray-400">GHL Reseller</div>
+              <div className="p-4 text-gray-400">CRM Reseller</div>
               <div className="p-4 text-gray-400">Agency</div>
-              <div className="p-4 text-gray-400">DIY GHL</div>
+              <div className="p-4 text-gray-400">Self-Managed</div>
             </div>
             {comparison.map(({ feature, cv, reseller, agency, diy }, i) => (
               <div
@@ -230,11 +230,11 @@ export default function Features() {
                   The Feature 95% of Agencies Don't Know Exists
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-5">
-                  Claude + GHL MCP: <br />
+                  Claude MCP: <br />
                   <span className="text-[#4AC4E0]">AI That Runs Your CRM</span>
                 </h2>
                 <p className="text-gray-400 mb-6 leading-relaxed">
-                  GoHighLevel launched an official MCP server in late 2025. Claude now connects directly to any GHL account — reading contacts, pipelines, conversations, and calendars — and writing back to them in plain English. No Zapier. No Make. No middleware.
+                  An official CRM MCP server launched in late 2025. Claude now connects directly to any client account — reading contacts, pipelines, conversations, and calendars — and writing back to them in plain English. No Zapier. No Make. No middleware.
                 </p>
                 <p className="text-gray-400 mb-8 leading-relaxed">
                   This is the technology behind ClientVerse's AI CRM Management, AI Operations Management, and Cross-Channel Intelligence services. It turns every client account into a living, AI-reviewed system that gets cleaner and more accurate every week.
@@ -248,7 +248,7 @@ export default function Features() {
               <div className="md:w-80 space-y-4">
                 {[
                   { label: "Setup time per client", value: "~15 minutes" },
-                  { label: "Official GHL tools available", value: "39" },
+                  { label: "Official CRM tools available", value: "39" },
                   { label: "Community-extended tools", value: "269+" },
                   { label: "Token rotation cadence", value: "Every 90 days" },
                 ].map(({ label, value }) => (

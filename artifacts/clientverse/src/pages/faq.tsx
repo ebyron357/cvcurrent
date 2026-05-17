@@ -39,11 +39,11 @@ const categories: { label: string; items: FaqItem[] }[] = [
     items: [
       {
         q: "What's the difference between COMMAND, OPERATOR, and COMMANDER?",
-        a: "COMMAND ($297/mo) is the core stack — CRM, AI follow-up, booking, proposals, and funding access. OPERATOR ($497/mo) adds reputation management, call tracking, AI chatbot, and directory listings. COMMANDER ($997/mo) adds AI voice agent, lead intelligence, Google + Meta ads management, local SEO, and content creation. All tiers include the 7-day go-live guarantee.",
+        a: "COMMAND is the core stack — CRM, AI follow-up, booking, proposals, and funding access. OPERATOR adds reputation management, call tracking, AI chatbot, and directory listings. COMMANDER adds AI voice agent, lead intelligence, Google + Meta ads management, local SEO, and content creation. All tiers include the 7-day go-live guarantee. Pricing is discussed on your Revenue Audit call.",
       },
       {
         q: "What's the setup fee and is it refundable?",
-        a: "Setup fees cover onboarding, configuration, data migration, and the first-week build sprint. They range from $497 (COMMAND) to $1,497 (COMMANDER). Setup fees are non-refundable after onboarding begins — but most clients recover the fee in their first month from recovered leads alone.",
+        a: "Setup fees cover onboarding, configuration, data migration, and the first-week build sprint. They are non-refundable after onboarding begins — but most clients recover the full investment in their first month from recovered leads alone. Setup investment is discussed on your Revenue Audit call.",
       },
       {
         q: "Is there a contract? Can I cancel?",
@@ -51,7 +51,7 @@ const categories: { label: string; items: FaqItem[] }[] = [
       },
       {
         q: "Are there any usage fees on top of the monthly price?",
-        a: "There are usage-based costs for outbound SMS and email if you exceed plan limits — these are Twilio and Mailgun pass-through costs billed at cost. For most clients these are negligible ($5–$30/mo). We're transparent about this upfront.",
+        a: "There are usage-based costs for outbound SMS and email if you exceed plan limits — billed at cost as pass-through. For most clients these are negligible. We're transparent about this upfront and disclose it before onboarding.",
       },
       {
         q: "Do you offer discounts for annual billing?",
@@ -93,11 +93,11 @@ const categories: { label: string; items: FaqItem[] }[] = [
       },
       {
         q: "What is the C.L.A.R.I.T.Y. Framework™?",
-        a: "A 7-point AI stack evaluation system that maps every gap in your business to a specific, executable fix — with an ROI projection attached to every recommendation. It covers Consolidate, Leak, Automate, Revenue, Integrate, Trust, and Yield. Delivered as a 30-minute audit with a full written report within 48 hours. Investment: $497–$997.",
+        a: "A 7-point AI stack evaluation system that maps every gap in your business to a specific, executable fix — with an ROI projection attached to every recommendation. It covers Consolidate, Leak, Automate, Revenue, Integrate, Trust, and Yield. Delivered as a 30-minute session with a full written report within 48 hours. Investment is discussed on your call.",
       },
       {
         q: "What is SAIG-OS™?",
-        a: "SAIG-OS is a documented AI governance framework for organizations that need written policies, risk classification, and oversight structures for their AI stack. It's built for nonprofits, healthcare organizations, schools, and any business with regulatory exposure. Delivered personally — no outsourcing. Pricing: $1,500–$15,000/yr depending on scope.",
+        a: "SAIG-OS is a documented AI governance framework for organizations that need written policies, risk classification, and oversight structures for their AI stack. It's built for nonprofits, healthcare organizations, schools, and any business with regulatory exposure. Delivered personally — no outsourcing. Scope and investment are discussed directly.",
       },
       {
         q: "Can you migrate my data from my current CRM?",
@@ -114,7 +114,7 @@ const categories: { label: string; items: FaqItem[] }[] = [
     items: [
       {
         q: "Is ClientVerse a veteran-owned business?",
-        a: "Yes. ClientVerse is a veteran-owned small business. We prioritize working with other veteran-owned businesses, nonprofits, and mission-driven organizations — and we have specific pricing tiers and service packages designed for that community.",
+        a: "Yes. ClientVerse is a veteran-owned small business. We prioritize working with other veteran-owned businesses, nonprofits, and mission-driven organizations — and we have specific engagement models designed for that community.",
       },
       {
         q: "Can federal agencies or government contractors work with ClientVerse?",
@@ -122,7 +122,7 @@ const categories: { label: string; items: FaqItem[] }[] = [
       },
       {
         q: "Do you offer any discounts for veteran-owned businesses or nonprofits?",
-        a: "Yes. We offer priority onboarding and discounted setup fees for verified veteran-owned businesses and 501(c)(3) nonprofits. Contact us directly to discuss eligibility — this is handled case by case.",
+        a: "Yes. We offer priority onboarding and adjusted investment terms for verified veteran-owned businesses and 501(c)(3) nonprofits. Contact us directly to discuss eligibility — this is handled case by case.",
       },
     ],
   },

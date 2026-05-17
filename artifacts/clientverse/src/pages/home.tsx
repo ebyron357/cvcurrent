@@ -247,9 +247,18 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.12 }}
+            className="text-base text-[#4AC4E0]/70 font-semibold tracking-widest uppercase mb-4"
+          >
+            AI Business Operating System for Service Businesses
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.17 }}
             className="text-xl text-gray-400 max-w-2xl mx-auto mb-4 leading-relaxed"
           >
-            ClientVerse builds and operates AI-powered business systems — CRM, voice agents, automated follow-up, reputation management, and pipeline operations. Fully managed. Live in 7 days.
+            Not a tool. Not an agency. A fully managed operational infrastructure — AI workforce deployed inside your business, running 24/7, live in 7 days.
           </motion.p>
 
           <motion.p
@@ -283,9 +292,9 @@ export default function Home() {
               variant="outline"
               className="border-[#1E2D4A] text-white hover:border-[#4AC4E0]/40 hover:bg-[#4AC4E0]/5 text-base px-8 h-14 flex items-center gap-2"
             >
-              <Link href="/ai-services">
+              <Link href="/ai-studio">
                 <Robot size={18} weight="duotone" />
-                See What Can Be Automated
+                Explore the AI Workforce
               </Link>
             </Button>
           </motion.div>

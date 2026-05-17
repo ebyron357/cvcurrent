@@ -24,10 +24,9 @@ const services = [
     Icon: Phone,
     name: "AI Voice Agent",
     tagline: "Your business answers every call. 24 hours a day. 7 days a week.",
-    price: "$497/mo — 1,000 min included",
     setupTime: "48-hr setup",
     description:
-      "A fully trained AI receptionist powered by Retell AI that handles inbound calls, answers FAQs using your business knowledge, books appointments directly into your calendar, and escalates complex calls to a human. Includes 1,000 minutes per month — overage billed at $0.35/min. Speaks naturally — full conversations, not menu trees.",
+      "A fully trained AI receptionist that handles inbound calls, answers FAQs using your business knowledge, books appointments directly into your calendar, and escalates complex calls to a human. Speaks naturally — full conversations, not menu trees.",
     problems: [
       "Missed calls after hours that go to voicemail and never call back",
       "Front desk staff spending 40% of their day answering the same 8 questions",
@@ -36,7 +35,6 @@ const services = [
     ],
     outcomes: [
       "Every call answered under 2 rings, 24/7/365",
-      "1,000 minutes/mo included — overage at $0.35/min, billed transparently",
       "Appointments booked without a human involved",
       "FAQs handled automatically — pricing, hours, services, location",
       "Call recordings and transcripts in your dashboard",
@@ -49,7 +47,6 @@ const services = [
     Icon: ChatCircle,
     name: "AI Chatbot & Lead Capture",
     tagline: "Your website closes leads while you sleep.",
-    price: "Included — OPERATOR+",
     setupTime: "24-hr setup",
     description:
       "A trained AI chatbot deployed on your website, SMS channel, and WhatsApp — answering questions, qualifying leads, and booking appointments. Connected directly to your CRM pipeline. Every conversation captured, tagged, and routed.",
@@ -73,7 +70,6 @@ const services = [
     Icon: Envelope,
     name: "AI Email & SMS Campaigns",
     tagline: "Multi-touch follow-up that doesn't give up until they book.",
-    price: "$197–$497/mo",
     setupTime: "3-day setup",
     description:
       "Automated drip sequences across email and SMS that nurture leads, re-engage cold contacts, and follow up on quotes — written in your voice, triggered by behavior, and running in the background 24/7. No manual sending.",
@@ -97,7 +93,6 @@ const services = [
     Icon: Star,
     name: "AI Review & Reputation Management",
     tagline: "More 5-star reviews. Automatically. On every platform that matters.",
-    price: "$297/mo",
     setupTime: "24-hr setup",
     description:
       "Automated review request sequences that fire after every appointment or completed job. Negative sentiment flagged before it posts. 50+ platforms monitored. Responses drafted automatically. Your reputation managed without you lifting a finger.",
@@ -121,7 +116,6 @@ const services = [
     Icon: MegaphoneSimple,
     name: "AI Lead Prospecting & Sniper Lists",
     tagline: "Pull any local business into your pipeline in under 60 seconds.",
-    price: "Included — COMMANDER",
     setupTime: "Live immediately",
     description:
       "Built into the ClientVerse platform — map-based local business prospecting that lets you pull any business category in any city into your CRM pipeline with one click. Name, phone, email, address, website — captured and ready for outreach. Replaces Apollo and ZoomInfo at zero extra cost.",
@@ -216,7 +210,7 @@ export default function AiServices() {
 
         {/* Services */}
         <section className="container mx-auto px-4 py-20 max-w-5xl space-y-16">
-          {services.map(({ id, Icon, name, tagline, price, setupTime, description, problems, outcomes, highlight }, i) => (
+          {services.map(({ id, Icon, name, tagline, setupTime, description, problems, outcomes, highlight }) => (
             <motion.div
               key={id}
               initial={{ opacity: 0, y: 24 }}
@@ -243,7 +237,6 @@ export default function AiServices() {
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-3 mb-2">
                       <h2 className="text-2xl font-bold">{name}</h2>
-                      <span className="text-[#4AC4E0] font-bold text-sm bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 px-3 py-0.5 rounded-full">{price}</span>
                       <span className="text-gray-500 text-xs border border-[#1E2D4A] px-2.5 py-0.5 rounded-full">{setupTime}</span>
                     </div>
                     <p className="text-[#4AC4E0] font-semibold text-base mb-3">{tagline}</p>
@@ -318,14 +311,14 @@ export default function AiServices() {
               </div>
               <div className="md:w-72 space-y-4 shrink-0">
                 {[
-                  { label: "AI CRM Management", price: "$397/mo" },
-                  { label: "AI Performance Reporting", price: "$297/mo" },
-                  { label: "AI Operations Management", price: "$597/mo" },
-                  { label: "Cross-Channel Intelligence", price: "$497/mo" },
-                ].map(({ label, price }) => (
-                  <div key={label} className="bg-[#0A1628] border border-[#1E2D4A] rounded-xl px-5 py-4 flex justify-between items-center">
-                    <span className="text-sm text-gray-400">{label}</span>
-                    <span className="font-bold text-[#4AC4E0] text-sm">{price}</span>
+                  "AI CRM Management",
+                  "AI Performance Reporting",
+                  "AI Operations Management",
+                  "Cross-Channel Intelligence",
+                ].map((label) => (
+                  <div key={label} className="bg-[#0A1628] border border-[#1E2D4A] rounded-xl px-5 py-4 flex items-center gap-3">
+                    <Brain size={16} color="#4AC4E0" weight="duotone" className="shrink-0" />
+                    <span className="text-sm text-gray-300">{label}</span>
                   </div>
                 ))}
               </div>

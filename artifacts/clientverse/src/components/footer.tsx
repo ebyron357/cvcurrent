@@ -33,7 +33,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-6">Free Tools</h4>
+            <h4 className="text-white font-semibold mb-6">Resources</h4>
             <ul className="flex flex-col gap-3">
               <li><Link href="/revenue-calculator" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">Revenue Leak Calculator</Link></li>
               <li><Link href="/roi-calculator" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">ROI Calculator</Link></li>
