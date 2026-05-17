@@ -82,34 +82,61 @@ async function syncToGHL(data: ContactPayload): Promise<boolean> {
   const firstName = nameParts[0] ?? data.name;
   const lastName = nameParts.slice(1).join(" ") || "";
 
+  const contactBody = {
+    firstName,
+    lastName,
+    email: data.email,
+    phone: data.phone || "",
+    locationId,
+    source: "Website Contact Form",
+    tags: ["website-contact-form", "inbound"],
+    customFields: [{ key: "message", field_value: data.message }],
+  };
+
+  // Try v2 API first (requires Private Integration token)
   try {
-    const res = await fetch("https://services.leadconnectorhq.com/contacts/", {
+    const resV2 = await fetch("https://services.leadconnectorhq.com/contacts/", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
         Version: "2021-07-28",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        firstName,
-        lastName,
-        email: data.email,
-        phone: data.phone || "",
-        locationId,
-        source: "Website Contact Form",
-        tags: ["website-contact-form", "inbound"],
-        customFields: [{ key: "message", field_value: data.message }],
-      }),
+      body: JSON.stringify(contactBody),
     });
 
-    if (!res.ok) {
-      const body = await res.text();
-      console.error("[GHL] CRM sync failed:", res.status, body);
+    if (resV2.ok) {
+      console.log("[GHL] CRM contact created successfully (v2)");
+      return true;
+    }
+
+    const v2Status = resV2.status;
+    const v2Body = await resV2.text();
+
+    // If 401 on v2, fall back to v1 (standard location API key)
+    if (v2Status === 401) {
+      console.log("[GHL] v2 auth failed — falling back to v1 API");
+      const resV1 = await fetch("https://rest.gohighlevel.com/v1/contacts/", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contactBody),
+      });
+
+      if (resV1.ok) {
+        console.log("[GHL] CRM contact created successfully (v1)");
+        return true;
+      }
+
+      const v1Body = await resV1.text();
+      console.error("[GHL] v1 CRM sync also failed:", resV1.status, v1Body);
       return false;
     }
 
-    console.log("[GHL] CRM contact created successfully");
-    return true;
+    console.error("[GHL] v2 CRM sync failed:", v2Status, v2Body);
+    return false;
   } catch (err) {
     console.error("[GHL] CRM sync network error:", err);
     return false;

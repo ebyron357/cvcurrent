@@ -25,6 +25,7 @@ import AiReadiness from "@/pages/ai-readiness";
 import Clarity from "@/pages/clarity";
 import SaigOs from "@/pages/saig-os";
 import AiServices from "@/pages/ai-services";
+import AiStudio from "@/pages/ai-studio";
 import Faq from "@/pages/faq";
 import NotFound from "@/pages/not-found";
 import MrClientVerse from "@/components/mr-clientverse";
@@ -56,6 +57,7 @@ function Router() {
       <Route path="/clarity" component={Clarity} />
       <Route path="/saig-os" component={SaigOs} />
       <Route path="/ai-services" component={AiServices} />
+      <Route path="/ai-studio" component={AiStudio} />
       <Route path="/faq" component={Faq} />
       <Route component={NotFound} />
     </Switch>

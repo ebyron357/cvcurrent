@@ -17,6 +17,9 @@ import {
   GraduationCap,
   Wrench,
   Star,
+  Medal,
+  Lock,
+  Brain,
 } from "@phosphor-icons/react";
 
 const beliefs = [
@@ -132,12 +135,86 @@ export default function About() {
                 ClientVerse is founded and operated by a veteran. The operational precision, systems thinking, and accountability standards we bring to client engagements come directly from that background. We prioritize working with other veteran-owned businesses and mission-driven organizations — and offer dedicated programs for that community.
               </p>
               <div className="flex flex-wrap gap-2">
-                {["Veteran-owned priority onboarding", "Discounted setup for verified VOSBs", "SAIG-OS™ governance for compliance-sensitive orgs", "Federal contractor readiness available"].map((item) => (
+                {["Veteran-owned priority onboarding", "Priority terms for verified VOSBs", "SAIG-OS™ governance for compliance-sensitive orgs", "Federal contractor readiness available"].map((item) => (
                   <div key={item} className="flex items-center gap-1.5 text-xs text-gray-300 bg-[#0A1628] border border-[#1E2D4A] rounded-full px-3 py-1.5">
                     <CheckCircle size={11} weight="duotone" color="#4AC4E0" />
                     {item}
                   </div>
                 ))}
+              </div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Founder */}
+        <section className="container mx-auto px-4 py-20 max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-[#0D1B2E] border border-[#1E2D4A] rounded-2xl overflow-hidden"
+          >
+            <div className="flex flex-col md:flex-row">
+              {/* Left — identity */}
+              <div className="md:w-72 bg-[#0A1628] border-b md:border-b-0 md:border-r border-[#1E2D4A] p-10 flex flex-col items-center text-center gap-5 shrink-0">
+                <div
+                  className="rounded-2xl flex items-center justify-center"
+                  style={{
+                    width: 96,
+                    height: 96,
+                    background: "linear-gradient(145deg, rgba(74,196,224,0.22) 0%, rgba(74,196,224,0.08) 100%)",
+                    border: "1px solid rgba(74,196,224,0.4)",
+                    boxShadow: "0 0 40px rgba(74,196,224,0.2)",
+                  }}
+                >
+                  <ShieldCheck size={48} color="#4AC4E0" weight="fill" />
+                </div>
+                <div>
+                  <p className="font-bold text-white text-lg mb-0.5">Founder & Operator</p>
+                  <p className="text-[#4AC4E0] text-sm font-medium">ClientVerse</p>
+                </div>
+                <div className="w-full space-y-2 pt-2">
+                  {[
+                    { Icon: Medal, label: "U.S. Veteran" },
+                    { Icon: Lock, label: "Cybersecurity Background" },
+                    { Icon: Brain, label: "AI Systems Architect" },
+                  ].map(({ Icon, label }) => (
+                    <div key={label} className="flex items-center gap-2.5 bg-[#0D1B2E] border border-[#1E2D4A] rounded-lg px-3 py-2">
+                      <Icon size={14} color="#4AC4E0" weight="fill" className="shrink-0" />
+                      <span className="text-xs text-gray-300">{label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Right — story */}
+              <div className="flex-1 p-10 md:p-12">
+                <p className="text-xs text-[#4AC4E0] font-bold tracking-widest uppercase mb-4">Why This Exists</p>
+                <h3 className="text-2xl md:text-3xl font-bold mb-6 leading-tight">
+                  I built ClientVerse because I kept seeing the same problem. <span className="text-[#4AC4E0]">Good businesses losing revenue to broken systems.</span>
+                </h3>
+                <div className="text-gray-400 space-y-4 leading-relaxed">
+                  <p>
+                    After years in cybersecurity and military operations, I noticed that most service businesses were running on operational infrastructure that would never survive a real inspection. Missed calls with no recovery. Leads falling through gaps nobody was watching. Proposals going out with no follow-up. Revenue leaking through cracks that were completely fixable.
+                  </p>
+                  <p>
+                    The tools existed to fix all of it. What didn't exist was someone willing to build and run the systems permanently — not just hand over software and walk away. That's the gap ClientVerse fills.
+                  </p>
+                  <p>
+                    Every system we deploy is one I've personally designed, tested, and would stand behind. The cybersecurity background isn't incidental — it's why every system we build is documented, auditable, and defensible. That's the standard.
+                  </p>
+                </div>
+                <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                  <Button asChild className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold h-11 px-6 flex items-center gap-2 w-fit">
+                    <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
+                      Book a Direct Call <ArrowRight size={16} weight="bold" />
+                    </a>
+                  </Button>
+                  <Button asChild variant="outline" className="border-[#1E2D4A] text-white hover:border-[#4AC4E0]/30 h-11 px-6 w-fit">
+                    <a href="mailto:hello@clientverse.io">
+                      Send a Direct Message
+                    </a>
+                  </Button>
+                </div>
               </div>
             </div>
           </motion.div>

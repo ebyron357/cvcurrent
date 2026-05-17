@@ -474,10 +474,109 @@ export default function Home() {
           </div>
           <div className="mt-10 text-center">
             <Button asChild variant="outline" size="lg" className="border-[#1E2D4A] text-white hover:border-[#4AC4E0]/30 h-12 px-8 flex items-center gap-2 mx-auto w-fit">
-              <Link href="/ai-services">
-                See All AI Services <ArrowRight size={16} weight="bold" />
+              <Link href="/ai-studio">
+                See Your AI Workforce Stack <ArrowRight size={16} weight="bold" />
               </Link>
             </Button>
+          </div>
+        </section>
+
+        {/* ── 5b. OPERATIONAL ARCHITECTURE ─────────────────────────────── */}
+        <section className="bg-[#0D1B2E] border-y border-[#1E2D4A] py-20">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <div className="text-center mb-12">
+              <p className="text-xs text-[#4AC4E0] font-bold tracking-widest uppercase mb-3">How the System Works</p>
+              <h2 className="text-3xl md:text-4xl font-bold">
+                Every Lead. Every Channel. <span className="text-[#4AC4E0]">One Operating Layer.</span>
+              </h2>
+            </div>
+
+            {/* Architecture diagram */}
+            <div className="flex flex-col gap-4">
+
+              {/* Row 1 — Inputs */}
+              <div>
+                <p className="text-xs text-gray-500 font-bold tracking-widest uppercase text-center mb-3">Inbound Signals</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {[
+                    { label: "Inbound Calls", sub: "Missed & live" },
+                    { label: "Web Visitors", sub: "Site & landing pages" },
+                    { label: "Form Submissions", sub: "Contact & booking" },
+                    { label: "Existing Contacts", sub: "Cold & dormant leads" },
+                  ].map(({ label, sub }) => (
+                    <div key={label} className="bg-[#0A1628] border border-[#1E2D4A] rounded-xl px-4 py-3 text-center">
+                      <p className="text-sm font-semibold text-white">{label}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{sub}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Arrow down */}
+              <div className="flex justify-center">
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-px h-6 bg-[#4AC4E0]/30" />
+                  <ArrowRight size={16} color="#4AC4E0" weight="bold" className="rotate-90 opacity-60" />
+                </div>
+              </div>
+
+              {/* Row 2 — AI Processing */}
+              <div>
+                <p className="text-xs text-[#4AC4E0] font-bold tracking-widest uppercase text-center mb-3">AI Workforce Layer</p>
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+                  {[
+                    "AI Voice Agent",
+                    "Lead Capture System",
+                    "Follow-Up Engine",
+                    "Reputation Engine",
+                    "CRM Intelligence",
+                  ].map((label) => (
+                    <div
+                      key={label}
+                      className="rounded-xl px-3 py-3 text-center"
+                      style={{
+                        background: "linear-gradient(145deg, rgba(74,196,224,0.15) 0%, rgba(74,196,224,0.05) 100%)",
+                        border: "1px solid rgba(74,196,224,0.35)",
+                        boxShadow: "0 0 16px rgba(74,196,224,0.1)",
+                      }}
+                    >
+                      <p className="text-xs font-bold text-[#4AC4E0]">{label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Arrow down */}
+              <div className="flex justify-center">
+                <div className="flex flex-col items-center gap-1">
+                  <div className="w-px h-6 bg-[#4AC4E0]/30" />
+                  <ArrowRight size={16} color="#4AC4E0" weight="bold" className="rotate-90 opacity-60" />
+                </div>
+              </div>
+
+              {/* Row 3 — Outputs */}
+              <div>
+                <p className="text-xs text-gray-500 font-bold tracking-widest uppercase text-center mb-3">Business Outcomes</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {[
+                    { label: "Pipeline Growth", sub: "Every lead captured & qualified" },
+                    { label: "Revenue Recovery", sub: "Lost deals re-engaged" },
+                    { label: "Reputation Score", sub: "Reviews growing automatically" },
+                    { label: "Operational Data", sub: "Plain-English weekly reports" },
+                  ].map(({ label, sub }) => (
+                    <div key={label} className="bg-[#0A1628] border border-emerald-500/20 rounded-xl px-4 py-3 text-center">
+                      <p className="text-sm font-semibold text-emerald-400">{label}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{sub}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+
+            <p className="text-center text-gray-500 text-xs mt-8">
+              Fully managed · Deployed in 7 days · Running 24/7 · No dashboards required
+            </p>
           </div>
         </section>
 

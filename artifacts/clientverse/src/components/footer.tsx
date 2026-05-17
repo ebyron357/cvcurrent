@@ -24,7 +24,7 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-6">Services</h4>
             <ul className="flex flex-col gap-3">
               <li><Link href="/services" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">All Services</Link></li>
-              <li><Link href="/ai-services" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">AI Services</Link></li>
+              <li><Link href="/ai-studio" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">AI Studio</Link></li>
               <li><Link href="/saig-os" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">SAIG-OS™ Governance</Link></li>
               <li><Link href="/clarity" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">C.L.A.R.I.T.Y. Framework™</Link></li>
               <li><Link href="/features" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">Capabilities</Link></li>

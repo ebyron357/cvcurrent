@@ -37,7 +37,7 @@ const faqs = [
     a: "7 days — that's the guarantee, not the estimate. Day 1 is your discovery call. By day 7, your CRM is configured, your AI follow-up is running, and your pipeline has contacts in it.",
   },
   {
-    q: "Do I need my own GoHighLevel account?",
+    q: "Do I need my own CRM account to get started?",
     a: "No. Your account lives inside the ClientVerse platform — fully branded with your business. You get login access and full visibility into everything we build.",
   },
   {
