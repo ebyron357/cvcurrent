@@ -144,12 +144,8 @@ export default function Features() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
-                className={`relative bg-[#0D1B2E] rounded-2xl p-7 flex flex-col border transition-colors duration-300 ${
-                  highlight
-                    ? "border-[#4AC4E0]/40 ring-1 ring-[#4AC4E0]/10"
-                    : "border-[#1E2D4A] hover:border-[#4AC4E0]/30"
-                }`}
-                style={{ isolation: "isolate" }}
+                className={`cv-card cv-card--feature cv-card--interactive relative p-7 flex flex-col ${highlight ? "ring-1 ring-[#4AC4E0]/10" : ""}`}
+                style={highlight ? { borderColor: "rgba(74,196,224,0.4)", overflow: "visible" } : undefined}
               >
                 {highlight && (
                   <div className="absolute -top-3 left-6 bg-[#4AC4E0] text-[#0A1628] text-xs font-bold px-3 py-0.5 rounded-full">

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
+import { CVButton } from "@/components/cv-ui";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import {
@@ -185,7 +186,7 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
-                className="bg-[#0D1B2E] border border-[#1E2D4A] rounded-2xl p-6 flex items-center gap-4"
+                className="cv-card cv-card--feature p-6 flex items-center gap-4"
               >
                 <div
                   className="shrink-0 rounded-xl flex items-center justify-center"
@@ -205,7 +206,7 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="bg-[#0D1B2E] border border-[#1E2D4A] rounded-2xl p-6 flex items-center gap-4"
+                className="cv-card cv-card--feature p-6 flex items-center gap-4"
               >
                 <div
                   className="shrink-0 rounded-xl flex items-center justify-center"
@@ -226,7 +227,7 @@ export default function Contact() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-[#0D1B2E] border border-[#1E2D4A] rounded-2xl p-8 md:p-10"
+              className="cv-card cv-card--feature p-8 md:p-10"
             >
               <h2 className="text-xl font-bold mb-2">Send a Message</h2>
               <p className="text-gray-400 text-sm mb-7">
@@ -288,10 +289,11 @@ export default function Contact() {
                     <p className="text-red-400 text-sm">{errorMsg}</p>
                   )}
 
-                  <Button
+                  <CVButton
                     type="submit"
                     disabled={status === "loading"}
-                    className="w-full bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold h-12 text-base flex items-center justify-center gap-2"
+                    variant="primary"
+                    fullWidth
                   >
                     {status === "loading" ? (
                       <span className="flex items-center gap-2">
@@ -304,7 +306,7 @@ export default function Contact() {
                     ) : (
                       <>Send Message <ArrowRight size={16} weight="bold" /></>
                     )}
-                  </Button>
+                  </CVButton>
                   <p className="text-xs text-gray-600 text-center">No spam. We'll respond within 24 hours.</p>
                 </form>
               )}

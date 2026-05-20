@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
+import { CVButtonLink } from "@/components/cv-ui";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { useState } from "react";
@@ -276,27 +277,20 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.22 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Button
+            <CVButtonLink
+              href="https://calendly.com/clientverse/strategy-call"
+              target="_blank"
+              rel="noreferrer"
+              variant="primary"
               size="lg"
-              asChild
-              className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold text-lg px-10 h-14 flex items-center gap-2"
+              rightIcon={<ArrowRight size={18} weight="bold" />}
             >
-              <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
-                Book Your Revenue Audit
-                <ArrowRight size={18} weight="bold" />
-              </a>
-            </Button>
-            <Button
-              size="lg"
-              asChild
-              variant="outline"
-              className="border-[#1E2D4A] text-white hover:border-[#4AC4E0]/40 hover:bg-[#4AC4E0]/5 text-base px-8 h-14 flex items-center gap-2"
-            >
-              <Link href="/ai-studio">
-                <Robot size={18} weight="duotone" />
-                Explore the AI Workforce
-              </Link>
-            </Button>
+              Book Your Revenue Audit
+            </CVButtonLink>
+            <Link href="/ai-studio" className="cv-btn cv-btn--secondary cv-btn--lg">
+              <Robot size={18} weight="duotone" />
+              Explore the AI Workforce
+            </Link>
           </motion.div>
         </section>
 
@@ -368,12 +362,10 @@ export default function Home() {
             ))}
           </div>
           <div className="mt-10 text-center">
-            <Button asChild size="lg" className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold px-8 h-13 flex items-center gap-2 mx-auto w-fit">
-              <Link href="/revenue-calculator">
-                <CurrencyDollar size={18} weight="bold" />
-                Calculate My Exact Revenue Leak
-              </Link>
-            </Button>
+            <Link href="/revenue-calculator" className="cv-btn cv-btn--primary cv-btn--lg" style={{ marginLeft: "auto", marginRight: "auto" }}>
+              <CurrencyDollar size={18} weight="bold" />
+              Calculate My Exact Revenue Leak
+            </Link>
           </div>
         </section>
 
@@ -453,8 +445,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.07 }}
-                className={`bg-[#0D1B2E] border rounded-2xl p-7 hover:border-[#4AC4E0]/40 transition-colors duration-300 flex flex-col gap-4 ${i === 4 ? "md:col-span-2 lg:col-span-1" : ""}`}
-                style={{ borderColor: "rgba(30, 45, 74, 1)" }}
+                className={`cv-card cv-card--feature cv-card--interactive p-7 flex flex-col gap-4 ${i === 4 ? "md:col-span-2 lg:col-span-1" : ""}`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div
@@ -647,15 +638,17 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <Button
-                  asChild
+                <CVButtonLink
+                  href="https://calendly.com/clientverse/strategy-call"
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="primary"
                   size="lg"
-                  className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold h-13 px-8 flex items-center gap-2 w-full sm:w-fit"
+                  className="w-full sm:w-auto"
+                  rightIcon={<ArrowRight size={16} weight="bold" />}
                 >
-                  <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
-                    Book Your Revenue Audit <ArrowRight size={16} weight="bold" />
-                  </a>
-                </Button>
+                  Book Your Revenue Audit
+                </CVButtonLink>
               </div>
               <div className="p-10 md:p-12 flex flex-col justify-center gap-6">
                 <p className="text-xs text-gray-500 font-bold tracking-widest uppercase mb-2">C.L.A.R.I.T.Y. covers:</p>

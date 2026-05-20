@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
+import { CVButtonLink } from "@/components/cv-ui";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import {
@@ -158,15 +159,16 @@ export default function Pricing() {
                 <span className="text-gray-400 ml-3 text-sm">We match the right tier to your actual needs — not the other way around.</span>
               </div>
             </div>
-            <Button
-              asChild
+            <CVButtonLink
+              href="https://calendly.com/clientverse/strategy-call"
+              target="_blank"
+              rel="noreferrer"
+              variant="primary"
               size="sm"
-              className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold px-6 shrink-0"
+              className="shrink-0"
             >
-              <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
-                Book Your Audit
-              </a>
-            </Button>
+              Book Your Audit
+            </CVButtonLink>
           </motion.div>
         </section>
 
@@ -180,11 +182,8 @@ export default function Pricing() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.08 }}
-                className={`relative bg-[#0D1B2E] rounded-2xl p-8 flex flex-col border transition-colors duration-300 ${
-                  badge === "Most Popular"
-                    ? "border-[#4AC4E0] ring-1 ring-[#4AC4E0]/30"
-                    : "border-[#1E2D4A] hover:border-[#4AC4E0]/30"
-                }`}
+                className={`cv-card cv-card--interactive relative p-8 flex flex-col ${badge === "Most Popular" ? "cv-card--pricing-featured" : "cv-card--pricing"}`}
+                style={{ overflow: "visible" }}
               >
                 {badge && (
                   <div
@@ -243,24 +242,16 @@ export default function Pricing() {
                 </ul>
 
                 {/* CTA */}
-                <Button
-                  asChild
-                  className={`w-full font-semibold ${
-                    badge === "Most Popular"
-                      ? "bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628]"
-                      : "bg-[#1E2D4A] hover:bg-[#4AC4E0]/20 text-white border border-[#1E2D4A] hover:border-[#4AC4E0]/40"
-                  }`}
+                <CVButtonLink
+                  href="https://calendly.com/clientverse/strategy-call"
+                  target="_blank"
+                  rel="noreferrer"
+                  variant={badge === "Most Popular" ? "primary" : "secondary"}
+                  fullWidth
+                  rightIcon={<ArrowRight size={16} weight="bold" />}
                 >
-                  <a
-                    href="https://calendly.com/clientverse/strategy-call"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center justify-center gap-2"
-                  >
-                    {name === "ENTERPRISE / FEDERAL" ? "Book a Consultation" : "Get Started"}
-                    <ArrowRight size={16} weight="bold" />
-                  </a>
-                </Button>
+                  {name === "ENTERPRISE / FEDERAL" ? "Book a Consultation" : "Get Started"}
+                </CVButtonLink>
               </motion.div>
             ))}
           </div>
@@ -290,7 +281,7 @@ export default function Pricing() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.04 }}
-                className="bg-[#0D1B2E] border border-[#1E2D4A] hover:border-[#4AC4E0]/30 rounded-xl px-6 py-4 flex items-center justify-between transition-colors duration-300"
+                className="cv-card cv-card--feature cv-card--interactive px-6 py-4 flex items-center justify-between"
               >
                 <div className="flex items-center gap-3">
                   <CheckCircle size={18} weight="fill" color="#4AC4E0" className="shrink-0" />

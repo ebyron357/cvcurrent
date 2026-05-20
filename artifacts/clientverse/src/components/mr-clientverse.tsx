@@ -219,11 +219,8 @@ export default function MrClientVerse() {
                   <motion.div
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="rounded-xl px-4 py-3 text-sm"
-                    style={{
-                      background: "rgba(74,196,224,0.1)",
-                      border: "1px solid rgba(74,196,224,0.3)",
-                    }}
+                    className="cv-card cv-card--feature px-4 py-3 text-sm"
+                    style={{ borderColor: "rgba(74,196,224,0.3)" }}
                   >
                     <p className="font-semibold text-white mb-1">
                       ✓ You're on our radar
@@ -235,8 +232,7 @@ export default function MrClientVerse() {
                       href="https://calendly.com/clientverse/strategy-call"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-90"
-                      style={{ background: "#4AC4E0", color: "#0A1628" }}
+                      className="cv-btn cv-btn--primary cv-btn--sm"
                     >
                       Book Your Revenue Audit →
                     </a>
@@ -247,11 +243,8 @@ export default function MrClientVerse() {
                   <motion.div
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="rounded-xl px-4 py-3 text-sm"
-                    style={{
-                      background: "rgba(74,196,224,0.08)",
-                      border: "1px solid rgba(74,196,224,0.25)",
-                    }}
+                    className="cv-card cv-card--feature px-4 py-3 text-sm"
+                    style={{ borderColor: "rgba(74,196,224,0.25)" }}
                   >
                     <p className="font-semibold text-white mb-1">
                       Ready to find your revenue leak?
@@ -263,8 +256,7 @@ export default function MrClientVerse() {
                       href="https://calendly.com/clientverse/strategy-call"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-90"
-                      style={{ background: "#4AC4E0", color: "#0A1628" }}
+                      className="cv-btn cv-btn--primary cv-btn--sm"
                     >
                       Book Your Revenue Audit →
                     </a>

@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
+import { CVButtonLink } from "@/components/cv-ui";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import {
@@ -125,7 +126,7 @@ export default function RevenueCalculator() {
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
-                className="bg-[#0D1B2E] border border-[#1E2D4A] rounded-2xl p-8 md:p-12"
+                className="cv-card cv-card--feature p-8 md:p-12"
               >
                 <div className="flex items-center gap-3 mb-2">
                   <div
@@ -195,7 +196,7 @@ export default function RevenueCalculator() {
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
-                className="bg-[#0D1B2E] border border-[#1E2D4A] rounded-2xl p-8 md:p-12"
+                className="cv-card cv-card--feature p-8 md:p-12"
               >
                 <div className="flex items-center gap-3 mb-2">
                   <div
@@ -274,7 +275,7 @@ export default function RevenueCalculator() {
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
-                className="bg-[#0D1B2E] border border-[#1E2D4A] rounded-2xl p-8 md:p-12"
+                className="cv-card cv-card--feature p-8 md:p-12"
               >
                 <div className="flex items-center gap-3 mb-2">
                   <div
@@ -358,7 +359,7 @@ export default function RevenueCalculator() {
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
-                className="bg-[#0D1B2E] border border-[#1E2D4A] rounded-2xl p-8 md:p-12"
+                className="cv-card cv-card--feature p-8 md:p-12"
               >
                 {/* Teaser */}
                 <div className="bg-red-950/30 border border-red-500/20 rounded-xl px-5 py-4 mb-8 text-center">
@@ -419,7 +420,7 @@ export default function RevenueCalculator() {
                 className="space-y-5"
               >
                 {/* Leak summary */}
-                <div className="bg-[#0D1B2E] border border-red-500/20 rounded-2xl p-8 md:p-10 text-center">
+                <div className="cv-card cv-card--feature p-8 md:p-10 text-center" style={{ borderColor: "rgba(239, 68, 68, 0.20)" }}>
                   <div className="flex items-center justify-center gap-2 mb-3">
                     <WarningCircle size={20} color="#f87171" weight="fill" />
                     <p className="text-sm text-red-400 font-bold tracking-wider uppercase">Your Revenue Leak Report</p>
@@ -432,7 +433,7 @@ export default function RevenueCalculator() {
                       { label: "Per Month", value: formatCurrency(monthlyLeak) },
                       { label: "Per Year", value: formatCurrency(annualLeak) },
                     ].map(({ label, value }) => (
-                      <div key={label} className="bg-[#0A1628] border border-[#1E2D4A] rounded-xl p-4">
+                      <div key={label} className="cv-card cv-card--dashboard p-4">
                         <p className="text-xs text-gray-500 mb-1">{label}</p>
                         <p className="text-xl md:text-2xl font-bold text-red-400">{value}</p>
                       </div>
@@ -445,7 +446,7 @@ export default function RevenueCalculator() {
                 </div>
 
                 {/* Recommendation */}
-                <div className="bg-[#0D1B2E] border border-[#4AC4E0]/30 rounded-2xl p-8 md:p-10">
+                <div className="cv-card cv-card--trust p-8 md:p-10" style={{ borderColor: "rgba(74,196,224,0.3)" }}>
                   <div className="flex items-center gap-3 mb-5">
                     <div
                       className="rounded-xl flex items-center justify-center shrink-0"
@@ -483,25 +484,22 @@ export default function RevenueCalculator() {
                   </ul>
 
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <Button
-                      asChild
-                      className="flex-1 bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold h-12 text-base flex items-center justify-center gap-2"
+                    <CVButtonLink
+                      href="https://calendly.com/clientverse/strategy-call"
+                      target="_blank"
+                      rel="noreferrer"
+                      variant="primary"
+                      className="flex-1"
+                      rightIcon={<ArrowRight size={16} weight="bold" />}
                     >
-                      <a
-                        href="https://calendly.com/clientverse/strategy-call"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Book My Free Audit <ArrowRight size={16} weight="bold" />
-                      </a>
-                    </Button>
-                    <Button
-                      asChild
-                      variant="outline"
-                      className="border-[#1E2D4A] text-white hover:border-[#4AC4E0]/30 h-12 text-sm"
+                      Book My Free Audit
+                    </CVButtonLink>
+                    <CVButtonLink
+                      href="/pricing"
+                      variant="secondary"
                     >
-                      <a href="/pricing">View All Plans</a>
-                    </Button>
+                      View All Plans
+                    </CVButtonLink>
                   </div>
                 </div>
 
@@ -568,7 +566,7 @@ export default function RevenueCalculator() {
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="bg-[#0D1B2E] border border-[#1E2D4A] rounded-2xl p-7 text-center"
+                className="cv-card cv-card--feature cv-card--interactive p-7 text-center"
               >
                 <div className="text-4xl font-black text-[#4AC4E0]/20 mb-4 select-none">{step}</div>
                 <div
@@ -583,11 +581,17 @@ export default function RevenueCalculator() {
             ))}
           </div>
           <div className="mt-10 text-center">
-            <Button asChild size="lg" className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold px-8 h-13 flex items-center gap-2 mx-auto w-fit">
-              <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
-                Book Your Revenue Audit — Free <ArrowRight size={16} weight="bold" />
-              </a>
-            </Button>
+            <CVButtonLink
+              href="https://calendly.com/clientverse/strategy-call"
+              target="_blank"
+              rel="noreferrer"
+              variant="primary"
+              size="lg"
+              style={{ marginLeft: "auto", marginRight: "auto" }}
+              rightIcon={<ArrowRight size={16} weight="bold" />}
+            >
+              Book Your Revenue Audit — Free
+            </CVButtonLink>
           </div>
         </section>
 
@@ -639,7 +643,7 @@ export default function RevenueCalculator() {
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="bg-[#0D1B2E] border border-[#1E2D4A] rounded-2xl p-7 text-left"
+                className="cv-card cv-card--trust p-7 text-left"
               >
                 <p className="text-gray-300 text-sm leading-relaxed mb-4">"{quote}"</p>
                 <p className="text-gray-500 text-xs">— {attr}</p>
