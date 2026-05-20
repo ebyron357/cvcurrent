@@ -3,6 +3,17 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { CVButton } from "@/components/cv-ui";
+import {
+  CV_INPUT_CLASS,
+  CV_TEXTAREA_CLASS,
+  CVFormField,
+  CVFormSuccess,
+  CVFormErrorBanner,
+  CVFormSpinner,
+  CVFormPrivacy,
+  submitFormData,
+} from "@/components/cv-ui/Form";
+import { FORM_IDS } from "@/lib/form-schema";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import {
@@ -21,15 +32,12 @@ async function submitContact(data: {
   phone: string;
   message: string;
 }) {
-  const base = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
-  const res = await fetch(`${base}/api/contact`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+  await submitFormData("/api/contact", {
+    ...data,
+    lead_source: "Contact Page",
+    page_url: window.location.href,
+    form_id: FORM_IDS.CONTACT,
   });
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.error ?? "Submission failed");
-  return json;
 }
 
 const faqs = [
@@ -114,9 +122,6 @@ export default function Contact() {
       setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     }
   };
-
-  const inputClass =
-    "w-full bg-[#0A1628] border border-[#1E2D4A] rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-[#4AC4E0]/50 transition-colors text-sm";
 
   return (
     <div className="min-h-[100dvh] bg-[#0A1628] text-white flex flex-col">
@@ -235,59 +240,73 @@ export default function Contact() {
               </p>
 
               {status === "success" ? (
-                <div className="text-center py-12">
-                  <div className="w-14 h-14 rounded-full bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle size={28} color="#4AC4E0" weight="duotone" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">Message Received</h3>
-                  <p className="text-gray-400 text-sm">We'll be in touch within 24 hours.</p>
-                  <button
-                    onClick={() => setStatus("idle")}
-                    className="mt-6 text-[#4AC4E0] text-sm hover:underline"
-                  >
-                    Send another message
-                  </button>
-                </div>
+                <CVFormSuccess
+                  title="Message Received"
+                  message="We'll be in touch within 24 hours."
+                  onReset={() => {
+                    setStatus("idle");
+                    setForm({ name: "", email: "", phone: "", message: "" });
+                  }}
+                  resetLabel="Send another message"
+                />
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} noValidate className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-wider">
-                        Full Name <span className="text-[#4AC4E0]">*</span>
-                      </label>
-                      <input name="name" type="text" required placeholder="Jane Smith" value={form.name} onChange={handleChange} className={inputClass} />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-wider">
-                        Email <span className="text-[#4AC4E0]">*</span>
-                      </label>
-                      <input name="email" type="email" required placeholder="jane@company.com" value={form.email} onChange={handleChange} className={inputClass} />
-                    </div>
+                    <CVFormField label="Full Name" htmlFor="contact-name" required>
+                      <input
+                        id="contact-name"
+                        name="name"
+                        type="text"
+                        required
+                        autoComplete="name"
+                        placeholder="Jane Smith"
+                        value={form.name}
+                        onChange={handleChange}
+                        className={CV_INPUT_CLASS}
+                      />
+                    </CVFormField>
+                    <CVFormField label="Email" htmlFor="contact-email" required>
+                      <input
+                        id="contact-email"
+                        name="email"
+                        type="email"
+                        required
+                        autoComplete="email"
+                        placeholder="jane@company.com"
+                        value={form.email}
+                        onChange={handleChange}
+                        className={CV_INPUT_CLASS}
+                      />
+                    </CVFormField>
                   </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-wider">
-                      Phone <span className="text-gray-600 font-normal normal-case">(optional)</span>
-                    </label>
-                    <input name="phone" type="tel" placeholder="+1 (555) 000-0000" value={form.phone} onChange={handleChange} className={inputClass} />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-400 mb-1.5 uppercase tracking-wider">
-                      What's going on? <span className="text-[#4AC4E0]">*</span>
-                    </label>
+
+                  <CVFormField label="Phone" htmlFor="contact-phone" optional>
+                    <input
+                      id="contact-phone"
+                      name="phone"
+                      type="tel"
+                      autoComplete="tel"
+                      placeholder="+1 (555) 000-0000"
+                      value={form.phone}
+                      onChange={handleChange}
+                      className={CV_INPUT_CLASS}
+                    />
+                  </CVFormField>
+
+                  <CVFormField label="What's going on?" htmlFor="contact-message" required>
                     <textarea
+                      id="contact-message"
                       name="message"
                       required
                       rows={5}
                       placeholder="Describe your situation — what's broken, what you've tried, what outcome you need..."
                       value={form.message}
                       onChange={handleChange}
-                      className={`${inputClass} resize-none`}
+                      className={CV_TEXTAREA_CLASS}
                     />
-                  </div>
+                  </CVFormField>
 
-                  {status === "error" && (
-                    <p className="text-red-400 text-sm">{errorMsg}</p>
-                  )}
+                  {status === "error" && <CVFormErrorBanner message={errorMsg} />}
 
                   <CVButton
                     type="submit"
@@ -297,17 +316,16 @@ export default function Contact() {
                   >
                     {status === "loading" ? (
                       <span className="flex items-center gap-2">
-                        <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-                        </svg>
-                        Sending...
+                        <CVFormSpinner /> Sending...
                       </span>
                     ) : (
-                      <>Send Message <ArrowRight size={16} weight="bold" /></>
+                      <span className="flex items-center gap-2">
+                        Send Message <ArrowRight size={16} weight="bold" />
+                      </span>
                     )}
                   </CVButton>
-                  <p className="text-xs text-gray-600 text-center">No spam. We'll respond within 24 hours.</p>
+
+                  <CVFormPrivacy note="No spam. We'll respond within 24 hours." />
                 </form>
               )}
             </motion.div>

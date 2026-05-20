@@ -1,6 +1,13 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
+import {
+  CV_INPUT_CLASS,
+  CVFormField,
+  CVFormPrivacy,
+  getApiBase,
+} from "@/components/cv-ui/Form";
+import { FORM_IDS } from "@/lib/form-schema";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import {
@@ -141,13 +148,19 @@ export default function AiReadiness() {
     const res = getResult(totalScore);
     setStage("result");
     try {
-      await fetch("/api/contact", {
+      await fetch(`${getApiBase()}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name,
           email,
           phone,
+          lead_source: "AI Readiness Quiz",
+          page_url: window.location.href,
+          form_id: FORM_IDS.AI_READINESS_CAPTURE,
+          quiz_score: totalScore,
+          readiness_level: res.level,
+          recommended_tier: res.tier,
           message: `AI Readiness Quiz Lead — Score: ${totalScore}/15 | Level: ${res.level} | Recommended tier: ${res.tier} ${res.price}`,
         }),
       });
@@ -289,38 +302,49 @@ export default function AiReadiness() {
                   Enter your details to see your AI Readiness Score, what it means for your business, and your personalized next step.
                 </p>
 
-                <form onSubmit={handleCapture} className="space-y-4">
-                  <input
-                    required
-                    type="text"
-                    placeholder="Your name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-[#0A1628] border border-[#1E2D4A] rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-[#4AC4E0]/50 transition-colors"
-                  />
-                  <input
-                    required
-                    type="email"
-                    placeholder="Business email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-[#0A1628] border border-[#1E2D4A] rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-[#4AC4E0]/50 transition-colors"
-                  />
-                  <input
-                    required
-                    type="tel"
-                    placeholder="Phone number"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="w-full bg-[#0A1628] border border-[#1E2D4A] rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-[#4AC4E0]/50 transition-colors"
-                  />
+                <form onSubmit={handleCapture} noValidate className="space-y-4">
+                  <CVFormField label="Full Name" htmlFor="quiz-name" required>
+                    <input
+                      id="quiz-name"
+                      required
+                      type="text"
+                      autoComplete="name"
+                      placeholder="Jane Smith"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className={CV_INPUT_CLASS}
+                    />
+                  </CVFormField>
+                  <CVFormField label="Business Email" htmlFor="quiz-email" required>
+                    <input
+                      id="quiz-email"
+                      required
+                      type="email"
+                      autoComplete="email"
+                      placeholder="jane@company.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className={CV_INPUT_CLASS}
+                    />
+                  </CVFormField>
+                  <CVFormField label="Phone" htmlFor="quiz-phone" optional>
+                    <input
+                      id="quiz-phone"
+                      type="tel"
+                      autoComplete="tel"
+                      placeholder="+1 (555) 000-0000"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      className={CV_INPUT_CLASS}
+                    />
+                  </CVFormField>
                   <Button
                     type="submit"
                     className="w-full bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold h-12 flex items-center justify-center gap-2"
                   >
                     Show Me My Score <ArrowRight size={18} weight="bold" />
                   </Button>
-                  <p className="text-xs text-gray-600 text-center">No spam. We'll reach out with your personalized plan.</p>
+                  <CVFormPrivacy note="No spam. We'll reach out with your personalized plan." />
                 </form>
               </motion.div>
             )}

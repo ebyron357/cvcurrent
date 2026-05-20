@@ -2,6 +2,13 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { CVButtonLink } from "@/components/cv-ui";
+import {
+  CV_INPUT_CLASS,
+  CVFormField,
+  CVFormPrivacy,
+  getApiBase,
+} from "@/components/cv-ui/Form";
+import { FORM_IDS } from "@/lib/form-schema";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import {
@@ -69,13 +76,22 @@ export default function RevenueCalculator() {
     setSubmitted(true);
     setStep("result");
     try {
-      await fetch("/api/contact", {
+      await fetch(`${getApiBase()}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name,
           email,
           phone,
+          lead_source: "Revenue Calculator",
+          page_url: window.location.href,
+          form_id: FORM_IDS.CALCULATOR_CAPTURE,
+          annual_leak: annualLeak,
+          monthly_leak: monthlyLeak,
+          missed_calls_weekly: missed,
+          avg_job_value: jobValue,
+          close_rate: closeRate,
+          recommended_tier: rec.tier,
           message: `Revenue Leak Calculator Lead — Annual Leak: ${formatCurrency(annualLeak)} | Missed calls/wk: ${missed} | Avg job value: ${formatCurrency(jobValue)} | Close rate: ${closeRate}% | Recommended tier: ${rec.tier}`,
         }),
       });
@@ -373,40 +389,49 @@ export default function RevenueCalculator() {
                   We'll include your personalized recovery plan and the exact ClientVerse tier that closes your gap fastest.
                 </p>
 
-                <form onSubmit={handleCapture} className="space-y-4">
-                  <input
-                    required
-                    type="text"
-                    placeholder="Your name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-[#0A1628] border border-[#1E2D4A] rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-[#4AC4E0]/50 transition-colors"
-                  />
-                  <input
-                    required
-                    type="email"
-                    placeholder="Business email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-[#0A1628] border border-[#1E2D4A] rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-[#4AC4E0]/50 transition-colors"
-                  />
-                  <input
-                    required
-                    type="tel"
-                    placeholder="Phone number"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="w-full bg-[#0A1628] border border-[#1E2D4A] rounded-xl px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:border-[#4AC4E0]/50 transition-colors"
-                  />
+                <form onSubmit={handleCapture} noValidate className="space-y-4">
+                  <CVFormField label="Full Name" htmlFor="calc-name" required>
+                    <input
+                      id="calc-name"
+                      required
+                      type="text"
+                      autoComplete="name"
+                      placeholder="Jane Smith"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className={CV_INPUT_CLASS}
+                    />
+                  </CVFormField>
+                  <CVFormField label="Business Email" htmlFor="calc-email" required>
+                    <input
+                      id="calc-email"
+                      required
+                      type="email"
+                      autoComplete="email"
+                      placeholder="jane@company.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className={CV_INPUT_CLASS}
+                    />
+                  </CVFormField>
+                  <CVFormField label="Phone" htmlFor="calc-phone" optional>
+                    <input
+                      id="calc-phone"
+                      type="tel"
+                      autoComplete="tel"
+                      placeholder="+1 (555) 000-0000"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      className={CV_INPUT_CLASS}
+                    />
+                  </CVFormField>
                   <Button
                     type="submit"
                     className="w-full bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold h-12 text-base flex items-center justify-center gap-2"
                   >
                     Show Me My Full Report <ArrowRight size={18} weight="bold" />
                   </Button>
-                  <p className="text-xs text-gray-600 text-center">
-                    No spam. We'll reach out within 24 hours with your personalized plan.
-                  </p>
+                  <CVFormPrivacy note="No spam. We'll reach out within 24 hours with your personalized plan." />
                 </form>
               </motion.div>
             )}
