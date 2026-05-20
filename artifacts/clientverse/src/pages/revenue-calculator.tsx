@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
-import { CVButtonLink } from "@/components/cv-ui";
+import { CVButtonLink, TrustBadgeStrip } from "@/components/cv-ui";
 import {
   CV_INPUT_CLASS,
   CVFormField,
@@ -130,6 +130,13 @@ export default function RevenueCalculator() {
           >
             Answer 3 questions. See your exact annual revenue leak in real time. Takes 60 seconds.
           </motion.p>
+        </section>
+
+        {/* Trust Badges */}
+        <section className="container mx-auto px-4 pb-6 max-w-3xl">
+          <TrustBadgeStrip
+            badges={["revenue-audit", "service-businesses", "crm-automation-ready"]}
+          />
         </section>
 
         {/* Calculator card */}

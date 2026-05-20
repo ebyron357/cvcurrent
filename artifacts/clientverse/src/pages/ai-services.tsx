@@ -8,15 +8,17 @@ import {
   ChatCircle,
   Envelope,
   MegaphoneSimple,
-  Robot,
+  ClockCountdown,
+  Sparkle,
+  Eye,
   CheckCircle,
   ArrowRight,
   Clock,
   CurrencyDollar,
   TrendUp,
   Star,
-  Brain,
 } from "@phosphor-icons/react";
+import { TrustBadgeStrip } from "@/components/cv-ui";
 
 const services = [
   {
@@ -140,7 +142,7 @@ const stats = [
   { Icon: Clock, value: "< 60s", label: "Missed call text-back speed" },
   { Icon: TrendUp, value: "30–40%", label: "Avg lead recovery rate" },
   { Icon: CurrencyDollar, value: "$40K+", label: "Avg annual revenue recovered" },
-  { Icon: Robot, value: "24/7", label: "AI running without breaks" },
+  { Icon: ClockCountdown, value: "24/7", label: "AI running without breaks" },
 ];
 
 export default function AiServices() {
@@ -156,7 +158,7 @@ export default function AiServices() {
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 rounded-full px-4 py-1.5 text-sm text-[#4AC4E0] font-medium mb-6"
           >
-            <Brain size={14} weight="fill" />
+            <Sparkle size={14} weight="fill" />
             5 AI Services — All Managed For You
           </motion.div>
           <motion.h1
@@ -206,6 +208,13 @@ export default function AiServices() {
               ))}
             </div>
           </div>
+        </section>
+
+        {/* Trust Badges */}
+        <section className="container mx-auto px-4 py-6 max-w-4xl">
+          <TrustBadgeStrip
+            badges={["ai-workflow-ready", "lead-capture", "secure-infrastructure", "service-businesses"]}
+          />
         </section>
 
         {/* Services */}
@@ -293,7 +302,7 @@ export default function AiServices() {
             <div className="flex flex-col md:flex-row items-start gap-10">
               <div className="flex-1">
                 <div className="inline-flex items-center gap-2 bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 rounded-full px-4 py-1.5 text-sm text-[#4AC4E0] font-medium mb-5">
-                  <Brain size={14} weight="fill" />
+                  <Sparkle size={14} weight="fill" />
                   Bonus: AI CRM Management via Claude MCP
                 </div>
                 <h2 className="text-3xl font-bold mb-4">
@@ -317,7 +326,7 @@ export default function AiServices() {
                   "Cross-Channel Intelligence",
                 ].map((label) => (
                   <div key={label} className="bg-[#0A1628] border border-[#1E2D4A] rounded-xl px-5 py-4 flex items-center gap-3">
-                    <Brain size={16} color="#4AC4E0" weight="duotone" className="shrink-0" />
+                    <Eye size={16} color="#4AC4E0" weight="duotone" className="shrink-0" />
                     <span className="text-sm text-gray-300">{label}</span>
                   </div>
                 ))}

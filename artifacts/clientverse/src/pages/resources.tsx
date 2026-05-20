@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import {
   PhoneSlash,
-  Robot,
+  Target,
   CurrencyDollar,
   TrendUp,
   FileText,
@@ -24,7 +24,7 @@ const freeTools = [
     tag: "Most Used",
   },
   {
-    Icon: Robot,
+    Icon: Target,
     title: "AI Readiness Quiz",
     description: "5 questions that score your business's AI readiness. Low score creates urgency. High score shows you're ready for Commander tier. Both paths end with a personalized plan.",
     cta: "Take the Quiz",

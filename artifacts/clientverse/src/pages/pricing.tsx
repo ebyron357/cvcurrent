@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
-import { CVButtonLink } from "@/components/cv-ui";
+import { CVButtonLink, TrustBadgeStrip } from "@/components/cv-ui";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import {
@@ -170,6 +170,13 @@ export default function Pricing() {
               Book Your Revenue Audit
             </CVButtonLink>
           </motion.div>
+        </section>
+
+        {/* Trust Badges */}
+        <section className="container mx-auto px-4 pb-8 max-w-4xl">
+          <TrustBadgeStrip
+            badges={["revenue-audit", "crm-automation-ready", "veteran-founded", "service-businesses"]}
+          />
         </section>
 
         {/* Tier Cards */}

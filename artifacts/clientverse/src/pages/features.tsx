@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import {
-  Brain,
-  Robot,
+  Eye,
+  Sparkle,
   ChatCircle,
   Phone,
   Star,
@@ -23,7 +23,7 @@ import {
 
 const platformFeatures = [
   {
-    Icon: Robot,
+    Icon: Lightning,
     title: "AI Lead Response & Follow-Up",
     desc: "The moment a lead comes in, AI responds. It follows up automatically until they book or opt out — no manual chasing.",
     bullets: ["Missed call text-back under 60 seconds", "Multi-channel AI follow-up (SMS, email, voicemail)", "AI Decision Maker routes each lead to the right workflow", "Never loses a lead to slow response time"],
@@ -83,7 +83,7 @@ const platformFeatures = [
     bullets: ["Visual drag-and-drop workflow builder", "AI Decision Maker in workflow branches", "Zapier-level logic at zero per-task cost", "Pre-built templates for common use cases"],
   },
   {
-    Icon: Brain,
+    Icon: Eye,
     title: "Claude MCP Integration",
     desc: "Claude AI connects directly to each client's CRM account via an official MCP server — no middleware needed. Plain-English AI operations.",
     bullets: ["39 official CRM tools accessible by Claude", "Read and write contacts, pipelines, tags", "AI-powered weekly CRM reviews", "Monthly performance analysis in plain English"],
@@ -222,7 +222,7 @@ export default function Features() {
             <div className="flex flex-col md:flex-row items-start gap-12">
               <div className="flex-1">
                 <div className="inline-flex items-center gap-2 bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 rounded-full px-4 py-1.5 text-sm text-[#4AC4E0] font-medium mb-5">
-                  <Brain size={14} weight="fill" />
+                  <Sparkle size={14} weight="fill" />
                   The Feature 95% of Agencies Don't Know Exists
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-5">

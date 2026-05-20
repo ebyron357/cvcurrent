@@ -6,7 +6,7 @@ import { Link } from "wouter";
 import {
   ArrowsInSimple,
   Database,
-  Robot,
+  Lightning,
   HardHat,
   ShieldCheck,
   ArrowRight,
@@ -15,11 +15,11 @@ import {
   Buildings,
   Heartbeat,
   GraduationCap,
-  Wrench,
+  House,
   Star,
   Medal,
   Lock,
-  Brain,
+  Crosshair,
 } from "@phosphor-icons/react";
 
 const beliefs = [
@@ -34,7 +34,7 @@ const beliefs = [
     body: "Siloed data is useless data. Contacts in three places, jobs tracked in spreadsheets, and revenue in someone's head — that's not a business, it's organized chaos. We fix it at the root.",
   },
   {
-    Icon: Robot,
+    Icon: Lightning,
     title: "AI is infrastructure, not a feature.",
     body: "We deploy AI where it measurably saves time or recovers revenue — not because it sounds impressive. Practical application over hype. Every AI system we build has a clear business outcome attached.",
   },
@@ -46,7 +46,7 @@ const beliefs = [
 ];
 
 const whoWeServe = [
-  { Icon: Wrench, label: "Home Services", desc: "HVAC, plumbing, roofing, landscaping, cleaning" },
+  { Icon: House, label: "Home Services", desc: "HVAC, plumbing, roofing, landscaping, cleaning" },
   { Icon: Heartbeat, label: "Medical & Dental", desc: "Dental practices, med spas, health clinics, therapists" },
   { Icon: Buildings, label: "Real Estate", desc: "Agents, brokerages, property managers, investors" },
   { Icon: Star, label: "Veteran-Owned", desc: "Veteran-owned small businesses across all industries" },
@@ -177,7 +177,7 @@ export default function About() {
                   {[
                     { Icon: Medal, label: "U.S. Veteran" },
                     { Icon: Lock, label: "Cybersecurity Background" },
-                    { Icon: Brain, label: "AI Systems Architect" },
+                    { Icon: Crosshair, label: "AI Systems Architect" },
                   ].map(({ Icon, label }) => (
                     <div key={label} className="flex items-center gap-2.5 bg-[#0D1B2E] border border-[#1E2D4A] rounded-lg px-3 py-2">
                       <Icon size={14} color="#4AC4E0" weight="fill" className="shrink-0" />

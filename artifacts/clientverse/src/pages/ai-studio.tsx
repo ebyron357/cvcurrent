@@ -9,16 +9,16 @@ import {
   Envelope,
   MegaphoneSimple,
   Star,
-  Brain,
-  Robot,
+  Sparkle,
+  ClockCountdown,
+  SlidersHorizontal,
+  Eye,
   CheckCircle,
   ArrowRight,
   Clock,
   TrendUp,
   CurrencyDollar,
   Lightning,
-  Cpu,
-  Gear,
   Pulse,
 } from "@phosphor-icons/react";
 
@@ -144,14 +144,14 @@ const stats = [
   { Icon: Clock, value: "< 60s", label: "Missed call text-back speed" },
   { Icon: TrendUp, value: "30–40%", label: "Avg lead recovery rate" },
   { Icon: CurrencyDollar, value: "$40K+", label: "Avg annual revenue recovered" },
-  { Icon: Robot, value: "24/7", label: "AI running without breaks" },
+  { Icon: ClockCountdown, value: "24/7", label: "AI running without breaks" },
 ];
 
 const additionalModules = [
-  { Icon: Brain, name: "AI CRM Management", desc: "Weekly AI-powered pipeline reviews and contact hygiene" },
+  { Icon: TrendUp, name: "AI CRM Management", desc: "Weekly AI-powered pipeline reviews and contact hygiene" },
   { Icon: Pulse, name: "AI Performance Reporting", desc: "Plain-English monthly reports — no dashboards required" },
-  { Icon: Gear, name: "AI Operations Management", desc: "Workflow optimization driven by Claude MCP analysis" },
-  { Icon: Cpu, name: "Cross-Channel Intelligence", desc: "Unified view of performance across all lead channels" },
+  { Icon: SlidersHorizontal, name: "AI Operations Management", desc: "Workflow optimization driven by Claude MCP analysis" },
+  { Icon: Eye, name: "Cross-Channel Intelligence", desc: "Unified view of performance across all lead channels" },
 ];
 
 export default function AiStudio() {
@@ -316,7 +316,7 @@ export default function AiStudio() {
             <div className="flex flex-col md:flex-row items-start gap-10">
               <div className="flex-1">
                 <div className="inline-flex items-center gap-2 bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 rounded-full px-4 py-1.5 text-sm text-[#4AC4E0] font-medium mb-5">
-                  <Brain size={14} weight="fill" />
+                  <Sparkle size={14} weight="fill" />
                   Intelligence Layer — Claude MCP
                 </div>
                 <h2 className="text-3xl font-bold mb-4">

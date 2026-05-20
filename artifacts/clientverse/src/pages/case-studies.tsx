@@ -9,8 +9,8 @@ import {
   TrendUp,
   Phone,
   Star,
-  Robot,
-  Wrench,
+  Lightning,
+  Gauge,
   Shield,
   Buildings,
 } from "@phosphor-icons/react";
@@ -55,7 +55,7 @@ const caseStudies = [
     metricLabel: "Up from 3.8 in 90 days",
   },
   {
-    Icon: Robot,
+    Icon: Lightning,
     tag: "CRM Audit + AI Pipeline Management",
     industry: "Real Estate Team",
     title: "230 Dead Leads Reactivated. 8 Deals Recovered From a Broken Pipeline.",
@@ -74,7 +74,7 @@ const caseStudies = [
     metricLabel: "Recovered from dead pipeline",
   },
   {
-    Icon: Wrench,
+    Icon: Gauge,
     tag: "System Rescue™ + Platform Consolidation",
     industry: "Veteran-Owned Roofing Company",
     title: "7 Disconnected Tools Replaced With One Platform. $1,200/mo Saved.",

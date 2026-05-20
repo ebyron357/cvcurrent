@@ -7,13 +7,11 @@ import { Link } from "wouter";
 import { useState } from "react";
 import {
   ChartBar,
-  Wrench,
   Gauge,
   PhoneSlash,
   ArrowRight,
   CheckCircle,
   Phone,
-  Robot,
   Star,
   CalendarCheck,
   Envelope,
@@ -26,10 +24,10 @@ import {
   Lightning,
   Plus,
   Minus,
-  Brain,
   MagnifyingGlass,
   Funnel,
 } from "@phosphor-icons/react";
+import { TrustBadgeStrip } from "@/components/cv-ui";
 
 const leaks = [
   {
@@ -99,13 +97,13 @@ const aiSystems = [
     tag: "50+ platforms",
   },
   {
-    Icon: Robot,
+    Icon: ChartBar,
     name: "AI Pipeline Manager",
     desc: "Claude connects directly to your CRM via MCP. Stalled leads flagged. Dead contacts cleaned. Weekly plain-English report. No dashboards.",
     tag: "Weekly audit",
   },
   {
-    Icon: Brain,
+    Icon: MagnifyingGlass,
     name: "AI Search Visibility",
     desc: "Optimize to appear in ChatGPT, Perplexity, and Gemini answers — not just Google. First-mover advantage before your competitors discover this.",
     tag: "GEO / AEO",
@@ -288,7 +286,7 @@ export default function Home() {
               Book Your Revenue Audit
             </CVButtonLink>
             <Link href="/ai-studio" className="cv-btn cv-btn--secondary cv-btn--lg">
-              <Robot size={18} weight="duotone" />
+              <Lightning size={18} weight="duotone" />
               Explore the AI Workforce
             </Link>
           </motion.div>
@@ -306,6 +304,13 @@ export default function Home() {
               ))}
             </div>
           </div>
+        </section>
+
+        {/* ── Trust Badges ─────────────────────────────────────────────── */}
+        <section className="container mx-auto px-4 py-6 max-w-4xl">
+          <TrustBadgeStrip
+            badges={["veteran-founded", "service-businesses", "revenue-audit", "secure-infrastructure", "crm-automation-ready"]}
+          />
         </section>
 
         {/* ── 3. REVENUE LEAKS ────────────────────────────────────────── */}
@@ -696,7 +701,7 @@ export default function Home() {
                   items: ["CRM setup", "AI voice agent", "Automation workflows", "Pipeline stages", "Booking system"],
                 },
                 {
-                  Icon: Wrench,
+                  Icon: Gauge,
                   label: "Repair",
                   body: "Already have a CRM or automation stack that's a mess? System Rescue™ audits, cleans, and rebuilds it. Typically 12–20 issues fixed in 48 hours.",
                   items: ["Broken automation repair", "Duplicate contact cleanup", "Pipeline restoration", "Data migration", "Lost lead recovery"],

@@ -12,7 +12,7 @@ import { FORM_IDS } from "@/lib/form-schema";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import {
-  Robot,
+  Sparkle,
   ArrowRight,
   ArrowLeft,
   CheckCircle,
@@ -182,7 +182,7 @@ export default function AiReadiness() {
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 bg-[#4AC4E0]/10 border border-[#4AC4E0]/30 rounded-full px-4 py-1.5 text-sm text-[#4AC4E0] font-medium mb-6"
           >
-            <Robot size={14} weight="fill" />
+            <Sparkle size={14} weight="fill" />
             AI Readiness Quiz
           </motion.div>
           <motion.h1

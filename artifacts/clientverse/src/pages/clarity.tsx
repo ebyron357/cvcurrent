@@ -7,7 +7,7 @@ import {
   ArrowRight,
   ArrowsInSimple,
   Drop,
-  Robot,
+  Lightning,
   CurrencyDollar,
   LinkSimple,
   ShieldCheck,
@@ -36,7 +36,7 @@ const framework = [
   {
     letter: "A",
     word: "Automate",
-    Icon: Robot,
+    Icon: Lightning,
     what: "What to fix first for maximum ROI — the highest-leverage automation opportunities ranked by impact.",
     deliver: "A prioritized 90-day automation roadmap with estimated time savings per item.",
     example: "Typical finding: Missed call text-back alone recovers 30–40% of lost leads within 30 days.",

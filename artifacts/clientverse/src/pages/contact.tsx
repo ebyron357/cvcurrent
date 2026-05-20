@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
-import { CVButton } from "@/components/cv-ui";
+import { CVButton, TrustBadgeStrip } from "@/components/cv-ui";
 import {
   CV_INPUT_CLASS,
   CV_TEXTAREA_CLASS,
@@ -146,6 +146,13 @@ export default function Contact() {
           >
             Book a free 30-minute Revenue Audit. We'll map your operations, identify every gap, and show you exactly what to fix first — with a dollar value attached to each one.
           </motion.p>
+        </section>
+
+        {/* Trust Badges */}
+        <section className="container mx-auto px-4 pb-8 max-w-3xl">
+          <TrustBadgeStrip
+            badges={["privacy-conscious", "secure-infrastructure", "veteran-founded"]}
+          />
         </section>
 
         {/* 2-column: CTA options + form */}
