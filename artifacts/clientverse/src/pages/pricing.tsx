@@ -167,7 +167,7 @@ export default function Pricing() {
               size="sm"
               className="shrink-0"
             >
-              Book Your Audit
+              Book Your Revenue Audit
             </CVButtonLink>
           </motion.div>
         </section>
@@ -335,7 +335,7 @@ export default function Pricing() {
                 target="_blank"
                 rel="noreferrer"
               >
-                Book Your Audit
+                Book Your Revenue Audit
               </a>
             </Button>
           </motion.div>

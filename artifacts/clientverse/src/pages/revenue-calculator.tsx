@@ -517,7 +517,7 @@ export default function RevenueCalculator() {
                       className="flex-1"
                       rightIcon={<ArrowRight size={16} weight="bold" />}
                     >
-                      Book My Free Audit
+                      Book Your Revenue Audit
                     </CVButtonLink>
                     <CVButtonLink
                       href="/pricing"
@@ -615,7 +615,7 @@ export default function RevenueCalculator() {
               style={{ marginLeft: "auto", marginRight: "auto" }}
               rightIcon={<ArrowRight size={16} weight="bold" />}
             >
-              Book Your Revenue Audit — Free
+              Book Your Revenue Audit
             </CVButtonLink>
           </div>
         </section>

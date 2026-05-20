@@ -181,7 +181,7 @@ export default function Contact() {
                   className="bg-[#0A1628] hover:bg-[#132038] text-white font-bold h-12 px-6 w-full flex items-center gap-2"
                 >
                   <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
-                    Book Your Free Audit <ArrowRight size={16} weight="bold" />
+                    Book Your Revenue Audit <ArrowRight size={16} weight="bold" />
                   </a>
                 </Button>
               </motion.div>

@@ -52,7 +52,7 @@ export function Footer() {
               <li><Link href="/faq" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">FAQ</Link></li>
               <li><Link href="/contact" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">Contact</Link></li>
               <li><a href="mailto:support@clientverse.io" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">support@clientverse.io</a></li>
-              <li><a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">Book a Call</a></li>
+              <li><a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">Book Your Revenue Audit</a></li>
             </ul>
           </div>
         </div>

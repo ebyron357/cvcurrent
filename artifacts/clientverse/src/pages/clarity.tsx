@@ -266,7 +266,7 @@ export default function Clarity() {
                 className="bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold px-8 h-13 flex items-center gap-2"
               >
                 <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
-                  Book Your Audit — $497
+                  Book Your Revenue Audit
                   <ArrowRight size={18} weight="bold" />
                 </a>
               </Button>

@@ -56,22 +56,22 @@ const guides = [
   {
     title: "The Operator's Guide to AI Integration",
     description: "How to responsibly evaluate, pilot, and operationalize AI tools in a business environment without creating new dependencies or risks.",
-    cta: "Read via Consultation",
+    cta: "Access on Your Audit Call",
   },
   {
     title: "From Chaos to System: A 90-Day Operations Playbook",
     description: "A stage-by-stage guide to stabilizing and then scaling a business operation. Written for operators who've outgrown their current setup.",
-    cta: "Read via Consultation",
+    cta: "Access on Your Audit Call",
   },
   {
     title: "AI Security for Small Business: What You Need to Know in 2026",
     description: "The threats your AI tools create and the controls that mitigate them. Written from a cybersecurity background — not a marketing perspective.",
-    cta: "Read via Consultation",
+    cta: "Access on Your Audit Call",
   },
   {
     title: "Veteran Entrepreneurs: The AI Tools That Run Your Business",
     description: "Built specifically for veteran-owned businesses entering the AI era — what to implement first, what to avoid, and how to access veteran-owned business resources.",
-    cta: "Read via Consultation",
+    cta: "Access on Your Audit Call",
   },
 ];
 
@@ -79,22 +79,22 @@ const templates = [
   {
     title: "Systems Audit Checklist",
     description: "A 40-point checklist for auditing your current operational stack — tech tools, automations, data flows, and team processes. Based on the C.L.A.R.I.T.Y. Framework™.",
-    cta: "Download via Consultation",
+    cta: "Access on Your Audit Call",
   },
   {
     title: "CRM Architecture Worksheet",
     description: "Map your pipeline stages, field requirements, and ownership model before touching your CRM. Prevents the most common implementation failures.",
-    cta: "Download via Consultation",
+    cta: "Access on Your Audit Call",
   },
   {
     title: "CRM Snapshot Deployment Checklist",
     description: "Step-by-step checklist for deploying an industry snapshot into a new client sub-account — under 15 minutes every time.",
-    cta: "Download via Consultation",
+    cta: "Access on Your Audit Call",
   },
   {
     title: "MCP Setup Guide — Claude AI Integration",
     description: "Internal-grade walkthrough for connecting Claude to a CRM sub-account via Private Integration Token. Covers permissions, security, and test commands.",
-    cta: "Download via Consultation",
+    cta: "Access on Your Audit Call",
   },
 ];
 

@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
 import {
   CV_INPUT_CLASS,
   CVFormField,
@@ -399,7 +400,7 @@ export default function AiReadiness() {
                       className="flex-1 bg-[#4AC4E0] hover:bg-[#3bb1cc] text-[#0A1628] font-bold h-12 flex items-center justify-center gap-2"
                     >
                       <a href="https://calendly.com/clientverse/strategy-call" target="_blank" rel="noreferrer">
-                        Book My Free Audit <ArrowRight size={16} weight="bold" />
+                        Book Your Revenue Audit <ArrowRight size={16} weight="bold" />
                       </a>
                     </Button>
                     <Button
@@ -407,7 +408,7 @@ export default function AiReadiness() {
                       variant="outline"
                       className="border-[#1E2D4A] text-white hover:border-[#4AC4E0]/30 h-12 text-sm"
                     >
-                      <a href="/pricing">View All Plans</a>
+                      <Link href="/pricing">View All Plans</Link>
                     </Button>
                   </div>
                 </div>
@@ -421,7 +422,7 @@ export default function AiReadiness() {
                     </p>
                   </div>
                   <Button asChild size="sm" variant="outline" className="border-[#1E2D4A] hover:border-[#4AC4E0]/30 text-white shrink-0">
-                    <a href="/revenue-calculator">Calculate My Revenue Leak →</a>
+                    <Link href="/revenue-calculator">Calculate My Revenue Leak →</Link>
                   </Button>
                 </div>
               </motion.div>
