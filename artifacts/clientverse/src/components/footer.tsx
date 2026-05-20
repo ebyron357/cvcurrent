@@ -38,7 +38,10 @@ export function Footer() {
               <li><Link href="/revenue-calculator" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">Revenue Leak Calculator</Link></li>
               <li><Link href="/roi-calculator" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">ROI Calculator</Link></li>
               <li><Link href="/ai-readiness" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">AI Readiness Quiz</Link></li>
-              <li><Link href="/resources" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">All Resources</Link></li>
+              <li><Link href="/case-studies" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">Case Studies</Link></li>
+              <li><Link href="/blog" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">Blog & Insights</Link></li>
+              <li><Link href="/videos" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">Videos <span className="text-gray-600 text-xs">(Coming Soon)</span></Link></li>
+              <li><Link href="/podcasts" className="text-gray-400 hover:text-[#4AC4E0] transition-colors text-sm">Podcast <span className="text-gray-600 text-xs">(Coming Soon)</span></Link></li>
             </ul>
           </div>
 

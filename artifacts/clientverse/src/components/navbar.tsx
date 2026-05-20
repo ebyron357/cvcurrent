@@ -22,6 +22,7 @@ const navLinks = [
       { href: "/roi-calculator", label: "ROI Calculator" },
       { href: "/ai-readiness", label: "AI Readiness Quiz" },
       { href: "/case-studies", label: "Case Studies" },
+      { href: "/blog", label: "Blog & Insights" },
       { href: "/faq", label: "FAQ" },
     ],
   },
