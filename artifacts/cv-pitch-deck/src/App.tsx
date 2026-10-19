@@ -355,8 +355,8 @@ function SlideViewer() {
       iframeRef.current?.contentWindow?.dispatchEvent(
         new KeyboardEvent("keydown", { key: event.key, code: event.code, bubbles: true }),
       );
-      // Track local index in sync with key presses
-      if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      // Track local index in sync with the keys forwarded above.
+      if (event.key === "ArrowLeft") {
         setCurrentIndex(i => Math.max(0, i - 1));
       } else {
         setCurrentIndex(i => Math.min(slides.length - 1, i + 1));
